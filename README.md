@@ -59,7 +59,10 @@ costed_hes <- merge(hes_data, hesr::unit_cost_admission, by = c("age_cat", "sex"
 You can install the package from github as follows:
 
 ```r
-devtools::install_github("dosgillespie/hesr")
+devtools::install_github("dosgillespie/hesr", build_vignettes = T)
+
+vignette("cleaning_and_costing", "hesr")
+
 ```
 
 
