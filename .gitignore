@@ -1,0 +1,7 @@
+inst/doc
+*.zip
+Archive/
+*.Rproj*
+**/*.csv
+**/*.xlsx
+**/*.pdf
