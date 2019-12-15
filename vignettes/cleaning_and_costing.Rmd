@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 ```
 
 # Introduction 
-## HES data
+## Data description
 Hospital Episode Statistics (HES) is a data warehouse containing details of all admissions at NHS hospitals in England. Each HES record contains a wide range of information about a patient including clinical information about diagnoses and operations, patient information such as age, sex, and socio economic status, and administrative information such as dates of arrival. We use data from the Admitted Patient Care component of the HES for patients resident in England.
 
 ## Alcohol- and tobacco-related admissions
