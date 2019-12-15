@@ -5,3 +5,4 @@ Archive/
 **/*.csv
 **/*.xlsx
 **/*.pdf
+.Rproj.user
