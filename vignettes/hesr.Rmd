@@ -1,10 +1,10 @@
 ---
-title: "HES data cleaning and costing"
+title: "Cleaning and costing"
 author: "Laura Webster, Duncan Gillespie"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{cleaning_and_costing}
+  %\VignetteIndexEntry{Cleaning and costing}
   %\VignetteEngine{knitr::rmarkdown}
   \usepackage[utf8]{inputenc}
 #bibliography: consumption-refs.bib
@@ -15,14 +15,15 @@ link-citations: yes
 #citation_package: natbib
 #biblio-style: vancouver
 urlcolor: blue
+
 ---
 
 
-```{r, include=FALSE}
-options(tinytex.verbose = TRUE)
-```
 
 ```{r setup, include = FALSE}
+
+#options(tinytex.verbose = TRUE)
+
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
