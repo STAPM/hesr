@@ -5,7 +5,7 @@ Version: 0.9.0
 Author: c(person(given = "Laura", family = "Webster", role = c("aut", "cre"), email = "laura.webster@sheffield.ac.uk"),person(given = "Duncan", family = "Gillespie", role = c("aut", "cre"), email = "duncan.gillespie@sheffield.ac.uk"))
 Maintainer: Laura Webster <laura.webster@sheffield.ac.uk>
 Description: A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data.
-License: For internal University of Sheffield use only.
+License: CCBY-4.0
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1

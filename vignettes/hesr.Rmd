@@ -2,16 +2,25 @@
 title: "HES data cleaning and costing"
 author: "Laura Webster, Duncan Gillespie"
 date: "`r Sys.Date()`"
-output:
-  pdf_document:
-    number_sections: no
-    toc: yes
-header-includes: \usepackage{float}
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{cleaning and costing}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+#bibliography: consumption-refs.bib
+header-includes:
+  \usepackage{float}
+  \usepackage{amsmath}
+link-citations: yes
+#citation_package: natbib
+#biblio-style: vancouver
+urlcolor: blue
 ---
+
+
 ```{r, include=FALSE}
 options(tinytex.verbose = TRUE)
 ```
-
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
@@ -20,8 +29,6 @@ knitr::opts_chunk$set(
   fig.pos = 'H'
 )
 ```
-
-\bigskip
 
 # Introduction 
 ## HES data
@@ -34,9 +41,6 @@ Here we describe our processing of HES data for England that allows us to model 
 
 ## hesr package
 To support the processing of the HES data, there is the `hesr` package, which is a collection of functions to read, clean, and process the HES data into a suitable form for use in our modelling. We clean the HES data for each year from 2002 to 2017, selecting the sample applicable for our analysis. From this, we select and assign only the admissions that are alcohol- and/or tobacco-related. We calculate unit costs for admissions in 2016 to apply to all years of data. The purpose of this vignette is to explain how we use HES data to calculate alcohol and tobacco related hospital admissions and their respective costs.
-
-
-\bigskip
 
 # Load data 
 The HES data is supplied by year (between 1st April and 31 March). We have access to the inpatient data only. The variable names change between 13/14 and 14/15, and again between 16/17 and 17/18. Therefore, we read in the HES data year at a time, whilst selecting only the variables we need and formatting the variables to be consistent across years. Each year of HES data is read in by the function `read_hes()`. The raw HES data is stored on the virtual machine in `D:/HES/`.
@@ -101,12 +105,6 @@ hse_data <- define_spells(clean_hes(read_hes("0203")))
 ## Local authority 
 The function `local_authority()` adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from 2002/03 to 2013/14 lower tier local authority is coded using an old version of the ONS system (that was updated in 2011). From 2014/15 the codes in the `RESLADST` field represent the old-style ONS coding system, which is no longer supported by ONS. Old-style codes are not available for new geographies, potentially resulting in a large number now being derived as ‘Y’.
 Users are advised not to use the 'RESLADST' field, but to use the 'RESLADST' _ONS field instead. `RESLADST_ONS` also represents the Local authority district of residence but uses the current ONS coding system.
-
-
-
-\bigskip
-
-
 
 # Summarise data 
 
