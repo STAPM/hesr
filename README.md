@@ -56,10 +56,12 @@ hes_data <- assign_risk(hes_data, "1617", method = "Narrow", substance = "Alcoho
 costed_hes <- merge(hes_data, hesr::unit_cost_admission, by = c("age_cat", "sex", "imd_quintile", "Cause"), all.x = T, all.y = F)
 ```
 ## Installation
-You can install the package from github as follows:
+You can install the package with version from github as follows. The version reference corresponds to the release tag on github.  
 
 ```r
-devtools::install_github("dosgillespie/hesr", build_vignettes = T)
+
+#devtools::install_github("dosgillespie/hesr", upgrade = "never", build_vignettes = T, ref = "1.0.0")
+devtools::install_github("dosgillespie/hesr", upgrade = "never", build_vignettes = T, ref = "1.0.1")
 
 vignette("cleaning_and_costing", "hesr")
 
