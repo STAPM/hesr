@@ -4,7 +4,9 @@
 \name{trimpoints}
 \alias{trimpoints}
 \title{Format and clean Trimpoints}
-\format{A data table (sushrg, Episode.Trimpoint).}
+\format{
+A data table (sushrg, Episode.Trimpoint).
+}
 \source{
 
 }

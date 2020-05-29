@@ -1,7 +1,5 @@
 ---
 title: "Cleaning and costing"
-author: "Laura Webster, Duncan Gillespie"
-date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{cleaning_and_costing}

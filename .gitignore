@@ -6,3 +6,6 @@ Archive/
 **/*.xlsx
 **/*.pdf
 .Rproj.user
+*.zip
+dev/
+.DS_Store

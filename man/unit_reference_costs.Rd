@@ -4,7 +4,9 @@
 \name{unit_reference_costs}
 \alias{unit_reference_costs}
 \title{Format and clean reference costs}
-\format{A data table (sushrg, description, cost, Excess_cost, Year, type).}
+\format{
+A data table (sushrg, description, cost, Excess_cost, Year, type).
+}
 \source{
 
 }

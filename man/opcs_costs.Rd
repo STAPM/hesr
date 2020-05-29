@@ -4,7 +4,9 @@
 \name{opcs_costs}
 \alias{opcs_costs}
 \title{OPCS codes and costs}
-\format{A data table (type, cost, OPCS).}
+\format{
+A data table (type, cost, OPCS).
+}
 \source{
 
 }

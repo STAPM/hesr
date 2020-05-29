@@ -17,7 +17,7 @@ external_cause(hes, lkup)
 \description{
 For alcohol-related conditions, there are some that will only appear in the Cause field, rather than a diagnostic field.
 These conditions will become the primary cause, over the primary diagnostic position. This would replace the function `narrow_method()`
-which only looks at the primary diagnostic code. This is not finished and is not currently used.
+which only looks at the primary diagnostic code.
 }
 \examples{
 

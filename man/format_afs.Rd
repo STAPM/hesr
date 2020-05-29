@@ -4,9 +4,11 @@
 \alias{format_afs}
 \title{Clean and format attributable fractions (AFs)}
 \usage{
-format_afs(substance = c("Alcohol", "Tobacco", "Both"))
+format_afs(lkup, substance = c("Alcohol", "Tobacco", "Both"))
 }
 \arguments{
+\item{lkup}{attributable fraction lookup table}
+
 \item{substance}{is the risk factor. E.g. Alcohol}
 }
 \value{

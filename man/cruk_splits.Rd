@@ -4,7 +4,11 @@
 \name{cruk_splits}
 \alias{cruk_splits}
 \title{Proportion of oesophageal cases split by AC and SCC}
-\format{A data table (cruk_ageband, sex, proportion_scc).}
+\format{
+A data table (cruk_ageband, sex, proportion_scc).
+
+A data table (resladst, ltla, utla, utla_name_london_groupings, LA_name).
+}
 \source{
 
 

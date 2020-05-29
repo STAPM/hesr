@@ -4,10 +4,22 @@
 \alias{pop_data}
 \title{Add the population counts by age band, sex, IMD quintile}
 \usage{
-pop_data(k.year, subgroup = c("sex", "imd_quintile", "age_cat"))
+pop_data(
+  k.year,
+  age_start,
+  age_categories,
+  age_categories_start,
+  subgroup = c("sex", "imd_quintile", "age_cat")
+)
 }
 \arguments{
 \item{k.year}{is the year of data}
+
+\item{age_start}{numeric. Youngest age required in HES data}
+
+\item{age_categories}{Character vector of age categories. Default is c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89").}
+
+\item{age_categories_start}{Numerical vector of start ages for age categories. Default is c(16, 18, 25, 35, 50, 65, 75).}
 
 \item{subgroup}{is the subgroup you want to collapse the data by.}
 }

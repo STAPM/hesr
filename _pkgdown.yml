@@ -1,0 +1,17 @@
+destination: public
+home:
+  title: Process Hospital Episode Statistics data
+  links:
+  - text: STAPM webpage
+    href: https://stapm.gitlab.io/
+url: https://stapm.gitlab.io/hesr
+template:
+  params:
+    bootswatch: flatly
+authors:
+  Duncan Gillespie:
+    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d
+  Colin Angus:
+    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c
+  Alan Brennan:
+    href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a

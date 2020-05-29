@@ -4,12 +4,12 @@
 \alias{sample_selection}
 \title{Reduce size of HES to sample required}
 \usage{
-sample_selection(hes, start_age = 16, age_categories = c("16-17",
-  "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
-  age_cat_start_age = c(16, 18, 25, 35, 50, 65, 75))
+sample_selection(hes, start_age, age_categories, age_cat_start_age)
 }
 \arguments{
 \item{hes}{cleaned HES data}
+
+\item{age_cat_start_age}{}
 }
 \value{
 Returns reduced HES data,

@@ -4,11 +4,22 @@
 \alias{assign_risk}
 \title{Reducing the HES data to alcohol/tobacco-related episodes and admissions}
 \usage{
-assign_risk(hes, k.year.ind, youngest_age = 16, age_cat = c("16-17",
-  "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
-  age_cat_start = c(16, 18, 25, 35, 50, 65, 75), method = c("Broad",
-  "Narrow", "Both"), substance = c("Alcohol", "Tobacco"),
-  level = c("Episode", "Admission"), summary = TRUE)
+assign_risk(
+  hes,
+  k.year.ind,
+  youngest_age = 16,
+  age_cat = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
+  age_cat_start = c(16, 18, 25, 35, 50, 65, 75),
+  method = c("Broad", "Narrow"),
+ 
+    saf_lkup = read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Smoking_attributable_fractions/Output/Archive/safs_long.csv"),
+ 
+    aaf_lkup = read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"),
+  substance = c("Alcohol", "Tobacco"),
+  level = c("Episode", "Admission"),
+  summary = TRUE,
+  dir = "D:/HES/working_data_files"
+)
 }
 \arguments{
 \item{hes}{cleaned HES data}
@@ -23,12 +34,25 @@ assign_risk(hes, k.year.ind, youngest_age = 16, age_cat = c("16-17",
 
 \item{method}{method required to allocate episode to condition. "Broad" or "Narrow"}
 
+\item{saf_lkup}{smoking attributable fraction long look up table in the format: "SAF", "ICD10_lookups", "disease_name", "Sex", "Age_cat". Default is for
+age categories: c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"), but if summarising the HES data by other age categories, can change the
+attributable fraction lookup table here.}
+
+\item{aaf_lkup}{alcohol attributable fraction long look up table in the format: "Sex", "af", "ICD10_lookups", "condition", "age_cat". Default is for
+age categories: c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"), but if summarising the HES data by other age categories, can change the
+attributable fraction lookup table here.}
+
 \item{substance}{risk. "Alcohol" or "Tobacco"}
 
 \item{level}{the level of detail of summary table. "Episode", or "Admission".}
 
 \item{summary}{Logical - whether to return a summary table or the full HES data (want this option for the costing).
 Defaults to TRUE. If TRUE, will output a summary table of HES data. If FALSE, then will output the whole year of data.}
+
+\item{dir}{The directory to save the output. Default is "D:/HES/working_data_files", but if summary = TRUE, can save this to the project repo.}
+
+\item{include_youth}{Logical - whether to include under 16s for youth drinking analysis. Defaults to FALSE. If TRUE, will include 11-15 as an age category,
+but will give them the same attributable fraction as 16-17s. If FALSE, will not include 11-15s.}
 }
 \value{
 Returns a summary table of number of episodes/admissions/people, SAF, and attributable episodes/admissions/people,
