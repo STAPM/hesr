@@ -1,13 +1,13 @@
-destination: public
+url: https://stapm.gitlab.io/hesr
+
 home:
   title: Process Hospital Episode Statistics data
   links:
   - text: STAPM webpage
     href: https://stapm.gitlab.io/
-url: https://stapm.gitlab.io/hesr
-template:
-  params:
-    bootswatch: flatly
+  - text: Privacy notice
+    href: https://stapm.gitlab.io/HES_privacy_notice.html
+
 authors:
   Duncan Gillespie:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d
@@ -15,3 +15,20 @@ authors:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c
   Alan Brennan:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a
+
+destination: public
+
+template:
+  params:
+    bootswatch: flatly
+
+reference:
+  - title: "Read and clean data"
+    desc: >
+      Functions to read and clean each year of the HES data. 
+    contents:
+      - read_hes
+      - clean_hes
+      - define_spells
+      - local_authority
+      - append_hrg_codes

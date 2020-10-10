@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Read in HES — read_hes • hesr</title>
+<title>Read the HES data files — read_hes • hesr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Read in HES — read_hes" />
-<meta property="og:description" content="Reads in Hospital episode statistics for England." />
+<meta property="og:title" content="Read the HES data files — read_hes" />
+<meta property="og:description" content="Reads in Hospital Episode Statistics for England data files for each year from 2002/2003." />
 
 
 
@@ -115,13 +115,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Read in HES</h1>
+    <h1>Read the HES data files</h1>
     
     <div class="hidden name"><code>read_hes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Reads in Hospital episode statistics for England.</p>
+    <p>Reads in Hospital Episode Statistics for England data files for each year from 2002/2003.</p>
     </div>
 
     <pre class="usage"><span class='fu'>read_hes</span>(<span class='no'>k.year.ind</span>, <span class='kw'>test</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
@@ -149,7 +149,8 @@ Defaults to FALSE. If FALSE, will output 1,000 rows of HES data. If TRUE, then w
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
     <p>The variable names change between 13/14 and 14/15, and again between 16/17 and 17/18.
-This code reads in the HES data for one year whilst selecting only the variables we need and formatting to be the same for each year.</p>
+This code reads in the HES data for one year whilst selecting only the variables we need 
+and formatting to be the same for each year.</p>
 
 <p>Variables included:</p>
 <ul>

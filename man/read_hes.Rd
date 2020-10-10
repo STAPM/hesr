@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_hes.R
 \name{read_hes}
 \alias{read_hes}
-\title{Read in HES}
+\title{Read the HES data files}
 \usage{
 read_hes(k.year.ind, test = FALSE)
 }
@@ -19,11 +19,12 @@ Returns a data table. Note that:
 }
 }
 \description{
-Reads in Hospital episode statistics for England.
+Reads in Hospital Episode Statistics for England data files for each year from 2002/2003.
 }
 \details{
 The variable names change between 13/14 and 14/15, and again between 16/17 and 17/18.
-This code reads in the HES data for one year whilst selecting only the variables we need and formatting to be the same for each year.
+This code reads in the HES data for one year whilst selecting only the variables we need 
+and formatting to be the same for each year.
 
 
 Variables included:
