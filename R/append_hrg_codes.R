@@ -12,6 +12,8 @@
 #'
 #' @param hes is the cleaned HES data.
 #' @param k.year.ind is the year of data
+#' 
+#' @importFrom data.table fread setnames := 
 #'
 #' @return Returns an updated version of the HES data, adding in the HRG codes for year pre 2014
 #'
@@ -62,9 +64,6 @@ append_hrg_codes <- function(
   gc()
   }
 
-  write.csv(hes, paste0("D:/HES/working_data_files/cleaned_data/20", k.year.ind, "_cleaned.csv"))
-
-  return(hes)
-
+  return(hes[])
 }
 

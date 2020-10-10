@@ -1,7 +1,7 @@
 
 #' Local authority lookup
 #'
-#' This code add in the up-to-date local authority identifiers.
+#' This code adds in the up-to-date local authority identifiers.
 #'
 #' This code adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from
 #' 2002/03 to 2013/14 lower tier local authority is coded using an old version of the ONS system (that was updated in 2011). From 2014/15
@@ -15,6 +15,8 @@
 #' @param hes is the cleaned HES data.
 #'
 #' @return Returns an updated version of the HES data, adding in the up-to-date local authority identifiers
+#' 
+#' @importFrom data.table :=
 #'
 #' @export
 #'
@@ -75,5 +77,5 @@ local_authority <- function(
   hes[ , utla_name_london_groupings := utla_name_london_groupings[which(admidate == min(admidate, na.rm = T))[1]],
        by = encrypted_hesid]
 
-  return(hes)
+  return(hes[])
 }
