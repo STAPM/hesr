@@ -1,10 +1,11 @@
 
-#' Read in HES
+#' Read the HES data files
 #'
-#' Reads in Hospital episode statistics for England.
+#' Reads in Hospital Episode Statistics for England data files for each year from 2002/2003.  
 #'
 #' The variable names change between 13/14 and 14/15, and again between 16/17 and 17/18.
-#' This code reads in the HES data for one year whilst selecting only the variables we need and formatting to be the same for each year.
+#' This code reads in the HES data for one year whilst selecting only the variables we need 
+#' and formatting to be the same for each year.
 #'
 #'
 #' Variables included:
@@ -196,10 +197,9 @@ read_hes <- function(
   k.year.ind,
   test = FALSE
 ) {
-
+  
   # Select neccessary variables to keep----
   keepvars <- Hmisc::Cs(
-
     startage,
     endage,
     ethnos,
@@ -234,7 +234,7 @@ read_hes <- function(
     opertn_10, opertn_11, opertn_12,
     posopdur
   )
-
+  
   keepvars_new <- Hmisc::Cs(
     STARTAGE,
     ENDAGE,
@@ -268,16 +268,15 @@ read_hes <- function(
     OPERTN_10, OPERTN_11, OPERTN_12, OPERTN_13, OPERTN_14, OPERTN_15, OPERTN_16, OPERTN_17, OPERTN_18, OPERTN_19, OPERTN_20, OPERTN_21,
     OPERTN_22, OPERTN_23, OPERTN_24,
     POSOPDUR,
-
     SUSHRG#,
     #SUSHRGVERS#,
     #The SUS PbR derived healthcare resource group (HRG) code (HRG4 from 2009-10) at episode level.
     #5an = SUS generated HRG
     #Null = Records that have been excluded from PbR in SUS as the activity is outside the scope of PbR
-
+    
     #ALCDIAG, ALCDIAG_4, ALCFRAC # new alcohol variables
   )
-
+  
   keepvars_17 <- Hmisc::Cs(
     STARTAGE,
     ENDAGE,
@@ -312,13 +311,11 @@ read_hes <- function(
     OPERTN_4_15, OPERTN_4_16, OPERTN_4_17, OPERTN_4_18, OPERTN_4_19, OPERTN_4_20, OPERTN_4_21,
     OPERTN_4_22, OPERTN_4_23, OPERTN_4_24,
     POSOPDUR,
-
     SUSHRG
   )
-
-
-
-
+  
+  # For 2002/03 to 2013/14
+  # These were the years of data that we obtained in our original data sharing agreement
   if (k.year.ind %in% c(
     "0203",
     "0304",
@@ -333,88 +330,87 @@ read_hes <- function(
     "1213",
     "1314"
   )) {
-
-  # Load in all data for a particular year
+    
+    # Load in all data for a particular year
     if (test == TRUE) {
-    cat("\t\ttest data\n")
-
-    data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
-        header = TRUE, sep = "|", quote = "", nrows = 1000, verbose = F, showProgress = T, data.table = T,
-        na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
-    data <- data[ , ..keepvars]
+      cat("\t\ttest data\n")
+      
+      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
+                    header = TRUE, sep = "|", quote = "", nrows = 1000, verbose = F, showProgress = T, data.table = T,
+                    na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
+      data <- data[ , ..keepvars]
     }
-
+    
     if (test == FALSE){
-    cat("\t\tfull data\n")
-
-    data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
-    data <- data[ , ..keepvars]
+      cat("\t\tfull data\n")
+      
+      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
+      data <- data[ , ..keepvars]
     }
-
+    
   }
-
-
+  
+  # 2014/15 to 2016/17 - the next data drop
   if (k.year.ind %in% c(
     "1415",
     "1516",
     "1617")) {
-
-
+    
     if (test == TRUE) {
-
+      
       cat("\t\ttest data\n")
-
+      
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
                     header = TRUE, sep = "|", quote = "", nrows = 5000, verbose = F, showProgress = T, data.table = T,
                     na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
       data <- data[ , ..keepvars_new]
-
+      
       setnames(data, names(data), tolower(names(data)))
     }
-
+    
     if (test == FALSE) {
-
+      
       cat("\t\tfull data\n")
-
+      
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
       data <- data[ , ..keepvars_new]
-
+      
       setnames(data, names(data), tolower(names(data)))
     }
   }
-
-
+  
+  # 2017/18
   if (k.year.ind %in% c(
     "1718")) {
-
+    
     if (test == TRUE) {
       cat("\t\ttest data\n")
-
+      
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
                     header = TRUE, sep = "|", quote = "", nrows = 1000, verbose = F, showProgress = T, data.table = T,
                     na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
       data <- data[ , ..keepvars_17]
-
+      
       setnames(data, names(data), tolower(names(data)))
-
+      
       sub("_4", "", data[, colnames(data)])
     }
-
+    
     if (test == FALSE) {
       cat("\t\tfull data\n")
-
+      
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
       data <- data[ , ..keepvars_17]
-
+      
       setnames(data, names(data), tolower(names(data)))
-
+      
       sub("_4", "", data[, colnames(data)])
-
+      
     }
   }
-
-
-  return(data)
+  
+  
+  return(data[])
 }
 
 
