@@ -15,6 +15,8 @@
 #' @param hes is the cleaned HES data.
 #'
 #' @return Returns an updated version of the HES data, with each row now defined by an admission.
+#' 
+#' @importFrom data.table setorderv := shift "special-symbols"
 #'
 #' @export
 #'
@@ -56,12 +58,12 @@ define_spells <- function(
   # apply the two rules in the CHE method
   cat("\t\tapply_rules\n")
   # rule 1 does most of the work - finding using combinations of individual, provider and admission date
-  hes[, spell_id_rule1 := .GRP, by = .(encrypted_hesid, procode3, admidate)]
+  hes[, spell_id_rule1 := .GRP, by = list(encrypted_hesid, procode3, admidate)]
 
   # rule 2 flags episodes that rule 1 identified as the start of a new spell
   # but are actually part of the previous spell e.g. due to a transfer
   # note - I don't think this goes all the way to defining continuous inpatient spells (CIPs) - check
-  hes[, spell_id_rule2 := .GRP, by = .(encrypted_hesid == encrypted_hesid_lag &
+  hes[, spell_id_rule2 := .GRP, by = list(encrypted_hesid == encrypted_hesid_lag &
                                          (
                                            admidate != admidate_lag &
                                              dismeth_lag > 5 &
@@ -72,7 +74,7 @@ define_spells <- function(
   hes[, spell_id := spell_id_rule1]
 
   # identify the individuals for whom rule 2 found that 2 spells should be combined
-  check <- hes[, .(n2 = length(unique(spell_id_rule2))) , by = .(encrypted_hesid)]
+  check <- hes[, list(n2 = length(unique(spell_id_rule2))) , by = list(encrypted_hesid)]
   check <- check[n2 > 1]
 
   #nrow(check)
@@ -160,5 +162,5 @@ define_spells <- function(
 
 
 
-  return (hes)
+  return(hes[])
 }

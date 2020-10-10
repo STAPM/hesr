@@ -13,6 +13,8 @@
 #'
 #' @export
 #'
+#' @importFrom data.table := transform
+#'
 #' @examples
 #'
 #' \dontrun{
@@ -83,7 +85,7 @@ clean_hes <- function(
   # Back fill discharge dates----
 
   select_columns <- c("encrypted_hesid", "admidate", "epiorder", "disdate")
-  dfm <- hes[, ..select_columns] # Take subset of neccessary data
+  dfm <- hes[, select_columns, with = F] # Take subset of neccessary data
 
   nflag <- 1e9 # Define for repeat procedure
   counter <- 0
@@ -133,7 +135,7 @@ clean_hes <- function(
   )
 
   select_columns <- c("encrypted_hesid", "admidate", "epiorder", "epiend")
-  dfm <- hes[, ..select_columns] # Take subset of neccessary data
+  dfm <- hes[, select_columns, with = F] # Take subset of neccessary data
 
   n <- nrow(dfm)
 
@@ -278,5 +280,5 @@ clean_hes <- function(
   hes <- transform(hes, Month = substr(admidate, 6, 7))
 
 
-  return(hes)
+  return(hes[])
 }

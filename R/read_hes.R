@@ -179,6 +179,8 @@
 #' @param test Logical - whether to run a small sample of HES data
 #' Defaults to FALSE. If FALSE, will output 1,000 rows of HES data. If TRUE, then will output the whole year of data.
 #'
+#' @importFrom data.table := fread setnames
+#'
 #' @return Returns a data table. Note that:
 #' \itemize{
 #' \item All variable names are converted to lower case.
@@ -394,18 +396,18 @@ read_hes <- function(
       
       setnames(data, names(data), tolower(names(data)))
       
-      sub("_4", "", data[, colnames(data)])
+      base::sub("_4", "", data[, colnames(data)])
     }
     
     if (test == FALSE) {
-      cat("\t\tfull data\n")
+      base::cat("\t\tfull data\n")
       
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
       data <- data[ , keepvars_17, with = F]
       
       setnames(data, names(data), tolower(names(data)))
       
-      sub("_4", "", data[, colnames(data)])
+      base::sub("_4", "", data[, colnames(data)])
       
     }
   }
