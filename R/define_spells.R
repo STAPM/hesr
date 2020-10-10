@@ -16,7 +16,7 @@
 #'
 #' @return Returns an updated version of the HES data, with each row now defined by an admission.
 #' 
-#' @importFrom data.table setorderv := shift "special-symbols"
+#' @importFrom data.table setorderv := shift
 #'
 #' @export
 #'

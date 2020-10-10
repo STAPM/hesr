@@ -32,12 +32,12 @@ calc_cost_admission <- function(
 
   k.year <- as.numeric(paste0("20", stringr::str_sub(k.year.ind, start = 1, end = 2)))
 
-  hes <- hesr::read_hes(k.year.ind, test = TRUE)
-  hes <- hesr::clean_hes(hes)
-  hes <- hesr::define_spells(hes)
-  hes <- hesr::local_authority(hes, k.year.ind)
+  hes <- read_hes(k.year.ind, test = TRUE)
+  hes <- clean_hes(hes)
+  hes <- define_spells(hes)
+  hes <- local_authority(hes, k.year.ind)
 
-  hes <- hesr::assign_risk(hes, k.year.ind, method = "Narrow", substance = "Alcohol", level = "Episode", summary = FALSE)
+  hes <- assign_risk(hes, k.year.ind, method = "Narrow", substance = "Alcohol", level = "Episode", summary = FALSE)
 
   # keep only rows we want to cost (all rows which have the ICD10 code from the earliest episode)
   hes <- hes[ , icd_choose := max_icd[1], by = "spell_id"]

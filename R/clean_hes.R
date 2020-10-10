@@ -13,7 +13,7 @@
 #'
 #' @export
 #'
-#' @importFrom data.table := transform
+#' @importFrom data.table :=
 #'
 #' @examples
 #'

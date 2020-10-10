@@ -61,7 +61,7 @@ assign_risk <- function(
   k.year <- as.numeric(paste0("20", stringr::str_sub(k.year.ind, start = 1, end = 2)))
 
   cat("\tsample_selection\n")
-  hes <- hesr::sample_selection(hes,
+  hes <- sample_selection(hes,
                           start_age = youngest_age,
                           age_categories = age_cat,
                           age_cat_start_age = age_cat_start
@@ -73,30 +73,30 @@ assign_risk <- function(
 
 
   if (substance == "Tobacco") {
-    lkup <- hesr::format_afs(lkup = saf_lkup,
+    lkup <- format_afs(lkup = saf_lkup,
                        substance = "Tobacco")
   }
 
   if (substance == "Alcohol") {
-    lkup <- hesr::format_afs(lkup = aaf_lkup,
+    lkup <- format_afs(lkup = aaf_lkup,
                        substance = "Alcohol")
   }
 
   # Both only works for narrow which does not need AFs at the moment. Used for costing.
   if (substance == "Both") {
-    lkup <- hesr::format_afs(substance = "Both")
+    lkup <- format_afs(substance = "Both")
   }
 
 
   if(method == "Narrow"){
     cat("\tnarrow method\n")
-    hes <- hesr::external_cause(hes, lkup)
+    hes <- external_cause(hes, lkup)
   }
 
 
   if(method == "Broad"){
     cat("\tbroad method\n")
-    hes <- hesr::broad_method(hes, lkup)
+    hes <- broad_method(hes, lkup)
   }
 
   if(summary == TRUE){

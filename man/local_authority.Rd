@@ -13,7 +13,7 @@ local_authority(hes, k.year.ind)
 Returns an updated version of the HES data, adding in the up-to-date local authority identifiers
 }
 \description{
-This code add in the up-to-date local authority identifiers.
+This code adds in the up-to-date local authority identifiers.
 }
 \details{
 This code adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from
