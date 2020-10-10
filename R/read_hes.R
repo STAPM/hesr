@@ -338,14 +338,14 @@ read_hes <- function(
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
                     header = TRUE, sep = "|", quote = "", nrows = 1000, verbose = F, showProgress = T, data.table = T,
                     na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
-      data <- data[ , ..keepvars]
+      data <- data[ , keepvars, with = F]
     }
     
     if (test == FALSE){
       cat("\t\tfull data\n")
       
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
-      data <- data[ , ..keepvars]
+      data <- data[ , keepvars, with = F]
     }
     
   }
@@ -363,7 +363,7 @@ read_hes <- function(
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
                     header = TRUE, sep = "|", quote = "", nrows = 5000, verbose = F, showProgress = T, data.table = T,
                     na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
-      data <- data[ , ..keepvars_new]
+      data <- data[ , keepvars_new, with = F]
       
       setnames(data, names(data), tolower(names(data)))
     }
@@ -373,15 +373,16 @@ read_hes <- function(
       cat("\t\tfull data\n")
       
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
-      data <- data[ , ..keepvars_new]
+      data <- data[ , keepvars_new, with = F]
       
       setnames(data, names(data), tolower(names(data)))
     }
   }
   
-  # 2017/18
+  # 2017/18 to 2018/19
   if (k.year.ind %in% c(
-    "1718")) {
+    "1718",
+    "1819")) {
     
     if (test == TRUE) {
       cat("\t\ttest data\n")
@@ -389,7 +390,7 @@ read_hes <- function(
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
                     header = TRUE, sep = "|", quote = "", nrows = 1000, verbose = F, showProgress = T, data.table = T,
                     na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
-      data <- data[ , ..keepvars_17]
+      data <- data[ , keepvars_17, with = F]
       
       setnames(data, names(data), tolower(names(data)))
       
@@ -400,7 +401,7 @@ read_hes <- function(
       cat("\t\tfull data\n")
       
       data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))
-      data <- data[ , ..keepvars_17]
+      data <- data[ , keepvars_17, with = F]
       
       setnames(data, names(data), tolower(names(data)))
       
