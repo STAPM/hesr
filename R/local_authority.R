@@ -59,7 +59,8 @@ local_authority <- function(
     "1415",
     "1516",
     "1617",
-    "1718")) {
+    "1718",
+    "1819")) {
 
     hes <- merge(hes, hesr::local_authority_lookups1, by = "resladst_ons", all.x = T, all.y = F, sort = F)
 
