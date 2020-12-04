@@ -1,0 +1,369 @@
+---
+title: "**The use of English Admitted Patient Care Hospital Episode Statistics to inform time-trends in the rates and costs of secondary care associated with tobacco and alcohol**"
+subtitle: Version 0.1.0
+biblio-style: apalike
+date: "**`r format(Sys.Date(), format = '%B %Y')`**"
+output: 
+  bookdown::pdf_document2:
+    highlight: haddock
+    pandoc_args: [ --listings ]
+    number_sections: true
+    toc: false
+header-includes:
+  - \usepackage{booktabs}
+  - \usepackage{longtable}
+  - \usepackage{array}
+  - \usepackage{multirow}
+  - \usepackage{wrapfig}
+  - \usepackage{float}
+  - \usepackage{colortbl}
+  - \usepackage{pdflscape}
+  - \usepackage{tabu}
+  - \usepackage{threeparttable}
+  - \usepackage{threeparttablex}
+  - \usepackage[normalem]{ulem}
+  - \usepackage[normalem]{ulem}
+  - \usepackage[utf8]{inputenc}
+  - \usepackage{makecell}
+  - \usepackage{amsmath}
+  - \usepackage{graphicx}
+  - \usepackage{titling}
+  - \pretitle{\begin{center}
+    \includegraphics[width=3in,height=2in]{inst/TUOS_PRIMARY_LOGO_FULL COLOUR.jpg}\LARGE\\\vskip 3em}
+  - \posttitle{\end{center}\vskip 4em}
+  - \usepackage{tcolorbox}
+link-citations: yes
+bibliography:
+  - hes_refs.bib
+  - packages.bib
+always_allow_html: yes
+urlcolor: blue
+editor_options: 
+  chunk_output_type: console
+---
+
+Duncan Gillespie^1^, Laura Webster^1^, Colin Angus^1^ & Alan Brennan^1^
+
+\vskip 1em
+
+^1^School of Health and Related Research (ScHARR), The University of Sheffield
+
+\vskip 1em
+
+**Address for correspondence**:\
+Dr Duncan Gillespie\
+Section of Health Economics and Decision Science,\
+School for Health and Related Research,\
+The University of Sheffield,\
+Regent Court, Regent Street, Sheffield, S1 4DA, UK\
+Email: [duncan.gillespie\@sheffield.ac.uk](mailto:duncan.gillespie@sheffield.ac.uk){.email}
+
+\vskip 1em
+
+```{=tex}
+\begin{tcolorbox}[colback=red!5!white,colframe=red!75!black,title=WARNING]
+This is a working version that is subject to review and future versions are likely.
+\end{tcolorbox}
+```
+\vskip 1em
+
+The code that accompanies this report can be found here [https://github.com/STAPM/secondary_care](https://github.com/STAPM/secondary_care), and in the [hesr](https://stapm.gitlab.io/hesr/) R package (https://stapm.gitlab.io/hesr/). This report is licensed to The University of Sheffield under a [CC by 4.0](https://creativecommons.org/licenses/by/4.0/) license.   
+
+\newpage
+
+```{r setup, include = FALSE, results = 'hide', warning = FALSE}
+
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.pos = 'H'
+)
+
+options(tinytex.verbose = F)
+
+suppressPackageStartupMessages(library(magrittr))
+suppressPackageStartupMessages(library(knitr))
+suppressPackageStartupMessages(library(kableExtra))
+suppressPackageStartupMessages(library(data.table))
+suppressPackageStartupMessages(library(ggplot2))
+suppressPackageStartupMessages(library(readxl))
+suppressPackageStartupMessages(library(tobalcepi))
+suppressPackageStartupMessages(library(stapmr))
+suppressPackageStartupMessages(library(smktrans))
+suppressPackageStartupMessages(library(ggthemes))
+suppressPackageStartupMessages(library(RColorBrewer))
+suppressPackageStartupMessages(library(cowplot))
+
+```
+
+```{r include=FALSE, eval=F}
+# automatically create a bib database for R packages
+knitr::write_bib(c(
+  .packages(), 'bookdown', 'knitr', 'rmarkdown'
+), 'packages.bib')
+```
+ 
+# Summary
+
+*Background* Assigning costs of secondary care to tobacco and alcohol consumption is a complex task with several alternative methods proposed. Choosing a method depends on the conceptualisation of the chain of causality from tobacco and alcohol consumption to the costs of secondary care. In this report, we aimed to review past methods and then empirically investigate the implications of method choice on estimates of the cost of secondary care attributable to tobacco and/or alcohol.  
+
+*Method* 
+
+
+*Results* 
+
+
+
+*Conclusion* 
+
+
+
+# Glossary of terms
+
+
+```{r table1, eval = T, warning = F, echo=F, cache = F}
+
+df_table1 <- readxl::read_xlsx('inst/Glossary.xlsx','glossary')
+
+df_table1 %>%
+  kableExtra::kbl(booktabs = T, caption = "Explanation of terms.", label = "table1", linesep = "\\hline", escape = F) %>%
+  kableExtra::column_spec(column = 1, width = "6cm") %>%
+  kableExtra::column_spec(column = 2, width = "8cm") %>%
+  kableExtra::kable_styling(font_size = 8, latex_options = c("HOLD_position"))
+
+```
+
+
+\newpage
+
+# Background
+The United Kingdom's National Health Service (NHS) is under increasing pressure from a growing demand for secondary care, and hospital inpatient care has been shown to be the main contributor to the total cost of health care provision [@geue2012spoilt]. A large proportion of inpatient care is preventable because it stems from past patient exposure to risk factors for ill-health, of which tobacco and alcohol rank highly. For England, the NHS Digital statistics estimated that in 2017/18 there were 489,300 hospital admissions attributable to smoking (4\% of all hospital admissions) [@NHSDigitalTobacco2019], and 337,870 hospital admissions attributable to alcohol (narrow measure) [@NHSDigitalAlcohol2019]. Being able to link past tobacco and alcohol consumption to current inpatient care is therefore important in order to inform the potential health and economic consequences of public policy decisions that could affect tobacco and/or alcohol consumption. From a health sector perspective, public health policies aim to reduce the demand for and consequent public financial costs of health care. In doing so there is also the additional aim of narrowing the societal inequalities in health, i.e. it would be better for the greatest savings in the costs of care to come from those sectors of society who have the highest demand for care.     
+
+There are two main problems to be solved in linking past tobacco and alcohol consumption to current inpatient care: (1) how to attribute a case of a disease in an individual to tobacco and/or alcohol consumption; and (2) how to attribute inpatient care to those specific diseases. Both of these steps can have implications for the estimated healthcare costs of tobacco and alcohol consumption. For (1), the NHS Digital statistics use survey data on tobacco or alcohol consumption, and estimates of the relative risks of a set of diseases associated with this consumption, to calculate population attributable fractions, which give an estimate of the percentage of disease cases that are likely to be due to tobacco or alcohol (see our [report on population attributable fractions]()). For (2), the NHS Digital statistics on the number of hospital admissions attributable to smoking refer to the number of finished admission episodes of people who are resident in England for the specified period, based on the primary diagnosis, i.e. the ICD-10 disease code that appears in the first position in the list of disease diagnoses associated with an admission. The NHS Digital statistics on alcohol use two methods to associate alcohol-related diagnoses with hospital admissions:   
+
+1. The 'broad' measure looks across all the diagnoses associated with an admission and attributes that admission to the diagnosis most strongly associated with alcohol.
+2. The 'narrow' measure looks only at whether the primary diagnosis is alcohol-related or whether an alcohol-related external cause has been recorded, e.g. a fall associated with intoxication.
+
+NHS Digital explain that "*The 'broad' measure is a better indicator of the total burden that alcohol has on health services as it takes more account of secondary diagnoses than the 'narrow' measure. However, since secondary diagnosis fields have become better populated over time, this impacts upon time series comparisons for the 'broad' measure as increases can be partly due to an improvement in data quality rather than a real effect. Consequently, the 'narrow' measure is a better indicator of changes over time.*" For example in 2017/18, it was estimated that alcohol was the main reason for 2.1\% of all admissions to hospital using the narrow measure, but using the broad measure, it was estimated that 7.2\% admissions were linked to alcohol.     
+
+Another approach used in the literature to attribute a disease diagnosis as the cause of an admission to hospital is to look at whether the diagnosis code for that disease occurs within the first three diagnostic positions of the first episode of care within the admission [@Keeping_2015;@hobbelen2016burden]. This was designed to balance the risk of incorrectly excluding admissions by using a too strict definition with the risk or incorrectly including admissions not due to the condition by using a too broad definition. Hobbelen et al [-@hobbelen2016burden] then conducted sensitivity analyses to investigate the effects of (1) using the primary diagnosis of the first episode of a hospital admission and (2) using all diagnostic fields of the first episode of a hospital admission.    
+
+The choice of approach used to attribute a disease diagnosis as the cause of an admission to hospital has implications for the estimated costs of hospital admissions that are attributed to tobacco and alcohol consumption. For example, should an entire admission be costed if only one episode within it contains a disease diagnosis that is related to tobacco smoking?    
+
+In this report, we aimed to develop a methodology for assigning inpatient care to tobacco and alcohol and for calculating the tobacco and alcohol attributable costs of this care. To do so, we  
+
+1. Review the existing methods of costing hospital admissions in England, 
+1. Empirically investigate the magnitude of differences between using different methodology for costing alcohol and tobacco related hospital admissions. 
+1. Use this method to describe time trends in the costs of inpatient care linked to tobacco and alcohol consumption in England.    
+
+# Methods
+
+
+## The HES APC data
+
+The Admitted Patient Care portion of the English Hospital Episode Statistics (HES) provides a huge resource of data for the estimation of the rates and costs of tobacco and alcohol related hospital care. 
+
+Hospital Episode Statistics (HES) is a data warehouse containing details of all admissions, outpatient appointments and A&E attendances at NHS hospitals in England. Each HES record contains a wide range of information about a patient including clinical information about diagnoses and operations, patient information such as age, sex, and socio economic status, and administrative information such as dates of arrival. We use data from the Admitted Patient Care component of the HES for patients resident in England1.  
+
+HES information is stored as one record per episode, with an episode being a period of care within a particular consultant specialty at a single hospital provider. The episode can be finished because of discharge to another consultant, transfer to another hospital or to place of residence or if the patient dies. As a result, a patient may have more than one finished consultant episode (FCE) during an admission to hospital (if transferred to the care of another consultant). Episodes are grouped into spells of continuous inpatient stay under one provider, or super-spells of continuous inpatient stay under multiple providers.   
+
+HES uses the World Health Organisation's ICD-10 (International Classification of Disease and Related Health Problems) classification to record diagnosis information. The OPCS-4 (Office of Population, Censuses and Surveys: Classification of Interventions and Procedures, 4th revision) classification is used to record details of any procedures or interventions performed. OPCS and ICD codes are the building blocks for acute care currencies. Each patient episode has a series of these codes to determine which procedures and diagnoses have been carried out.   
+
+The data is used to examine conditions that have been classed as wholly or partially attributable to the consumption of tobacco or alcohol. The list of conditions is therefore large (83 separate ICD-10 categories), as it includes several cancers, cardiovascular diseases and respiratory diseases.  
+
+The diagnosis and procedure codes may feature in the first or subsequent episodes in an admission and may also feature in any of the diagnosis and procedure code fields. The data will be analysed on admissions as well as on patients. This is because a small number of patients can have multiple admissions for the focal conditions. The pseudonymised HES-ID will be used to understand patients’ history of hospital episodes.  
+
+### Use of the grouper
+
+We will then need to run this cleaned HES data through the grouper, to obtain a dominant HRG for the admission. This will assign both a spell-based HRG and episode-based HRG (the majority of previous analyses seem to use the dominant HRG to allocate a spell-based cost to the admission).
+I think we should apply the HRG classification rules that were relevant to each year of the data at the time the resource use was incurred and attach the prices that were associated with these HRGs (appropriate for retrospective analyses) - This is what Thaison has done.
+
+Which HRGs are being costed? 
+•	Sushrg provided in the HES data 
+•	Grouper episode-level HRG 
+•	Grouper spell-level HRG 
+
+
+
+
+## Literature review
+For estimates of the costs of secondary care due to tobacco and alcohol to be accurate and credible, it is necessary to review the range of past methods used, and then to explore the sensitivity of cost estimates to major variants of the potential methodology. 
+
+
+Consideration of ... is necessary in order to determine the impact of the assumptions made on estimates of the costs of tobacco and alcohol to secondary care. 
+List and define all variables for which data were sought and any assumptions and simplifications made.
+The data we sought was based around the questions we are asking: 
+•	What is causality based on? (primary diagnosis of primary episode?)
+•	What reference costs are used? 
+•	What level of costing is used – spell or episode? 
+•	If episode level, are specific episodes costed within an admission or all episodes? 
+•	Was the grouper used? 
+•	If a time series, was the same grouper and cost year used for all years, or was the respective grouper and reference costs used for each year? 
+
+
+## Literature review
+It is unclear what is the gold standard for costing time-series HES data, and in particular identifying risk related admissions to cost. Additionally, what are the implications of different methods and have authors acknowledged these different methods in their analysis? To try and answer and understand this, a scoping review was conducted in order to systematically map the research done in this area. 
+
+### Review question
+'What methods are there to cost time-series HES data, and what are the methods by which to identify hospital admissions attributable to risk factors such as tobacco and alcohol using HES data, and what implications do different methods have on the outcome?'   
+
+### Eligibility criteria 
+- years  
+- language
+- publication status  
+
+To be included in the review, papers needed to measure patient admissions using the HES data. 
+Due to the focus around HES data, we narrow our review to look solely at UK/England geographies. It will be interesting to understand the direct comparison of what has been done for alcohol and tobacco related work, but methods taken from other risk factor analysis will still be useful. Therefore, alcohol and tobacco analysis shall be separately identified, but will not be the sole inclusion. Only since 1997/98 (when patients’ NHS numbers became a mandated return from hospitals) have HES APC episodes been linked longitudinally to the same patient by tagging episodes with the HESID. Therefore, we restrict our search from 1998.   
+
+Hospital Episode Statistics   
+Hospital admissions   
+England   
+Cost   
+Time-series/trends  
+
+### Information Sources 
+To identify relevant documents, the following bibliographic databases were searched from 20xx to 20xx: MEDLINE and EMBASE. The search strategy can be found in Appendix. The final search results were exported into EndNote, and duplicates were removed. Present the full electronic search strategy for at least 1 database, including any limits used, such that it could be repeated.
+
+### Search 
+Present the full electronic search strategy for at least 1 database, including any limits used, such that it could be repeated.
+Medline search strategy (Literature Search performed: April 1, 2019)
+
+###Selection of Sources of Evidence 
+State the process for selecting sources of evidence (that is, screening and eligibility) included in the scoping review.
+
+### Data Charting (Data Extraction) Process
+Describe the methods of charting data from the included sources of evidence and any processes for obtaining and confirming data from investigators. The use of a clear and comprehensive data charting form to extract the relevant information from the included sources of evidence. 
+
+### Data Items 
+List and define all variables for which data were sought and any assumptions and simplifications made.
+The data we sought was based around the questions we are asking: 
+•	What is causality based on? (primary diagnosis of primary episode?)
+•	What reference costs are used? 
+•	What level of costing is used – spell or episode? 
+•	If episode level, are specific episodes costed within an admission or all episodes? 
+•	Was the grouper used? 
+•	If a time series, was the same grouper and cost year used for all years, or was the respective grouper and reference costs used for each year? 
+
+Synthesis of results 
+Describe the methods of handling and summarizing the data that were charted.
+We grouped the studies by the types of …
+
+Give numbers of sources of evidence screened, assessed for eligibility, and included in the review, with reasons for exclusions at each stage, ideally using a flow diagram.
+After duplicates were removed, a total of x citations were identified from searches of electronic databases and review article references. Based on the title and abstract, x were excluded, with x full text articles to be retrieved and assessed for eligibility. Of these, x were excluded for the following reasons:. The remaining x studies were considered eligible for this review. 
+
+
+
+
+### Review results 
+Characteristics of Sources of Evidence 
+For each source of evidence, present characteristics for which data were charted and provide the citations.
+Results of Individual Sources of Evidence
+For each included source of evidence, present the relevant data that were charted that relate to the review questions and objectives.
+
+
+include our RCP methods
+
+
+
+
+Summarize or present the charting results as they relate to the review questions and objectives.
+X studies were found to analyse HES data. The majority of studies did … (x%) 
+
+
+
+Causality is assigned based on the first risk-related condition that arises. This will depend on which diagnostic positions are included in our analysis. We can choose between including: 
+•	All admissions where any episode where the first diagnostic position is risk-related. (Narrow method) 
+•	All admissions where any episode where there is any diagnostic position that is risk-related. (Broad method)
+•	Only include admission where primary diagnostic of primary episode is risk-related. (PHE)
+We will look primarily at the narrow method, and therefore will allocate the cause to the first risk-related diagnosis within an admission (but this does not have to be in the first episode). 
+This is what we have already done. However, at the moment, we have only included the episodes which have a risk-related primary diagnosis, and excluded the episodes within this admission which don’t. I think we may need to include all episodes within an admission that we are including. 
+
+
+Alternative methods have three different factors: 
+Which HRGs are being costed? 
+•	Sushrg provided in the HES data 
+•	Grouper episode-level HRG 
+•	Grouper spell-level HRG 
+Which admissions/episodes are being included?
+Are you only including admissions where the primary diagnosis of the primary episode is tobacco-related? (PHE)
+Or are you including any admission where the primary diagnosis of any episode is tobacco-related? (Narrow)
+Or are you including any admissions where any diagnosis of any episodes is tobacco-related? (Broad)
+What episodes are being included in the costing?
+•	All episodes in an admission (PHE) using spell level cost
+•	All episodes in an admission using episode level cost
+•	All tobacco-related episodes in an admission (us) 
+We are always allocating the cost to the first related condition that arises. 
+
+
+NICE recommend using the HES grouper for allocating cost using the reference costs, however this does not specify which set of reference costs to use. 
+
+
+
+
+
+ Inpatient treatment is recorded by hospitals, collated by the Health and Social Care Information Centre (HSCIC), and released as part of the Hospital Episode Statistics (HES). HES are recorded at the finished consultant episode (FCE) level, which represents the time spent under the care of a single consultant. An episode can contain up to twenty diagnostic codes, with the first diagnostic code being the primary diagnosis. Episodes are frequently joined together to create spells, the time spent within a single hospital, or continuous inpatient spells (CIPS), the entire period of inpatient care (which may include spells at multiple hospitals). Throughout this paper, we use CIPS as the common denominator for all costing methods – referring to these as admissions. 
+ 
+ 
+A further difficulty in costing hospital admissions is the level of patient care to include. The three measures above commonly cost the entire admission, however the impact of this decision on study findings remains unclear. Inpatient treatment is recorded and costed at episode level, therefore an episode level costing system could provide a more reliable measure.    
+
+
+Patients often have comorbidities, and each admission to hospital can contain multiple episodes of care, with up to twenty diagnostic codes assigned to each episode. This level of analysis makes it impossible to model how changes in behaviour may result changes to a condition. 
+
+
+
+Different methods are required for different investigations. We want to measure the burden of morbidity on individuals in the population; a measure we take to be the most appropriate for modelling the potential future effects on hospitalisations and costs of proposed changes to alcohol and/or tobacco policy. 
+
+
+
+Methods by which to identify hospital treatment attributable [to alcohol and tobacco]
+Methods of costing that treatment 
+
+HES analysis – identifying episodes of care linked to disease 
+
+HES costing 
+Grouper
+
+Method for organising comparisons among combination of options above (intro to how results will be organised)
+
+
+
+
+
+
+
+
+# Results
+
+
+Methods by which to identify hospital treatment attributable to risk factors 
+Methods of costing that treatment 
+Compare and contrast options with HES data 
+
+
+
+# Discussion
+
+How do methods compare? 
+How do our findings relate to/add to the previous guides of what to do? 
+How do we expect people who are doing costing to use our findings? 
+What might people who use our findings still need to consider for themselves? 
+What are the implications of choosing one option over another for the estimated costs of disease? 
+
+
+
+
+
+Alcohol consumption is common in England, with estimates of x% individuals consuming alcohol and x% individuals having some level of dependence on alcohol. Tobacco smoking has been declining over the last decade however remains at x%, and is the single most important driver of health inequalities. The combination of these factors place a considerable burden on health services. 
+
+
+how would methods be extended to diet
+
+
+# References
+
+
+
+
+
+
+

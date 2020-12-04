@@ -24,11 +24,12 @@ At the moment, these workflows are accessible only to the project team. To acces
 
 The workflows are listed below:  
 
-
+- [English national-level tobacco-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_tob_eng_nat)  
+- [English national-level alcohol-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_alc_eng_nat)  
+- [English national-level tobacco- and alcohol-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_tobalc_eng_nat)  
 
 
 ## Basic functionality
-
 
 ### Load and clean data
 The following code will read and clean the data for 2002/03.  
