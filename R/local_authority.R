@@ -1,5 +1,5 @@
 
-#' Local authority lookup
+#' Local authority lookup \lifecycle{maturing}
 #'
 #' This code adds in the up-to-date local authority identifiers.
 #'

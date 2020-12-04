@@ -1,5 +1,5 @@
 
-#' Clean HES
+#' Clean HES \lifecycle{maturing}
 #'
 #' This code does the basic cleaning operations on each year of HES data
 #'

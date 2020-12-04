@@ -2,7 +2,7 @@
 % Please edit documentation in R/hes_cost.R
 \name{hes_cost}
 \alias{hes_cost}
-\title{Cost episode-level HES data}
+\title{Cost episode-level HES data \lifecycle{maturing}}
 \usage{
 hes_cost(hes, reference_costs, trimpoints, opcs_lookup, k.year)
 }

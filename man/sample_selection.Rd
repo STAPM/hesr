@@ -2,7 +2,7 @@
 % Please edit documentation in R/sample_selection.R
 \name{sample_selection}
 \alias{sample_selection}
-\title{Reduce size of HES to sample required}
+\title{Reduce size of HES to sample required \lifecycle{maturing}}
 \usage{
 sample_selection(hes, start_age, age_categories, age_cat_start_age)
 }

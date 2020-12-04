@@ -1,5 +1,5 @@
 
-#' Fill in missing costs
+#' Fill in missing costs \lifecycle{maturing}
 #'
 #' There will be missing unit costs where there have been zero records for a particular combination of variables.
 #' If there are no admissions within a subgroup, we expand the age groups until there are enough admissions within a subgroup. If there are so few admissions

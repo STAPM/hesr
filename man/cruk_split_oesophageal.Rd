@@ -2,7 +2,7 @@
 % Please edit documentation in R/cruk_split_oesophageal.R
 \name{cruk_split_oesophageal}
 \alias{cruk_split_oesophageal}
-\title{CRUK Oesophageal split}
+\title{CRUK Oesophageal split \lifecycle{maturing}}
 \usage{
 cruk_split_oesophageal(hes)
 }

@@ -37,7 +37,13 @@
     <loc>https://stapm.gitlab.io/hesr/reference/hes_cost.html</loc>
   </url>
   <url>
+    <loc>https://stapm.gitlab.io/hesr/reference/hesr-package.html</loc>
+  </url>
+  <url>
     <loc>https://stapm.gitlab.io/hesr/reference/local_authority.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/hesr/reference/local_authority_lookups.html</loc>
   </url>
   <url>
     <loc>https://stapm.gitlab.io/hesr/reference/missing_costs.html</loc>
@@ -68,5 +74,8 @@
   </url>
   <url>
     <loc>https://stapm.gitlab.io/hesr/articles/cleaning_and_costing.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/hesr/articles/hesr.html</loc>
   </url>
 </urlset>

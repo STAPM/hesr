@@ -2,7 +2,7 @@
 % Please edit documentation in R/pop_data.R
 \name{pop_data}
 \alias{pop_data}
-\title{Add the population counts by age band, sex, IMD quintile}
+\title{Add the population counts by age band, sex, IMD quintile \lifecycle{maturing}}
 \usage{
 pop_data(
   k.year,

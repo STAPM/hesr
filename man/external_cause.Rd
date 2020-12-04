@@ -2,7 +2,7 @@
 % Please edit documentation in R/external_cause.R
 \name{external_cause}
 \alias{external_cause}
-\title{External cause method}
+\title{External cause method \lifecycle{maturing}}
 \usage{
 external_cause(hes, lkup)
 }

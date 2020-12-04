@@ -25,10 +25,50 @@ template:
 reference:
   - title: "Read and clean data"
     desc: >
-      Functions to read and clean each year of the HES data. 
+      Functions and supporting data inputs to read and clean each year of the HES data. 
     contents:
       - read_hes
       - clean_hes
       - define_spells
-      - local_authority
       - append_hrg_codes
+      - sample_selection
+      - local_authority
+      - local_authority_lookups
+  
+  - title: "Identify tobacco and alcohol related hospital care"
+    desc: >
+      Functions and supporting data inputs to assign diagnoses as the cause of episodes or spells of care, and to calculate the population rates of care for these diagnoses.
+    contents:
+      - assign_risk
+      - broad_method
+      - narrow_method
+      - external_cause
+      - format_afs
+      - pop_data
+      - cruk_split_oesophageal
+      - cruk_splits
+      
+  - title: "Calculate the costs of hospital care"
+    desc: >
+      Functions and supporting data inputs to assign unit costs to tobacco and alcohol related hospital care.
+    contents:
+      - calc_cost_admission
+      - hes_cost
+      - missing_costs
+      - single_year_reference_costs
+      - trimpoints
+      - unit_reference_costs
+      - opcs_costs
+      
+
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      

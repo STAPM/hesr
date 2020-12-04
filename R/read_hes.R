@@ -1,5 +1,5 @@
 
-#' Read the HES data files
+#' Read the HES data files \lifecycle{maturing}
 #'
 #' Reads in Hospital Episode Statistics for England data files for each year from 2002/2003.  
 #'

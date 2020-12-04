@@ -11,4 +11,4 @@
 #'
 #'
 #'
-"cruk_splits"
+"local_authority_lookups"

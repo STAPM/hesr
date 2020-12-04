@@ -2,7 +2,7 @@
 % Please edit documentation in R/clean_hes.R
 \name{clean_hes}
 \alias{clean_hes}
-\title{Clean HES}
+\title{Clean HES \lifecycle{maturing}}
 \usage{
 clean_hes(hes)
 }

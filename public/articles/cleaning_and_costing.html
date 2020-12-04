@@ -44,6 +44,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/hesr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -69,7 +72,8 @@
 
       
 
-      </header><script src="cleaning_and_costing_files/header-attrs-2.1/header-attrs.js"></script><div class="row">
+      </header><script src="cleaning_and_costing_files/header-attrs-2.5/header-attrs.js"></script><script src="cleaning_and_costing_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="cleaning_and_costing_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="cleaning_and_costing_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Cleaning and costing</h1>
@@ -137,7 +141,8 @@
 <h2 class="hasAnchor">
 <a href="#censoring" class="anchor"></a>Censoring</h2>
 <p>We exclude any episodes that had not finished before the end of the HES data-year (ie if the episode was still ‘live’ at midnight on 31 March). For example, if a patient was admitted on 25 March 2005 and was not discharged (or transferred to the care of another consultant) until 4 April 2005, there will be a record describing the unfinished episode (episode status = 1) in the 2004-05 data, and a separate record describing the finished episode (episode status = 3) in the 2005-06 data. Because hospital providers are advised not to include clinical data (diagnosis and operation codes) in unfinished records, these are normally excluded from analyses. Additionally, if unfinished episodes are included in time series analyses - where data for more than one year is involved - there is a danger of counting the same episode twice.</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r">  <span class="no">hes</span> <span class="kw">&lt;-</span> <span class="no">hes</span>[<span class="no">epistat</span> <span class="kw">==</span> <span class="fl">3</span>]</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R">  <span class="va">hes</span> <span class="op">&lt;-</span> <span class="va">hes</span><span class="op">[</span><span class="va">epistat</span> <span class="op">==</span> <span class="fl">3</span><span class="op">]</span></code></pre></div>
 </div>
 </div>
 <div id="assigning-spells" class="section level1">
@@ -159,8 +164,9 @@
 <p>HES inpatient data is supplied at FCE level, however this is not usually the most useful level for analysis. Therefore, we need to convert to spells and/or CIPs.</p>
 <p>Using the function <code><a href="../reference/define_spells.html">define_spells()</a></code> groups finished consultant episodes into continuous inpatient super-spells using the method developed by the Centre for Health Economics in York. This groups episodes of care into admissions even if that admission contains episodes of care under different healthcare providers.</p>
 <p>The method applies two rules: 1. Identify provider spells: Group episodes with the same pseudonymised id, provider code and admission date. 2. Identity continuous inpatient spells (super-spells): Group provider spells if discharge method is unknown or indicates patient is still in hospital and the episode at the new provider began on the same day as the episode at the previous provider ended.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r">
-<span class="no">hse_data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span>(<span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span>(<span class="fu"><a href="../reference/read_hes.html">read_hes</a></span>(<span class="st">"0203"</span>)))</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">hse_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="local-authority" class="section level2">
 <h2 class="hasAnchor">
@@ -187,20 +193,20 @@
 <h2 class="hasAnchor">
 <a href="#assign-episodesadmissions-to-condition" class="anchor"></a>Assign episodes/admissions to condition</h2>
 <p>The function <code><a href="../reference/assign_risk.html">assign_risk()</a></code> is the main function used to convert the cleaned data in to summary tables of either episodes, admissions or person-specific admissions. The function has many options to choose from, as below.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r">
-assign_risk &lt;- function(
-  hes = hes_data, 
-  k.year.ind = "1617", 
-  youngest_age = 16,
-  age_cat = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
-  age_cat_start = c(16, 18, 25, 35, 50, 65, 75),
-  method = "Narrow", 
-  substance = "Alcohol",
-  aaf_lkup = read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"),
-  level = "Episode", 
-  summary = TRUE,  
-  dir = "D:/HES/working_data_files")
-  </pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2"></a>assign_risk &lt;-<span class="st"> </span><span class="cf">function</span>(</span>
+<span id="cb3-3"><a href="#cb3-3"></a>  <span class="dt">hes =</span> hes_data, </span>
+<span id="cb3-4"><a href="#cb3-4"></a>  <span class="dt">k.year.ind =</span> <span class="st">"1617"</span>, </span>
+<span id="cb3-5"><a href="#cb3-5"></a>  <span class="dt">youngest_age =</span> <span class="dv">16</span>,</span>
+<span id="cb3-6"><a href="#cb3-6"></a>  <span class="dt">age_cat =</span> <span class="kw">c</span>(<span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span>),</span>
+<span id="cb3-7"><a href="#cb3-7"></a>  <span class="dt">age_cat_start =</span> <span class="kw">c</span>(<span class="dv">16</span>, <span class="dv">18</span>, <span class="dv">25</span>, <span class="dv">35</span>, <span class="dv">50</span>, <span class="dv">65</span>, <span class="dv">75</span>),</span>
+<span id="cb3-8"><a href="#cb3-8"></a>  <span class="dt">method =</span> <span class="st">"Narrow"</span>, </span>
+<span id="cb3-9"><a href="#cb3-9"></a>  <span class="dt">substance =</span> <span class="st">"Alcohol"</span>,</span>
+<span id="cb3-10"><a href="#cb3-10"></a>  <span class="dt">aaf_lkup =</span> <span class="kw">read.csv</span>(<span class="st">"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span>),</span>
+<span id="cb3-11"><a href="#cb3-11"></a>  <span class="dt">level =</span> <span class="st">"Episode"</span>, </span>
+<span id="cb3-12"><a href="#cb3-12"></a>  <span class="dt">summary =</span> <span class="ot">TRUE</span>,  </span>
+<span id="cb3-13"><a href="#cb3-13"></a>  <span class="dt">dir =</span> <span class="st">"D:/HES/working_data_files"</span>)</span>
+<span id="cb3-14"><a href="#cb3-14"></a>  </span></code></pre></div>
 <p>It reads in the cleaned hes data for a particular year. It first filters the cleaned data to the relevant sample using the function <code><a href="../reference/sample_selection.html">sample_selection()</a></code>.</p>
 <p>It has an option to calculate alcohol- or tobacco-related hospitalisations. The function provides options for whether you want to assign risk using the narrow (using <code><a href="../reference/external_cause.html">external_cause()</a></code>), or broad method (using <code><a href="../reference/broad_method.html">broad_method()</a></code>), an option to collapse the data into episode level, admission level or individual level data. The default setting is for this function to produce a summary table, of the number of episodes/admissions by condition, sex, age, and IMD quintile. But there is an option to output the raw data as it is. This is useful for calculating the unit costs, as we need the episode level raw data.</p>
 </div>
@@ -259,51 +265,55 @@ assign_risk &lt;- function(
 <h2 class="hasAnchor">
 <a href="#load-and-clean-data" class="anchor"></a>Load and clean data</h2>
 <p>The data is stored on the virtual machine in <code>D:/HES/</code>. Therefore, this code will only run through the virtual machine. The following code will read and clean the data for 2002/03. The cleaned output will be stored on the virtual machine in <code>D:/HES/working_data_files/cleaned_data</code>.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"X:/ScHARR/PR_STAPM/Code/R_packages/hesr_0.1.0.zip"</span>, <span class="kw">repos</span> <span class="kw">=</span> <span class="kw">NULL</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">hesr</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"X:/ScHARR/PR_STAPM/Code/R_packages/hesr_0.1.0.zip"</span>, repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hesr</span><span class="op">)</span>
 
-<span class="no">hes_data</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(){
-  <span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/read_hes.html">read_hes</a></span>(<span class="st">"0203"</span>)
-  <span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span>(<span class="no">data</span>)
-  <span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span>(<span class="no">data</span>)
-  <span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/local_authority.html">local_authority</a></span>(<span class="no">data</span>, <span class="st">"0203"</span>)
-  <span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/append_hrg_codes.html">append_hrg_codes</a></span>(<span class="no">data</span>, <span class="st">"0203"</span>)
-
-  <span class="fu"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="no">data</span>)
-  }</pre></body></html></div>
+<span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/local_authority.html">local_authority</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"0203"</span><span class="op">)</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_hrg_codes.html">append_hrg_codes</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"0203"</span><span class="op">)</span>
+  
+  <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
+  <span class="op">}</span></code></pre></div>
 </div>
 <div id="summarise-data-1" class="section level2">
 <h2 class="hasAnchor">
 <a href="#summarise-data-1" class="anchor"></a>Summarise data</h2>
 <p>This is example code of summarising the cleaned HES data for the year 2016/17 into alcohol-related episodes using the narrow method. This will produce a summary table of number of episodes related to each condition by sex, age group and IMD quintile.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
-<span class="no">hes_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">hesr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span>(<span class="kw">hes</span> <span class="kw">=</span> <span class="no">hes_data</span>,
-                              <span class="kw">k.year.ind</span> <span class="kw">=</span> <span class="st">"1617"</span>,
-                              <span class="kw">youngest_age</span> <span class="kw">=</span> <span class="fl">16</span>,
-                              <span class="kw">age_cat</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span>),
-                              <span class="kw">age_cat_start</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">16</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">75</span>),
-                              <span class="kw">method</span> <span class="kw">=</span> <span class="st">"Narrow"</span>,
-                              <span class="kw">substance</span> <span class="kw">=</span> <span class="st">"Alcohol"</span>,
-                              <span class="kw">aaf_lkup</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span>(<span class="st">"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span>),
-                              <span class="kw">level</span> <span class="kw">=</span> <span class="st">"Episode"</span>,
-                              <span class="kw">summary</span> <span class="kw">=</span> <span class="fl">TRUE</span>,
-                              <span class="kw">dir</span> <span class="kw">=</span> <span class="st">"D:/HES/working_data_files"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="fu">hesr</span><span class="fu">::</span><span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span>hes <span class="op">=</span> <span class="va">hes_data</span>, 
+                              k.year.ind <span class="op">=</span> <span class="st">"1617"</span>, 
+                              youngest_age <span class="op">=</span> <span class="fl">16</span>,
+                              age_cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span><span class="op">)</span>,
+                              age_cat_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">75</span><span class="op">)</span>,
+                              method <span class="op">=</span> <span class="st">"Narrow"</span>, 
+                              substance <span class="op">=</span> <span class="st">"Alcohol"</span>,
+                              aaf_lkup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span><span class="op">)</span>,
+                              level <span class="op">=</span> <span class="st">"Episode"</span>, 
+                              summary <span class="op">=</span> <span class="cn">TRUE</span>,  
+                              dir <span class="op">=</span> <span class="st">"D:/HES/working_data_files"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="calculate-costs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#calculate-costs" class="anchor"></a>Calculate costs</h2>
 <p>Calculating the cost of admissions in the latest year (2016) to assign to all years. Only need to run the function <code><a href="../reference/calc_cost_admission.html">calc_cost_admission()</a></code>, which will read in raw HES data, clean the HES data using both functions above, match to the reference costs, trimpoints, and OPCS costs to first calculate unit episode costs. It uses the function <code>missing costs()</code> to fill in missing costs and create average unit costs of admissions by condition, sex, IMD quintile, and age category.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r">
-<span class="no">costed_hes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/calc_cost_admission.html">calc_cost_admission</a></span>(<span class="kw">k.year.ind</span> <span class="kw">=</span> <span class="st">"1617"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">costed_hes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_cost_admission.html">calc_cost_admission</a></span><span class="op">(</span>k.year.ind <span class="op">=</span> <span class="st">"1617"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="assign-costs-to-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#assign-costs-to-data" class="anchor"></a>Assign costs to data</h2>
 <p>This is example code of assigning the unit admission costs to the summarised HES data. The first line summarises the data as above, but reduces the data further down into admission level. This will produce a summary table of the number of admissions related to alcohol in 2016/17 by condition, sex, age group, and IMD quintile. The second line merges this summary table with the table of unit admissions costs, which are also stratified by age group, sex, and IMD quintile.</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r">
-<span class="no">hes_data</span> <span class="kw">&lt;-</span> <span class="kw pkg">hesr</span><span class="kw ns">::</span><span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span>(<span class="no">hes_data</span>, <span class="st">"1617"</span>, <span class="kw">method</span> <span class="kw">=</span> <span class="st">"Narrow"</span>, <span class="kw">substance</span> <span class="kw">=</span> <span class="st">"Alcohol"</span>, <span class="kw">level</span> <span class="kw">=</span> <span class="st">"Admission"</span>, <span class="kw">summary</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="fu">hesr</span><span class="fu">::</span><span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span><span class="va">hes_data</span>, <span class="st">"1617"</span>, method <span class="op">=</span> <span class="st">"Narrow"</span>, substance <span class="op">=</span> <span class="st">"Alcohol"</span>, level <span class="op">=</span> <span class="st">"Admission"</span>, summary <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="no">costed_hes</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html">merge</a></span>(<span class="no">hes_data</span>, <span class="kw pkg">hesr</span><span class="kw ns">::</span><span class="no">unit_cost_admission</span>, <span class="kw">by</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"age_cat"</span>, <span class="st">"sex"</span>, <span class="st">"imd_quintile"</span>, <span class="st">"Cause"</span>), <span class="kw">all.x</span> <span class="kw">=</span> <span class="no">T</span>, <span class="kw">all.y</span> <span class="kw">=</span> <span class="no">F</span>)</pre></body></html></div>
+<span class="va">costed_hes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/merge.html">merge</a></span><span class="op">(</span><span class="va">hes_data</span>, <span class="fu">hesr</span><span class="fu">::</span><span class="va">unit_cost_admission</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_cat"</span>, <span class="st">"sex"</span>, <span class="st">"imd_quintile"</span>, <span class="st">"Cause"</span><span class="op">)</span>, all.x <span class="op">=</span> <span class="cn">T</span>, all.y <span class="op">=</span> <span class="cn">F</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
   </div>
@@ -323,7 +333,7 @@ assign_risk &lt;- function(
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

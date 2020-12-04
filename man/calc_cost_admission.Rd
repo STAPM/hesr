@@ -2,7 +2,7 @@
 % Please edit documentation in R/calc_cost_admission.R
 \name{calc_cost_admission}
 \alias{calc_cost_admission}
-\title{Calculate unit costs of risk-related admissions by sex, age, IMD and condition.}
+\title{Calculate unit costs of risk-related admissions by sex, age, IMD and condition. \lifecycle{maturing}}
 \usage{
 calc_cost_admission(k.year.ind)
 }

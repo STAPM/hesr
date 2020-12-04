@@ -84,6 +84,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/hesr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -129,7 +132,7 @@
       <tr>
         <th colspan="2">
           <h2 id="section-read-and-clean-data" class="hasAnchor"><a href="#section-read-and-clean-data" class="anchor"></a>Read and clean data</h2>
-          <p class="section-desc"><p>Functions to read and clean each year of the HES data.</p></p>
+          <p class="section-desc"><p>Functions and supporting data inputs to read and clean each year of the HES data.</p></p>
         </th>
       </tr>
       
@@ -142,31 +145,159 @@
         <td>
           <p><code><a href="read_hes.html">read_hes()</a></code> </p>
         </td>
-        <td><p>Read the HES data files</p></td>
+        <td><p>Read the HES data files <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="clean_hes.html">clean_hes()</a></code> </p>
         </td>
-        <td><p>Clean HES</p></td>
+        <td><p>Clean HES <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="define_spells.html">define_spells()</a></code> </p>
         </td>
-        <td><p>Define spells</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="local_authority.html">local_authority()</a></code> </p>
-        </td>
-        <td><p>Local authority lookup</p></td>
+        <td><p>Define spells <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="append_hrg_codes.html">append_hrg_codes()</a></code> </p>
         </td>
-        <td><p>Append HRG codes</p></td>
+        <td><p>Append HRG codes <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sample_selection.html">sample_selection()</a></code> </p>
+        </td>
+        <td><p>Reduce size of HES to sample required <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="local_authority.html">local_authority()</a></code> </p>
+        </td>
+        <td><p>Local authority lookup <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="local_authority_lookups.html">local_authority_lookups</a></code> </p>
+        </td>
+        <td><p>Local authority lookup table</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-identify-tobacco-and-alcohol-related-hospital-care" class="hasAnchor"><a href="#section-identify-tobacco-and-alcohol-related-hospital-care" class="anchor"></a>Identify tobacco and alcohol related hospital care</h2>
+          <p class="section-desc"><p>Functions and supporting data inputs to assign diagnoses as the cause of episodes or spells of care, and to calculate the population rates of care for these diagnoses.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="assign_risk.html">assign_risk()</a></code> </p>
+        </td>
+        <td><p>Reducing the HES data to alcohol/tobacco-related episodes and admissions <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="broad_method.html">broad_method()</a></code> </p>
+        </td>
+        <td><p>Broad method for allocating risk <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="narrow_method.html">narrow_method()</a></code> </p>
+        </td>
+        <td><p>Narrow method for allocating risk <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="external_cause.html">external_cause()</a></code> </p>
+        </td>
+        <td><p>External cause method <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="format_afs.html">format_afs()</a></code> </p>
+        </td>
+        <td><p>Clean and format attributable fractions (AFs) <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pop_data.html">pop_data()</a></code> </p>
+        </td>
+        <td><p>Add the population counts by age band, sex, IMD quintile <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cruk_split_oesophageal.html">cruk_split_oesophageal()</a></code> </p>
+        </td>
+        <td><p>CRUK Oesophageal split <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cruk_splits.html">cruk_splits</a></code> </p>
+        </td>
+        <td><p>Proportion of oesophageal cases split by AC and SCC</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-calculate-the-costs-of-hospital-care" class="hasAnchor"><a href="#section-calculate-the-costs-of-hospital-care" class="anchor"></a>Calculate the costs of hospital care</h2>
+          <p class="section-desc"><p>Functions and supporting data inputs to assign unit costs to tobacco and alcohol related hospital care.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="calc_cost_admission.html">calc_cost_admission()</a></code> </p>
+        </td>
+        <td><p>Calculate unit costs of risk-related admissions by sex, age, IMD and condition. <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="hes_cost.html">hes_cost()</a></code> </p>
+        </td>
+        <td><p>Cost episode-level HES data <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="missing_costs.html">missing_costs()</a></code> </p>
+        </td>
+        <td><p>Fill in missing costs <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="single_year_reference_costs.html">single_year_reference_costs()</a></code> </p>
+        </td>
+        <td><p>Format and clean Reference Costs for single year <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trimpoints.html">trimpoints</a></code> </p>
+        </td>
+        <td><p>Format and clean Trimpoints</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unit_reference_costs.html">unit_reference_costs</a></code> </p>
+        </td>
+        <td><p>Format and clean reference costs</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="opcs_costs.html">opcs_costs</a></code> </p>
+        </td>
+        <td><p>OPCS codes and costs</p></td>
       </tr>
     </tbody>
     </table>
@@ -186,7 +317,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

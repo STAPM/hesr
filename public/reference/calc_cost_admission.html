@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate unit costs of risk-related admissions by sex, age, IMD and condition. — calc_cost_admission • hesr</title>
+<title>Calculate unit costs of risk-related admissions by sex, age, IMD and condition.  — calc_cost_admission • hesr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Calculate unit costs of risk-related admissions by sex, age, IMD and condition. — calc_cost_admission" />
+<meta property="og:title" content="Calculate unit costs of risk-related admissions by sex, age, IMD and condition.  — calc_cost_admission" />
 <meta property="og:description" content="Calculating the cost of admissions in the latest year (2016) to assign to all years. We do this is an effort to be conservative, and cost only the episodes within
 an admission that have been allocated to the primary condition. We retain only the rows in the HES data which have the same ICD10 code as the earliest risk-related
 episode in the admission, and use the unit costs of episodes from the NHS Reference Costs to cost them. We sum this cost across the admission to calculate unit
@@ -88,6 +88,9 @@ admission costs." />
   </a>
 </li>
 <li>
+  <a href="../articles/hesr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -118,7 +121,7 @@ admission costs." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate unit costs of risk-related admissions by sex, age, IMD and condition.</h1>
+    <h1>Calculate unit costs of risk-related admissions by sex, age, IMD and condition. <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
     <div class="hidden name"><code>calc_cost_admission.Rd</code></div>
     </div>
@@ -130,7 +133,7 @@ episode in the admission, and use the unit costs of episodes from the NHS Refere
 admission costs.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>calc_cost_admission</span>(<span class='no'>k.year.ind</span>)</pre>
+    <pre class="usage"><span class='fu'>calc_cost_admission</span><span class='op'>(</span><span class='va'>k.year.ind</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,11 +156,14 @@ data/number of admissions we have for each subgroup).</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='fu'>calc_cost_admission</span>(<span class='st'>"1617"</span>)
+<span class='fu'>calc_cost_admission</span><span class='op'>(</span><span class='st'>"1617"</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -173,7 +179,7 @@ data/number of admissions we have for each subgroup).</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -2,7 +2,7 @@
 % Please edit documentation in R/append_hrg_codes.R
 \name{append_hrg_codes}
 \alias{append_hrg_codes}
-\title{Append HRG codes}
+\title{Append HRG codes \lifecycle{maturing}}
 \usage{
 append_hrg_codes(hes, k.year.ind)
 }

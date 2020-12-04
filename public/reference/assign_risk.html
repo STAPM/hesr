@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reducing the HES data to alcohol/tobacco-related episodes and admissions — assign_risk • hesr</title>
+<title>Reducing the HES data to alcohol/tobacco-related episodes and admissions  — assign_risk • hesr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Reducing the HES data to alcohol/tobacco-related episodes and admissions — assign_risk" />
+<meta property="og:title" content="Reducing the HES data to alcohol/tobacco-related episodes and admissions  — assign_risk" />
 <meta property="og:description" content="This is the main function used to convert the cleaned data in to summary tables of either episodes, admissions or person-specific admissions.
 It reads in the cleaned Hospital episode statistics for England, reducing it to the sample selection required. It assigns an attributable fraction
 to each row/episode based on either the broad or narrow method, for the substance chosen (alcohol or tobacco). The code then goes
@@ -88,6 +88,9 @@ on to calculate a summary table of alcohol/tobacco attributable hospital episode
   </a>
 </li>
 <li>
+  <a href="../articles/hesr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -118,7 +121,7 @@ on to calculate a summary table of alcohol/tobacco attributable hospital episode
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reducing the HES data to alcohol/tobacco-related episodes and admissions</h1>
+    <h1>Reducing the HES data to alcohol/tobacco-related episodes and admissions <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
     <div class="hidden name"><code>assign_risk.Rd</code></div>
     </div>
@@ -130,22 +133,22 @@ to each row/episode based on either the broad or narrow method, for the substanc
 on to calculate a summary table of alcohol/tobacco attributable hospital episodes, admissions or person-specific admissions as chosen.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>assign_risk</span>(
-  <span class='no'>hes</span>,
-  <span class='no'>k.year.ind</span>,
-  <span class='kw'>youngest_age</span> <span class='kw'>=</span> <span class='fl'>16</span>,
-  <span class='kw'>age_cat</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"16-17"</span>, <span class='st'>"18-24"</span>, <span class='st'>"25-34"</span>, <span class='st'>"35-49"</span>, <span class='st'>"50-64"</span>, <span class='st'>"65-74"</span>, <span class='st'>"75-89"</span>),
-  <span class='kw'>age_cat_start</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>16</span>, <span class='fl'>18</span>, <span class='fl'>25</span>, <span class='fl'>35</span>, <span class='fl'>50</span>, <span class='fl'>65</span>, <span class='fl'>75</span>),
-  <span class='kw'>method</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Broad"</span>, <span class='st'>"Narrow"</span>),
-
-    <span class='kw'>saf_lkup</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='st'>"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Smoking_attributable_fractions/Output/Archive/safs_long.csv"</span>),
-
-    <span class='kw'>aaf_lkup</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span>(<span class='st'>"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span>),
-  <span class='kw'>substance</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Alcohol"</span>, <span class='st'>"Tobacco"</span>),
-  <span class='kw'>level</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Episode"</span>, <span class='st'>"Admission"</span>),
-  <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"D:/HES/working_data_files"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>assign_risk</span><span class='op'>(</span>
+  <span class='va'>hes</span>,
+  <span class='va'>k.year.ind</span>,
+  youngest_age <span class='op'>=</span> <span class='fl'>16</span>,
+  age_cat <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"16-17"</span>, <span class='st'>"18-24"</span>, <span class='st'>"25-34"</span>, <span class='st'>"35-49"</span>, <span class='st'>"50-64"</span>, <span class='st'>"65-74"</span>, <span class='st'>"75-89"</span><span class='op'>)</span>,
+  age_cat_start <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>, <span class='fl'>18</span>, <span class='fl'>25</span>, <span class='fl'>35</span>, <span class='fl'>50</span>, <span class='fl'>65</span>, <span class='fl'>75</span><span class='op'>)</span>,
+  method <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Broad"</span>, <span class='st'>"Narrow"</span><span class='op'>)</span>,
+ 
+    saf_lkup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Smoking_attributable_fractions/Output/Archive/safs_long.csv"</span><span class='op'>)</span>,
+ 
+    aaf_lkup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span><span class='st'>"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span><span class='op'>)</span>,
+  substance <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Alcohol"</span>, <span class='st'>"Tobacco"</span><span class='op'>)</span>,
+  level <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Episode"</span>, <span class='st'>"Admission"</span><span class='op'>)</span>,
+  summary <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  dir <span class='op'>=</span> <span class='st'>"D:/HES/working_data_files"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -217,11 +220,13 @@ by age category, sex, imd_quintile, and condition. If summary = FALSE, will retu
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='fu'>assign_risk</span>(<span class='no'>hes</span>, <span class='st'>"1617"</span>, <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>"Narrow"</span>, <span class='kw'>substance</span> <span class='kw'>=</span> <span class='st'>"Alcohol"</span>, <span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>"Episode"</span>, <span class='kw'>summary</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+<span class='fu'>assign_risk</span><span class='op'>(</span><span class='va'>hes</span>, <span class='st'>"1617"</span>, method <span class='op'>=</span> <span class='st'>"Narrow"</span>, substance <span class='op'>=</span> <span class='st'>"Alcohol"</span>, level <span class='op'>=</span> <span class='st'>"Episode"</span>, summary <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -237,7 +242,7 @@ by age category, sex, imd_quintile, and condition. If summary = FALSE, will retu
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

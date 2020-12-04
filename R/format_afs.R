@@ -1,5 +1,5 @@
 
-#' Clean and format attributable fractions (AFs)
+#' Clean and format attributable fractions (AFs) \lifecycle{maturing}
 #'
 #' Reads in lookup table of attributable fractions for either alcohol or tobacco. Formats files to be the same as each other to use in the function `assign_risk()`.
 #'

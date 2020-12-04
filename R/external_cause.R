@@ -1,4 +1,4 @@
-#' External cause method
+#' External cause method \lifecycle{maturing}
 #'
 #' For alcohol-related conditions, there are some that will only appear in the Cause field, rather than a diagnostic field.
 #' These conditions will become the primary cause, over the primary diagnostic position. This would replace the function `narrow_method()`

@@ -2,7 +2,7 @@
 % Please edit documentation in R/define_spells.R
 \name{define_spells}
 \alias{define_spells}
-\title{Define spells}
+\title{Define spells \lifecycle{maturing}}
 \usage{
 define_spells(hes)
 }

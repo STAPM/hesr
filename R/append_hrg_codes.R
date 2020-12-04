@@ -1,5 +1,5 @@
 
-#' Append HRG codes
+#' Append HRG codes \lifecycle{maturing}
 #'
 #' Append HRG codes to HES data for years 2002/03 to 2013/14
 #'

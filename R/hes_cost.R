@@ -1,4 +1,4 @@
-#' Cost episode-level HES data
+#' Cost episode-level HES data \lifecycle{maturing}
 #'
 #' Combine HES data with NHS reference costs, trimpoints, and OPCS costs.
 #'

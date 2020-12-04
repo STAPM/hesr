@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_hes.R
 \name{read_hes}
 \alias{read_hes}
-\title{Read the HES data files}
+\title{Read the HES data files \lifecycle{maturing}}
 \usage{
 read_hes(k.year.ind, test = FALSE)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/missing_costs.R
 \name{missing_costs}
 \alias{missing_costs}
-\title{Fill in missing costs}
+\title{Fill in missing costs \lifecycle{maturing}}
 \usage{
 missing_costs(hes, missing_cost_lookup)
 }

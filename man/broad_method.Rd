@@ -2,7 +2,7 @@
 % Please edit documentation in R/broad_method.R
 \name{broad_method}
 \alias{broad_method}
-\title{Broad method for allocating risk}
+\title{Broad method for allocating risk \lifecycle{maturing}}
 \usage{
 broad_method(hes, lkup)
 }

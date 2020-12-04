@@ -1,5 +1,5 @@
 
-#' Reduce size of HES to sample required
+#' Reduce size of HES to sample required \lifecycle{maturing}
 #'
 #' Reads in cleaned Hospital episode statistics and reduces to include only sample we need, e.g. reduced ages, and assigns admission types.
 #'

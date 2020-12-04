@@ -1,4 +1,4 @@
-#' Format and clean Reference Costs for single year
+#' Format and clean Reference Costs for single year \lifecycle{maturing}
 #'
 #' Combining the reference costs for different types of admission. We only run this if we want one year of reference costs, such as 2016.
 #' We do not use this because we find it leaves many HRG codes unmatched. But this function can be used as a test. Instead we prepare the unit reference costs for all years in the folder `data-raw` in

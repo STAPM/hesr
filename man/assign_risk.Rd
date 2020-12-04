@@ -2,7 +2,7 @@
 % Please edit documentation in R/assign_risk.R
 \name{assign_risk}
 \alias{assign_risk}
-\title{Reducing the HES data to alcohol/tobacco-related episodes and admissions}
+\title{Reducing the HES data to alcohol/tobacco-related episodes and admissions \lifecycle{maturing}}
 \usage{
 assign_risk(
   hes,

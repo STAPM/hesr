@@ -2,7 +2,7 @@
 % Please edit documentation in R/single_year_reference_costs.R
 \name{single_year_reference_costs}
 \alias{single_year_reference_costs}
-\title{Format and clean Reference Costs for single year}
+\title{Format and clean Reference Costs for single year \lifecycle{maturing}}
 \usage{
 single_year_reference_costs(k.year.ind)
 }

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Add the population counts by age band, sex, IMD quintile — pop_data • hesr</title>
+<title>Add the population counts by age band, sex, IMD quintile  — pop_data • hesr</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,7 @@
 
 
 
-<meta property="og:title" content="Add the population counts by age band, sex, IMD quintile — pop_data" />
+<meta property="og:title" content="Add the population counts by age band, sex, IMD quintile  — pop_data" />
 <meta property="og:description" content="This code reads in the population data for all years, recieved from the ONS." />
 
 
@@ -85,6 +85,9 @@
   </a>
 </li>
 <li>
+  <a href="../articles/hesr.html">Get started</a>
+</li>
+<li>
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
@@ -115,7 +118,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Add the population counts by age band, sex, IMD quintile</h1>
+    <h1>Add the population counts by age band, sex, IMD quintile <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
     <div class="hidden name"><code>pop_data.Rd</code></div>
     </div>
@@ -124,13 +127,13 @@
     <p>This code reads in the population data for all years, recieved from the ONS.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>pop_data</span>(
-  <span class='no'>k.year</span>,
-  <span class='no'>age_start</span>,
-  <span class='no'>age_categories</span>,
-  <span class='no'>age_categories_start</span>,
-  <span class='kw'>subgroup</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>, <span class='st'>"age_cat"</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>pop_data</span><span class='op'>(</span>
+  <span class='va'>k.year</span>,
+  <span class='va'>age_start</span>,
+  <span class='va'>age_categories</span>,
+  <span class='va'>age_categories_start</span>,
+  subgroup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>, <span class='st'>"age_cat"</span><span class='op'>)</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -167,11 +170,14 @@ collapse by single age instead.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='fu'>pop_data</span>(<span class='kw'>k.year</span> <span class='kw'>=</span> <span class='st'>"2016"</span>, <span class='kw'>subgroup</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>, <span class='st'>"age_cat"</span>))
+<span class='fu'>pop_data</span><span class='op'>(</span>k.year <span class='op'>=</span> <span class='st'>"2016"</span>, subgroup <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"sex"</span>, <span class='st'>"imd_quintile"</span>, <span class='st'>"age_cat"</span><span class='op'>)</span><span class='op'>)</span>
 
-}</div></pre>
+<span class='op'>}</span>
+
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -187,7 +193,7 @@ collapse by single age instead.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
