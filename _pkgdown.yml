@@ -60,7 +60,12 @@ reference:
       - unit_reference_costs
       - opcs_costs
       
-
+articles:
+  - title: "'How to' guides"
+    desc: >
+      Detailed guides to using the hesr functions for different purposes. 
+    contents:
+      - cleaning_and_costing
       
       
       
