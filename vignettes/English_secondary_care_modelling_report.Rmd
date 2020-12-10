@@ -42,7 +42,7 @@ bibliography:
 always_allow_html: yes
 urlcolor: blue
 vignette: >
-  %\VignetteIndexEntry{English hospital costs methods}
+  %\VignetteIndexEntry{English_secondary_care_modelling_report}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
