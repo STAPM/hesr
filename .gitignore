@@ -4,7 +4,6 @@ Archive/
 *.Rproj*
 **/*.csv
 **/*.xlsx
-**/*.pdf
 .Rproj.user
 *.zip
 dev/
