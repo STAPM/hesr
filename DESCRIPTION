@@ -24,6 +24,7 @@ Authors@R:
 Maintainer: Duncan Gillespie <duncan.gillespie@sheffield.ac.uk>
 Description: A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data.
 License: GPL-3
+URL: https://stapm.gitlab.io/r-packages/hesr/
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

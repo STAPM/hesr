@@ -8,6 +8,13 @@
 \description{
 A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://stapm.gitlab.io/r-packages/hesr/}
+}
+
+}
 \author{
 \strong{Maintainer}: Duncan Gillespie \email{duncan.gillespie@sheffield.ac.uk} (\href{https://orcid.org/0000-0003-3450-5747}{ORCID})
 

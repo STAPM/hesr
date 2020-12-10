@@ -7,7 +7,8 @@ home:
     href: https://stapm.gitlab.io/
   - text: Privacy notice
     href: https://stapm.gitlab.io/HES_privacy_notice.html
-
+  - text: Source code (team only)
+    href: https://gitlab.com/stapm/r-packages/hesr
 authors:
   Duncan Gillespie:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d

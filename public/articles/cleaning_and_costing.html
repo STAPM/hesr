@@ -258,7 +258,7 @@
 <p>The data is stored on the virtual machine in <code>D:/HES/</code>. Therefore, this code will only run through the virtual machine. The following code will read and clean the data for 2002/03. The cleaned output will be stored on the virtual machine in <code>D:/HES/working_data_files/cleaned_data</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"X:/ScHARR/PR_STAPM/Code/R_packages/hesr_0.1.0.zip"</span>, repos <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">hesr</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stapm.gitlab.io/r-packages/hesr/">hesr</a></span><span class="op">)</span>
 
 <span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span><span class="op">{</span>
   <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span>
