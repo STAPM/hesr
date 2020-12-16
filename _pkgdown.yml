@@ -3,12 +3,8 @@ url: https://stapm.gitlab.io/hesr
 home:
   title: Process Hospital Episode Statistics data
   links:
-  - text: STAPM webpage
-    href: https://stapm.gitlab.io/
   - text: Privacy notice
     href: https://stapm.gitlab.io/HES_privacy_notice.html
-  - text: Source code (team only)
-    href: https://gitlab.com/stapm/r-packages/hesr
 authors:
   Duncan Gillespie:
     href: https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d
@@ -22,6 +18,28 @@ destination: public
 template:
   params:
     bootswatch: flatly
+    
+navbar:
+  structure:
+    left:  [home, intro, reference, articles]
+    right: [gitlab, software]
+  components:
+    home: ~
+    intro:
+     text: Get started
+     href: articles/hesr.html
+    reference:
+     text: Functions
+     href: reference/index.html
+    articles:
+     text: Technical documentation
+     href: articles/index.html
+    gitlab:
+      icon: fab fa-gitlab fa-lg
+      href: https://gitlab.com/stapm/r-packages/hesr
+    software:
+      icon: fa-code
+      href: https://stapm.gitlab.io/software.html
 
 reference:
   - title: "Read and clean data"

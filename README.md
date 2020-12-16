@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# Process Hospital Episode Statistics data <img src="tools/hesr_hex.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
+# Process Hospital Episode Statistics data <img src="logo.png" align="right" style="padding-left:10px;background-color:white;" width="100" height="100" />
 
 <!-- badges: start -->
 
