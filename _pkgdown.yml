@@ -18,6 +18,7 @@ destination: public
 template:
   params:
     bootswatch: flatly
+    ganalytics: UA-167990045-1
     
 navbar:
   structure:

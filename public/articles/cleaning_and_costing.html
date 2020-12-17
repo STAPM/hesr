@@ -23,7 +23,13 @@
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-<![endif]-->
+<![endif]--><!-- Global site tag (gtag.js) - Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=UA-167990045-1"></script><script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-167990045-1');
+</script>
 </head>
 <body data-spy="scroll" data-target="#toc">
     <div class="container template-article">
@@ -110,8 +116,8 @@
 <a href="#data-processing-operations" class="anchor"></a>Data processing operations</h2>
 <p>To support the processing of the HES data, we have built the <code>hesr</code> R package, which is a collection of functions to read, clean, and process the HES data into a suitable form for use in our modelling. We clean the HES data for each year from 2002/3, selecting the sample applicable for our analysis. From this, we select and assign only the admissions that are alcohol- and/or tobacco-related. We calculate unit costs for admissions for a particular year (currently 2016/17) to apply to all years of data. The purpose of this vignette is to explain how we use HES data to calculate alcohol and tobacco related hospital admissions and their respective costs.</p>
 <div class="figure" style="text-align: center">
-<div id="htmlwidget-647c74b7e4d76e5fc45a" style="width:672px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-647c74b7e4d76e5fc45a">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"HES Data\", shape = folder, fillcolor = Beige]\ndata2 [label = \"Epidemiology\", shape = folder, fillcolor = Beige]\ndata3 [label = \"Reference costs\", shape = folder, fillcolor = Beige]\ncleaning [label =  \"Cleaning\"]\nsample [label = \"Select \n sample\"]\nassign [label= \"Assign admissions \n to a disease\"]\ncosts [label= \"Calculate \n unit costs\"]\n\n# edge definitions with the node IDs\ndata1  -> cleaning -> sample -> assign -> costs\ndata2 -> sample\ndata3 -> costs\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<div id="htmlwidget-119bf49959d9bc4ef3a3" style="width:672px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-119bf49959d9bc4ef3a3">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"HES Data\", shape = folder, fillcolor = Beige]\ndata2 [label = \"Epidemiology\", shape = folder, fillcolor = Beige]\ndata3 [label = \"Reference costs\", shape = folder, fillcolor = Beige]\ncleaning [label =  \"Cleaning\"]\nsample [label = \"Select \n sample\"]\nassign [label= \"Assign admissions \n to a disease\"]\ncosts [label= \"Calculate \n unit costs\"]\n\n# edge definitions with the node IDs\ndata1  -> cleaning -> sample -> assign -> costs\ndata2 -> sample\ndata3 -> costs\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Flowchart of the data processing operations.
 </p>
 </div>
@@ -177,8 +183,8 @@ Flowchart of the data processing operations.
 <code class="sourceCode R">
 <span class="va">hse_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="figure" style="text-align: center">
-<div id="htmlwidget-a324a7f5ae5958445221" style="width:700px;height:864px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-a324a7f5ae5958445221">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = TB]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"One year of \n HES Data\", shape = folder, fillcolor = Beige]\ndup [label =  \"Remove duplicate \n records\", shape = diamond]\nfill [label = \"Fill missing \n dates\"]\nepisodes [label= \"Remove unfinished \n consultant episodes\", shape = diamond]\nvalid [label= \"Remove records without \n valid data\", shape = diamond]\narea [label= \"Remove records without \n area of residence data\", shape = diamond]\nassign [label= \"Assign patients with multiple admissions \n the age and area of residence \n recorded in their first admission\"]\ndefinecips [label= \"Define continuous \n inpatient spells\"]\n\n# edge definitions with the node IDs\ndata1  -> dup -> fill -> episodes -> valid -> area -> assign -> definecips\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<div id="htmlwidget-aeeae0eb1ad469098fcf" style="width:700px;height:864px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-aeeae0eb1ad469098fcf">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = TB]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"One year of \n HES Data\", shape = folder, fillcolor = Beige]\ndup [label =  \"Remove duplicate \n records\", shape = diamond]\nfill [label = \"Fill missing \n dates\"]\nepisodes [label= \"Remove unfinished \n consultant episodes\", shape = diamond]\nvalid [label= \"Remove records without \n valid data\", shape = diamond]\narea [label= \"Remove records without \n area of residence data\", shape = diamond]\nassign [label= \"Assign patients with multiple admissions \n the age and area of residence \n recorded in their first admission\"]\ndefinecips [label= \"Define continuous \n inpatient spells\"]\n\n# edge definitions with the node IDs\ndata1  -> dup -> fill -> episodes -> valid -> area -> assign -> definecips\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Flowchart of data cleaning and assignment of spells.
 </p>
 </div>
