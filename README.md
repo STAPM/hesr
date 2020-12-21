@@ -53,7 +53,8 @@ We have given a brief description of our use of the HES data in the
 ## Usage
 
 `hesr` is a package for reading, cleaning and analysing the English
-Admitted Patient Care Hospital Episode Statistics.
+Admitted Patient Care Hospital Episode Statistics. See our [methodology
+report](https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf).
 
 The **inputs** are the raw data files for each year and the list of
 diseases attributable to tobacco and/or alcohol (defined by ICD-10
@@ -79,12 +80,12 @@ consumption.
 
 `hesr` is currently available only to members of the project team (but
 please contact Duncan Gillespie <duncan.gillespie@sheffield.ac.uk> to
-discuss). To access you need to [**sign-up for a GitLab
-account**](https://gitlab.com/). You will then need to be added to the
+discuss). To access you need to [sign-up for a GitLab
+account](https://gitlab.com/). You will then need to be added to the
 STAPM project team to gain access.
 
-Once that is sorted, you can **install the development version of
-`hesr`** from GitLab with:
+Once that is sorted, you can install the latest or a specified version
+of `hesr` from GitLab with:
 
 ``` r
 #install.packages("devtools")
