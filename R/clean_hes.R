@@ -228,7 +228,8 @@ clean_hes <- function(
     "1415",
     "1516",
     "1617",
-    "1718")) {
+    "1718",
+    "1819")) {
     hes <- hes[stringr::str_detect(resladst_ons, "E")]
   }
 
