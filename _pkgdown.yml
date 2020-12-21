@@ -87,11 +87,7 @@ articles:
     contents:
       - cleaning_and_costing
       
-  - title: "Technical documentation"
-    desc: >
-      Explanations of our approach to the processing of hospital inpatient data 
-    contents:
-      - English_secondary_care_modelling_report
+
       
       
       
