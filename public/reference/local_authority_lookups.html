@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Local authority lookup table — local_authority_lookups • hesr</title>
+<title>Local authority lookup table - old ONS system — local_authority_lookups • hesr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,11 @@
 
 
 
-<meta property="og:title" content="Local authority lookup table — local_authority_lookups" />
-<meta property="og:description" content="File that contains the geographical lookup information  (from Rob) that maps ltlas to utlas" />
+<meta property="og:title" content="Local authority lookup table - old ONS system — local_authority_lookups" />
+<meta property="og:description" content="File that contains the geographical lookup information  
+that maps lower tier local authority codes to upper tier local authorities.
+LTLA codes are classified by the old system, e.g. &quot;00AA&quot;. 
+For London, UTLAs are grouped into &quot;inner&quot; and &quot;outer&quot; London." />
 <meta property="og:image" content="https://stapm.gitlab.io/hesr/logo.png" />
 
 
@@ -90,7 +93,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hesr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -132,13 +135,16 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Local authority lookup table</h1>
+    <h1>Local authority lookup table - old ONS system</h1>
     
     <div class="hidden name"><code>local_authority_lookups.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>File that contains the geographical lookup information  (from Rob) that maps ltlas to utlas</p>
+    <p>File that contains the geographical lookup information  
+that maps lower tier local authority codes to upper tier local authorities.
+LTLA codes are classified by the old system, e.g. "00AA". 
+For London, UTLAs are grouped into "inner" and "outer" London.</p>
     </div>
 
     <pre class="usage"><span class='va'>local_authority_lookups</span></pre>
@@ -146,7 +152,7 @@
 
     <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
 
-    <p>A data table (resladst, ltla, utla, utla_name_london_groupings, LA_name).</p>
+    <p>A data table (resladst, utla_name_london_groupings).</p>
     <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
 
     

@@ -47,7 +47,7 @@
 
 
 <meta property="og:title" content="Local authority lookup  — local_authority" />
-<meta property="og:description" content="This code adds in the up-to-date local authority identifiers." />
+<meta property="og:description" content="Add the upper tier local authority identifiers, grouping inner and outer London." />
 <meta property="og:image" content="https://stapm.gitlab.io/hesr/logo.png" />
 
 
@@ -90,7 +90,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hesr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.4</span>
       </span>
     </div>
 
@@ -138,31 +138,53 @@
     </div>
 
     <div class="ref-description">
-    <p>This code adds in the up-to-date local authority identifiers.</p>
+    <p>Add the upper tier local authority identifiers, grouping inner and outer London.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>local_authority</span><span class='op'>(</span><span class='va'>hes</span>, <span class='va'>k.year.ind</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>local_authority</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  <span class='va'>year</span>,
+  LA_lookups_0203 <span class='op'>=</span> <span class='fu'>hesr</span><span class='fu'>::</span><span class='va'><a href='local_authority_lookups.html'>local_authority_lookups</a></span>,
+  LA_lookups_1415 <span class='op'>=</span> <span class='fu'>hesr</span><span class='fu'>::</span><span class='va'><a href='local_authority_lookups1.html'>local_authority_lookups1</a></span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>hes</th>
-      <td><p>is the cleaned HES data.</p></td>
+      <th>data</th>
+      <td><p>data.table - the cleaned HES data.</p></td>
+    </tr>
+    <tr>
+      <th>year</th>
+      <td><p>Character string - the year of data e.g. "0203".</p></td>
+    </tr>
+    <tr>
+      <th>LA_lookups_0203</th>
+      <td><p>data.table - LTLA to UTLA lookup table - old LTLA system.</p></td>
+    </tr>
+    <tr>
+      <th>LA_lookups_1415</th>
+      <td><p>data.table - LTLA to UTLA lookup table - new LTLA system.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns an updated version of the HES data, adding in the up-to-date local authority identifiers</p>
+    <p>Returns an updated version of the HES data, adding in the upper tier local authority identifiers.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This code adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from
-2002/03 to 2013/14 lower tier local authority is coded using an old version of the ONS system (that was updated in 2011). From 2014/15
-The codes in the `RESLADST` field represent the old-style ONS coding system, which is no longer supported by ONS.
-Old-style codes are not available for new geographies, potentially resulting in a large number now being derived as ‘Y’.
+    <p>The code fixes the 
+issue that in the data we were provided from
+2002/03 to 2013/14 lower tier local authority is coded using an old 
+version of the ONS system (that was updated in 2011). From 2014/15
+The codes in the `RESLADST` field represent the old-style ONS coding system, 
+which is no longer supported by ONS.
+Old-style codes are not available for new geographies, potentially resulting in a 
+large number now being derived as ‘Y’.
 Users are advised not to use the 'RESLADST' field, but to use the `RESLADST_ONS` field instead.
-`RESLADST_ONS` also represents the Local authority district of residence but uses the current ONS coding system.</p>
+`RESLADST_ONS` also represents the local authority district of residence but uses the 
+current ONS coding system.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
