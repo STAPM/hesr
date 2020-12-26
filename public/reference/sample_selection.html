@@ -47,7 +47,8 @@
 
 
 <meta property="og:title" content="Reduce size of HES to sample required  — sample_selection" />
-<meta property="og:description" content="Reads in cleaned Hospital episode statistics and reduces to include only sample we need, e.g. reduced ages, and assigns admission types." />
+<meta property="og:description" content="Reads in cleaned Hospital episode statistics and reduces to include only sample we need, 
+e.g. reduced ages, and assigns admission types." />
 <meta property="og:image" content="https://stapm.gitlab.io/hesr/logo.png" />
 
 
@@ -138,7 +139,8 @@
     </div>
 
     <div class="ref-description">
-    <p>Reads in cleaned Hospital episode statistics and reduces to include only sample we need, e.g. reduced ages, and assigns admission types.</p>
+    <p>Reads in cleaned Hospital episode statistics and reduces to include only sample we need, 
+e.g. reduced ages, and assigns admission types.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sample_selection</span><span class='op'>(</span><span class='va'>hes</span>, <span class='va'>start_age</span>, <span class='va'>age_categories</span>, <span class='va'>age_cat_start_age</span><span class='op'>)</span></pre>
@@ -148,20 +150,29 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>hes</th>
-      <td><p>cleaned HES data</p></td>
+      <td><p>data.table - the cleaned HES data.</p></td>
+    </tr>
+    <tr>
+      <th>start_age</th>
+      <td><p>Integer - the minimum age to consider for non-maternity admissions.</p></td>
+    </tr>
+    <tr>
+      <th>age_categories</th>
+      <td><p>Character vector - the age category labels.</p></td>
     </tr>
     <tr>
       <th>age_cat_start_age</th>
-      <td></td>
+      <td><p>Integer vector - the ages that open each age catagory.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns reduced HES data,</p>
+    <p>Returns a data.table of reduced HES data.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This code reduces the size of the HES data to only include applicable rows. This function is used within the function `assign_risk()`.</p>
+    <p>This code reduces the size of the HES data to only include applicable rows. 
+This function is used within the function `assign_risk()`. See the cleaning and costing vignette for details.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

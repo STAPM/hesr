@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   cleaning_and_costing: cleaning_and_costing.html
   hesr: hesr.html
-last_built: 2020-12-26T22:00Z
+last_built: 2020-12-26T22:47Z
 urls:
   reference: https://stapm.gitlab.io/hesr/reference
   article: https://stapm.gitlab.io/hesr/articles

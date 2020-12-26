@@ -31,6 +31,8 @@ knitr::opts_chunk$set(
 suppressPackageStartupMessages(library(magrittr))
 suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(DiagrammeR))
+suppressPackageStartupMessages(library(readxl))
+suppressPackageStartupMessages(library(kableExtra))
 
 ```
 # Data processing operations
@@ -153,15 +155,57 @@ data1  -> dup -> fill -> episodes -> valid -> area -> assign -> definecips
 The function `hesr::local_authority()` adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from 2002/03 to 2013/14 lower tier local authority is coded using an old version of the ONS system (that was updated in 2011). From 2014/15 the codes in the `RESLADST` field represent the old-style ONS coding system, which is no longer supported by ONS. Old-style codes are not available for new geographies, potentially resulting in a large number now being derived as ‘Y’.
 Users are advised not to use the 'RESLADST' field, but to use the 'RESLADST' _ONS field instead. `RESLADST_ONS` also represents the Local authority district of residence but uses the current ONS coding system.
 
+<br>
+
+# Sample selection
+The function `hesr::sample_selection()` reduces the size of the HES data to only include relevant rows. This includes:  
+
+1. defining episodes by their admission type and removing irrelevant rows
+2. filtering the ages
+3. creating age categories
+
+This function is used within the function `hesr::assign_risk()`.   
+
+Table \@ref(tab:samplesel) shows the selection criteria that we applied to retain episodes that were part of seven different types of admission.  
+
+The Patient Classification field shows the type of admission. Admissions are split in to five categories:   
+
+- ordinary admissions, 
+- day cases, 
+- regular day attenders, 
+- regular night attenders, and 
+- mothers using delivery facilities only.   
+
+We exclude episodes with the latter classification. Episodes with a patient classification of not applicable or not known are removed for our analysis, as this information is required to assign an episode cost.   
+
+The Method of Admission field contains a code which identifies how the patient was admitted to hospital. We defined our episodes as elective and non-elective based on admission method and type of admission. We define elective admissions as those from a waiting list, booked in, or a planned emergency admission. We also include elective maternity admissions of ante- or post-partum women (filtered to only include females and those aged 10-55).    
+
+We remove episodes with admission methods related to:   
+
+- the birth of a baby; 
+- admissions by admissions panel of a High Security Psychiatric Hospital; 
+- High Security Psychiatric Hospital admissions waiting list; 
+- episodes defined as not applicable; 
+- episodes where the admission method is not known.   
+
+<br>
+
+```{r samplesel, eval = T, warning = F, echo=F, cache = F}
+
+df_table1 <- readxl::read_xlsx('inst/sample_selection.xlsx','Sheet1')
+
+df_table1 %>%
+  kableExtra::kbl(booktabs = T, caption = "Criteria for selecting continuous inpatient spells.", label = "samplesel") %>%
+  kableExtra::column_spec(column = 1:5, width = "3cm") %>%
+  kableExtra::kable_styling(font_size = 8)
+
+```
+
+<br>
+
 # Summarise data 
 
-## Sample selection
-The function `hesr::sample_selection()` reduces the size of the HES data to only include relevant rows. This includes:
-1. defining episodes by their admission type and removing irrelevant rows.  
-2. filtering the age to 16-89,
-3. creating age categories.
 
-This function is used within the function `hesr::assign_risk()`.
 
 ## Formatting attributable fractions 
 The function `hesr::format_afs` prepares the attributable fractions. It formats the data to be consistent across substances. For example, the function format_afs(substance = "Alcohol") reads in the alcohol disease list, respective ICD-10 codes and attributable fractions by age category, sex, and IMD quintile. There is currently an option to format a list of both alcohol and tobacco conditions, however this works as a lookup table for ICD-10 codes and not attributable fractions. This has been used to estimate the unit costs for all conditions by using the narrow method (which doesn't require ICD-10 codes). Therefore, the option for substance = "Both" will only work for method = "Narrow". 

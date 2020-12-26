@@ -7,18 +7,24 @@
 sample_selection(hes, start_age, age_categories, age_cat_start_age)
 }
 \arguments{
-\item{hes}{cleaned HES data}
+\item{hes}{data.table - the cleaned HES data.}
 
-\item{age_cat_start_age}{}
+\item{start_age}{Integer - the minimum age to consider for non-maternity admissions.}
+
+\item{age_categories}{Character vector - the age category labels.}
+
+\item{age_cat_start_age}{Integer vector - the ages that open each age catagory.}
 }
 \value{
-Returns reduced HES data,
+Returns a data.table of reduced HES data.
 }
 \description{
-Reads in cleaned Hospital episode statistics and reduces to include only sample we need, e.g. reduced ages, and assigns admission types.
+Reads in cleaned Hospital episode statistics and reduces to include only sample we need, 
+e.g. reduced ages, and assigns admission types.
 }
 \details{
-This code reduces the size of the HES data to only include applicable rows. This function is used within the function `assign_risk()`.
+This code reduces the size of the HES data to only include applicable rows. 
+This function is used within the function `assign_risk()`. See the cleaning and costing vignette for details.
 }
 \examples{
 
