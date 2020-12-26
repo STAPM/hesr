@@ -17,12 +17,6 @@ maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www
 The motivation for `hesr` was to standardised the way that the Admitted
 Patient Care (APC) portion of the English Hospital Episode Statistics
 (HES) were processed to produce inputs to our decision-analytic models.
-The [HES
-data](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/hospital-episode-statistics)
-is a data warehouse in which the APC portion contains details of all
-admissions to hospital. The suite of functions within `hesr` reads the
-data for each year since 2002/03, renames, organises and processes the
-variables that we use for our analyses.
 
 `hesr` was created as part of a programme of work on the health
 economics of tobacco and alcohol at the School of Health and Related
@@ -32,6 +26,17 @@ Model (STAPM), which aims to use comparable methodologies to evaluate
 the impacts of tobacco and alcohol policies, and investigate the
 consequences of clustering and interactions between tobacco and alcohol
 consumption behaviours.
+
+## Data
+
+The [HES
+data](https://digital.nhs.uk/data-and-information/data-tools-and-services/data-services/hospital-episode-statistics)
+is a data warehouse in which the APC portion contains details of all
+admissions to hospital. Each HES record contains a wide range of
+information about a patient including clinical information about
+diagnoses and operations, patient information such as age, sex, and
+socio-economic status, and administrative information such as dates of
+arrival.
 
 ## Information governance
 
@@ -52,8 +57,9 @@ We have given a brief description of our use of the HES data in the
 
 ## Usage
 
-`hesr` is a package for reading, cleaning and analysing the English
-Admitted Patient Care Hospital Episode Statistics. See our [methodology
+The suite of functions within `hesr` reads the HSE APC data for each
+year since 2002/03, renames, organises and processes the variables that
+we use for our analyses. See our [methodology
 report](https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf).
 
 The **inputs** are the raw data files for each year and the list of

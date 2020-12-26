@@ -4,24 +4,40 @@
 \alias{local_authority}
 \title{Local authority lookup \lifecycle{maturing}}
 \usage{
-local_authority(hes, k.year.ind)
+local_authority(
+  data,
+  year,
+  LA_lookups_0203 = hesr::local_authority_lookups,
+  LA_lookups_1415 = hesr::local_authority_lookups1
+)
 }
 \arguments{
-\item{hes}{is the cleaned HES data.}
+\item{data}{data.table - the cleaned HES data.}
+
+\item{year}{Character string - the year of data e.g. "0203".}
+
+\item{LA_lookups_0203}{data.table - LTLA to UTLA lookup table - old LTLA system.}
+
+\item{LA_lookups_1415}{data.table - LTLA to UTLA lookup table - new LTLA system.}
 }
 \value{
-Returns an updated version of the HES data, adding in the up-to-date local authority identifiers
+Returns an updated version of the HES data, adding in the upper tier local authority identifiers.
 }
 \description{
-This code adds in the up-to-date local authority identifiers.
+Add the upper tier local authority identifiers, grouping inner and outer London.
 }
 \details{
-This code adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from
-2002/03 to 2013/14 lower tier local authority is coded using an old version of the ONS system (that was updated in 2011). From 2014/15
-The codes in the `RESLADST` field represent the old-style ONS coding system, which is no longer supported by ONS.
-Old-style codes are not available for new geographies, potentially resulting in a large number now being derived as ‘Y’.
+The code fixes the 
+issue that in the data we were provided from
+2002/03 to 2013/14 lower tier local authority is coded using an old 
+version of the ONS system (that was updated in 2011). From 2014/15
+The codes in the `RESLADST` field represent the old-style ONS coding system, 
+which is no longer supported by ONS.
+Old-style codes are not available for new geographies, potentially resulting in a 
+large number now being derived as ‘Y’.
 Users are advised not to use the 'RESLADST' field, but to use the `RESLADST_ONS` field instead.
-`RESLADST_ONS` also represents the Local authority district of residence but uses the current ONS coding system.
+`RESLADST_ONS` also represents the local authority district of residence but uses the 
+current ONS coding system.
 }
 \examples{
 

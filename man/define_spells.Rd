@@ -16,12 +16,19 @@ Returns an updated version of the HES data, with each row now defined by an admi
 This code defines unique admissions.
 }
 \details{
-Groups finished consultant episodes into continuous inpatient super-spells using the method developed by the Centre for Health Economics in York.
-This groups episodes of care into admissions even if that admission contains episodes of care under different healthcare providers.
+Groups finished consultant episodes into continuous inpatient super-spells using 
+the method developed by the Centre for Health Economics in York.
+This groups episodes of care into admissions even if that admission contains episodes 
+of care under different healthcare providers.
 The method applies two rules:
-1.	Identify provider spells: Group episodes with the same pseudonymised id, provider code and admission date.
-2.	Identity continuous inpatient spells (super-spells): Group provider spells if discharge method is unknown or indicates patient is still in
-hospital and the episode at the new provider began on the same day as the episode at the previous provider ended.
+\enumerate{
+  \item Identify provider spells: Group episodes with the same pseudonymised id, 
+  provider code and admission date.
+  \item Identity continuous inpatient spells (super-spells): 
+  Group provider spells if discharge method is unknown or indicates patient is still in
+hospital and the episode at the new provider began on the same day as the episode 
+at the previous provider ended.
+}
 }
 \examples{
 

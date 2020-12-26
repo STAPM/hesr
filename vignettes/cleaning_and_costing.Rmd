@@ -33,17 +33,8 @@ suppressPackageStartupMessages(library(knitr))
 suppressPackageStartupMessages(library(DiagrammeR))
 
 ```
-
-# Introduction 
-
-## Data description
-Hospital Episode Statistics (HES) is a data warehouse containing details of all admissions at NHS hospitals in England. Each HES record contains a wide range of information about a patient including clinical information about diagnoses and operations, patient information such as age, sex, and socio-economic status, and administrative information such as dates of arrival. We use data from the Admitted Patient Care component of the HES for patients resident in England.
-
-## Alcohol- and tobacco-related admissions
-Risk factors such as tobacco and alcohol are significant contributors to many diseases. To measure the burden of morbidity on the health-care system, the total cost of risk-related hospitalisations requires a consistent costing methodology across multiple diseases. Here we describe our processing of HES data for England that allows us to model the potential future effects on hospitalisations and costs of proposed changes to alcohol and/or tobacco policy. 
-
-## Data processing operations
-To support the processing of the HES data, we have built the `hesr` R package, which is a collection of functions to read, clean, and process the HES data into a suitable form for use in our modelling. We clean the HES data for each year from 2002/3, selecting the sample applicable for our analysis. From this, we select and assign only the admissions that are alcohol- and/or tobacco-related. We calculate unit costs for admissions for a particular year (currently 2016/17) to apply to all years of data. The purpose of this vignette is to explain how we use HES data to calculate alcohol and tobacco related hospital admissions and their respective costs.  
+# Data processing operations
+We clean the HES data for each year from 2002/3, selecting the sample applicable for our analysis. From this, we select and assign only the admissions that are alcohol- and/or tobacco-related. We calculate unit costs for admissions for a particular year (currently 2016/17) to apply to all years of data. The purpose of this vignette is to explain how we use HES data to calculate alcohol and tobacco related hospital admissions and their respective costs.  
 
 ```{r flowdiag, echo = F, fig.cap = "Flowchart of the data processing operations.", fig.align="center", fig.width=7}
 

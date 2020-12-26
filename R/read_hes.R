@@ -1,7 +1,8 @@
 
 #' Read the HES data files \lifecycle{maturing}
 #'
-#' Reads in Hospital Episode Statistics for England data files for each year from 2002/2003.  
+#' Reads in Hospital Episode Statistics for England data files for each year from 2002/2003. 
+#' Only the variables needed for analysis are retained and variable names are harmonised.
 #'
 #' The variable names change between 13/14 and 14/15, and again between 16/17 and 17/18.
 #' This code reads in the HES data for one year whilst selecting only the variables we need 
