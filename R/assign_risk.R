@@ -67,12 +67,7 @@ assign_risk <- function(
   # Set the year for filtering population data later
   k_year <- as.numeric(paste0("20", stringr::str_sub(year, start = 1, end = 2)))
 
-  
-  
-  
-  
-  
-  
+  # Select the required sample
   cat("\tsample_selection\n")
   
   data <- sample_selection(data,
@@ -81,6 +76,7 @@ assign_risk <- function(
                           age_cat_start_age = age_cat_start
                           )
 
+  
   cat("\tRead in the disease risk\n")
 
   #lkup <- format_afs(substance = substance)

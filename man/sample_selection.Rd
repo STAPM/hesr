@@ -24,7 +24,8 @@ e.g. reduced ages, and assigns admission types.
 }
 \details{
 This code reduces the size of the HES data to only include applicable rows. 
-This function is used within the function `assign_risk()`. See the cleaning and costing vignette for details.
+This function is used within the function `assign_risk()`. 
+See the \href{https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_costing.html#sample-selection}{cleaning and costing vignette} for details.
 }
 \examples{
 
