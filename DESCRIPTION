@@ -1,7 +1,7 @@
 Package: hesr
 Type: Package
 Title: Process Hospital Episode Statistics data for public health economic modelling.  
-Version: 1.0.3
+Version: 1.0.4
 Authors@R: 
     c(
     person(given = "Duncan",
