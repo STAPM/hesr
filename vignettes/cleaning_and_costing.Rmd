@@ -57,7 +57,7 @@ costs [label= 'Calculate \n unit costs']
 
 # edge definitions with the node IDs
 data1  -> cleaning -> sample -> assign -> costs
-data2 -> sample
+data2 -> assign
 data3 -> costs
 }")
 
