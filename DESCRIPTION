@@ -37,9 +37,9 @@ Imports:
     data.table,
     bit64,
     lifecycle,
-    DiagrammeR
+    DiagrammeR,
+    testthat
 Suggests: 
-    testthat,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
