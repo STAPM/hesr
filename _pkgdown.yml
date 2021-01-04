@@ -60,6 +60,7 @@ reference:
     desc: >
       Functions and supporting data inputs to assign diagnoses as the cause of episodes or spells of care, and to calculate the population rates of care for these diagnoses.
     contents:
+      - icdFlag
       - assign_risk
       - broad_method
       - narrow_method

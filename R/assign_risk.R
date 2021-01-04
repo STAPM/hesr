@@ -1,6 +1,5 @@
 
-
-#' Reducing the HES data to alcohol/tobacco-related episodes and admissions \lifecycle{maturing}
+#' Reducing the HES data to alcohol/tobacco-related episodes and admissions \lifecycle{deprecated}
 #'
 #' This is the main function used to convert the cleaned data in to summary tables of either episodes, admissions or person-specific admissions.
 #' It reads in the cleaned Hospital episode statistics for England, reducing it to the sample selection required. It assigns an attributable fraction

@@ -47,9 +47,10 @@
 
 
 <meta property="og:title" content="CRUK Oesophageal split  — cruk_split_oesophageal" />
-<meta property="og:description" content="This code splits the diagnosis codes for Oesophageal cancer (C15) in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
-in the data-raw folder `prep_cruk_splits`. Make sure there are no NAs in the startage field before running this. I.e. clean HES data first. This function is used
-within the function `narrow_method()`." />
+<meta property="og:description" content="This code splits the diagnosis codes for Oesophageal cancer (C15) 
+in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
+in the data-raw folder `prep_cruk_splits`. 
+Make sure there are no NAs in the startage field before running this. I.e. clean HES data first." />
 <meta property="og:image" content="https://stapm.gitlab.io/hesr/logo.png" />
 
 
@@ -134,31 +135,41 @@ within the function `narrow_method()`." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>CRUK Oesophageal split <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
+    <h1>CRUK Oesophageal split <a href='https://www.tidyverse.org/lifecycle/#stable'><img src='figures/lifecycle-stable.svg' alt='Stable lifecycle'></a></h1>
     
     <div class="hidden name"><code>cruk_split_oesophageal.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This code splits the diagnosis codes for Oesophageal cancer (C15) in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
-in the data-raw folder `prep_cruk_splits`. Make sure there are no NAs in the startage field before running this. I.e. clean HES data first. This function is used
-within the function `narrow_method()`.</p>
+    <p>This code splits the diagnosis codes for Oesophageal cancer (C15) 
+in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
+in the data-raw folder `prep_cruk_splits`. 
+Make sure there are no NAs in the startage field before running this. I.e. clean HES data first.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>cruk_split_oesophageal</span><span class='op'>(</span><span class='va'>hes</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>cruk_split_oesophageal</span><span class='op'>(</span><span class='va'>hes</span>, splits <span class='op'>=</span> <span class='fu'>hesr</span><span class='fu'>::</span><span class='va'><a href='cruk_splits.html'>cruk_splits</a></span>, var_name <span class='op'>=</span> <span class='st'>"icd_code"</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>hes</th>
-      <td><p>is the cleaned HES data.</p></td>
+      <td><p>Data.table - the cleaned HES data.</p></td>
+    </tr>
+    <tr>
+      <th>splits</th>
+      <td><p>Data.table - the distribution of C15 cases by SCC and AC</p></td>
+    </tr>
+    <tr>
+      <th>var_name</th>
+      <td><p>Character string - the name of the variable containing the C15 ICD-10 code to be split</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns an updated version of the HES data, with the diagnoses codes for oesophageal cancer (C15) split proportionally between Oesophageal SCC and Oesophageal AC.</p>
+    <p>Returns an updated version of the HES data.table, with the diagnoses codes for 
+oesophageal cancer (C15) split proportionally between Oesophageal SCC and Oesophageal AC.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>

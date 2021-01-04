@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Reduce size of HES to sample required  — sample_selection • hesr</title>
+<title>Scan for ICD-10 codes  — icdFlag • hesr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Reduce size of HES to sample required  — sample_selection" />
-<meta property="og:description" content="Reads in cleaned Hospital episode statistics and reduces to include only sample we need, 
-e.g. reduced ages, and assigns admission types." />
+<meta property="og:title" content="Scan for ICD-10 codes  — icdFlag" />
+<meta property="og:description" content="Scans specified diagnosis code columns for 
+ICD-10 codes in our tobacco and/or alcohol disease lists." />
 <meta property="og:image" content="https://stapm.gitlab.io/hesr/logo.png" />
 
 
@@ -133,59 +133,64 @@ e.g. reduced ages, and assigns admission types." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Reduce size of HES to sample required <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
+    <h1>Scan for ICD-10 codes <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
-    <div class="hidden name"><code>sample_selection.Rd</code></div>
+    <div class="hidden name"><code>icdFlag.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Reads in cleaned Hospital episode statistics and reduces to include only sample we need, 
-e.g. reduced ages, and assigns admission types.</p>
+    <p>Scans specified diagnosis code columns for 
+ICD-10 codes in our tobacco and/or alcohol disease lists.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sample_selection</span><span class='op'>(</span><span class='va'>hes</span>, <span class='va'>start_age</span>, <span class='va'>age_categories</span>, <span class='va'>age_cat_start_age</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>icdFlag</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>lkups</span>, <span class='va'>col_name</span>, <span class='va'>nchars</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>hes</th>
-      <td><p>data.table - the cleaned HES data.</p></td>
+      <th>data</th>
+      <td><p>Data.table - the HES data.</p></td>
     </tr>
     <tr>
-      <th>start_age</th>
-      <td><p>Integer - the minimum age to consider for non-maternity admissions.</p></td>
+      <th>lkups</th>
+      <td><p>Data.table - the ICD-10 codes associated with tobacco and/or alcohol. 
+These are stored as data within the tobalcepi package.</p></td>
     </tr>
     <tr>
-      <th>age_categories</th>
-      <td><p>Character vector - the age category labels.</p></td>
+      <th>col_name</th>
+      <td><p>Character string - The name of the diagnosis column that 
+should be scanned to identify target ICD-10 codes.</p></td>
     </tr>
     <tr>
-      <th>age_cat_start_age</th>
-      <td><p>Integer vector - the ages that open each age category.</p></td>
+      <th>nchars</th>
+      <td><p>Integer - the number of characters of the ICD-10 code 
+to scan for a match. This should either be 3 or 4 characters.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Returns a data.table of reduced HES data.</p>
+    <p>Returns the HES data.table with a column added 
+containing the ICD-10 code found during the scan.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This code reduces the size of the HES data to only include applicable rows. 
-See the <a href='https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_costing.html#sample-selection'>cleaning and costing vignette</a> for details.</p>
+    <p>Uses the <code><a href='https://stapm.gitlab.io/r-packages/tobalcepi//reference/ExpandCodes.html'>tobalcepi::ExpandCodes()</a></code> function to convert the ICD-10 lookup tables 
+within the tobalcepi package into long form. 
+The scans the first 3 or 4 characters of the column name (specified by nchars) 
+for the target ICD-10 code. If a match is found, then it is stored in a new variable.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 
-<span class='fu'>sample_selection</span><span class='op'>(</span><span class='va'>hes</span>,
-                 start_age <span class='op'>=</span> <span class='fl'>16</span>,
-                 age_categories <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"16-17"</span>, <span class='st'>"18-24"</span>, <span class='st'>"25-34"</span>, <span class='st'>"35-49"</span>, <span class='st'>"50-64"</span>, <span class='st'>"65-74"</span>, <span class='st'>"75-89"</span><span class='op'>)</span>,
-                 age_cat_start_age <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>16</span>, <span class='fl'>18</span>, <span class='fl'>25</span>, <span class='fl'>35</span>, <span class='fl'>50</span>, <span class='fl'>65</span>, <span class='fl'>75</span><span class='op'>)</span>
-                 <span class='op'>)</span>
+<span class='va'>hes</span> <span class='op'>&lt;-</span> <span class='fu'>icdFlag</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>hes</span>,
+  lkups <span class='op'>=</span> <span class='fu'>tobalcepi</span><span class='fu'>::</span><span class='va'><a href='https://stapm.gitlab.io/r-packages/tobalcepi//reference/tob_icd10_lookups.html'>tob_icd10_lookups</a></span>,
+  col_name <span class='op'>=</span> <span class='st'>"icd_code"</span>,
+  nchars <span class='op'>=</span> <span class='fl'>3</span>
+<span class='op'>)</span> 
 
 <span class='op'>}</span>
-
 
 </div></pre>
   </div>
