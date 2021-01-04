@@ -5,8 +5,9 @@
 \title{Reducing the HES data to alcohol/tobacco-related episodes and admissions \lifecycle{maturing}}
 \usage{
 assign_risk(
-  hes,
-  k.year.ind,
+  data,
+  year,
+  pop_data,
   youngest_age = 16,
   age_cat = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
   age_cat_start = c(16, 18, 25, 35, 50, 65, 75),
@@ -22,9 +23,11 @@ assign_risk(
 )
 }
 \arguments{
-\item{hes}{cleaned HES data}
+\item{data}{Data.table - cleaned HES data.}
 
-\item{k.year.ind}{year of HES data. E.g. "1718"}
+\item{year}{Character string - indicating the year of HES data - in the form "1718".}
+
+\item{pop_data}{Data.table - mid-year population sizes.}
 
 \item{youngest_age}{numeric. Youngest age required in HES data}
 

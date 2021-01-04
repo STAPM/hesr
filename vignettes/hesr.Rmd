@@ -22,10 +22,10 @@ At the moment, these workflows are accessible only to the project team. To acces
 
 The workflows are listed below:  
 
-- [Initial preparation of English inpatient care data (run first)](https://gitlab.com/stapm/model-inputs/hosp_eng_data_cleaning)  
-- [English national-level tobacco-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_tob_eng_nat)  
-- [English national-level alcohol-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_alc_eng_nat)  
-- [English national-level tobacco- and alcohol-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_tobalc_eng_nat)  
+- [Initial preparation of English inpatient care data (run first)](https://gitlab.com/stapm/model-inputs/hosp_eng_data_cleaning). This applies the basic cleaning operations to the data to produce annual datasets ready for further calculations.   
+- [English national-level tobacco-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_tob_eng_nat)    
+- [English national-level alcohol-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_alc_eng_nat)    
+- [English national-level tobacco- and alcohol-related rates and costs of inpatient care](https://gitlab.com/stapm/model-inputs/hosp_tobalc_eng_nat)    
 
 
 ## Basic functionality

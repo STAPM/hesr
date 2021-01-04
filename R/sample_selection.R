@@ -1,17 +1,21 @@
 
 #' Reduce size of HES to sample required \lifecycle{maturing}
 #'
-#' Reads in cleaned Hospital episode statistics and reduces to include only sample we need, e.g. reduced ages, and assigns admission types.
+#' Reads in cleaned Hospital episode statistics and reduces to include only sample we need, 
+#' e.g. reduced ages, and assigns admission types.
 #'
-#' This code reduces the size of the HES data to only include applicable rows. This function is used within the function `assign_risk()`.
+#' This code reduces the size of the HES data to only include applicable rows. 
+#' This function is used within the function `assign_risk()`. 
+#' See the \href{https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_costing.html#sample-selection}{cleaning and costing vignette} for details.
 #'
+#' @param hes data.table - the cleaned HES data.
+#' @param start_age Integer - the minimum age to consider for non-maternity admissions.
+#' @param age_categories Character vector - the age category labels.
+#' @param age_cat_start_age Integer vector - the ages that open each age catagory.
+#' 
+#' @importFrom data.table :=
 #'
-#' @param hes cleaned HES data
-#' @param start_age
-#' @param age_categories
-#' @param age_cat_start_age
-#'
-#' @return Returns reduced HES data,
+#' @return Returns a data.table of reduced HES data.
 #'
 #' @export
 #'
@@ -59,7 +63,8 @@ sample_selection <- function(
 
   # Remove unknown admission methods
   hes <- hes[!(admimeth %in% c("82", "83", "84", "89", "98", "99"))]
-  NROW(hes)
+  
+  #NROW(hes)
 
   hes[ , type := NA_character_]
 
@@ -75,11 +80,11 @@ sample_selection <- function(
 
   hes <- hes[!is.na(type)]
 
-  k.rows <- nrow(hes)
+  #k.rows <- nrow(hes)
 
   #hes <- transform(hes, Month = substr(admidate, 6, 7))
-  hes[ , Month := stringr::str_sub(admidate, 6, 7)]
+  #hes[ , Month := stringr::str_sub(admidate, 6, 7)]
 
 
-  return(hes)
+  return(hes[])
 }

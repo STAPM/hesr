@@ -7,16 +7,26 @@
 clean_hes(hes)
 }
 \arguments{
-\item{hes}{is the raw HES data.}
+\item{hes}{Data.table - is the raw HES data that is the output from \code{read_hes()}..}
 }
 \value{
-Returns a cleaned version of the HES data.
+Returns a data.table that is a cleaned version of the HES data.
 }
 \description{
-This code does the basic cleaning operations on each year of HES data
+Basic cleaning operations on each year of HES data.
 }
 \details{
-Cleaning the data to remove any duplicates, dummy dates, missing data, and data not required (e.g. admissions that have not ended in this year)
+Cleaning the data to remove or consistently code 
+duplicates, dummy dates, missing data, 
+and data not required (e.g. admissions that have not ended in this year). 
+The data is filtered to retain only finished consultant episodes (epistat = 3), 
+records with valid age and sex data, and patients resident in England. 
+Only records with data on admission data and the Index of Multiple Deprivation (IMD) decile 
+in which the patient resides are retained (which has a side-effect of leading to a loss of some 
+records e.g. for female infertility for which these data are not provided). 
+IMD deciles are re-coded into quintiles. If an individual changes IMD quintile, age or sex within the year, 
+then they are assigned the value for these characteristics that they had on the first admission of the year. 
+A variable for month of admission is created to facilitate the analysis of monthly trends.
 }
 \examples{
 

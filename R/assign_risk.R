@@ -8,8 +8,9 @@
 #' on to calculate a summary table of alcohol/tobacco attributable hospital episodes, admissions or person-specific admissions as chosen.
 #'
 #'
-#' @param hes cleaned HES data
-#' @param k.year.ind year of HES data. E.g. "1718"
+#' @param data Data.table - cleaned HES data.
+#' @param year Character string - indicating the year of HES data - in the form "1718".
+#' @param pop_data Data.table - mid-year population sizes. 
 #' @param youngest_age numeric. Youngest age required in HES data
 #' @param age_cat Character vector of age categories. Default is c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89").
 #' @param age_cat_start Numerical vector of start ages for age categories. Default is c(16, 18, 25, 35, 50, 65, 75).
@@ -31,6 +32,8 @@
 #' @return Returns a summary table of number of episodes/admissions/people, SAF, and attributable episodes/admissions/people,
 #' by age category, sex, imd_quintile, and condition. If summary = FALSE, will return the whole data unsummarised (for use in costing at episode level)
 #'
+#' @importFrom data.table :=
+#'
 #' @export
 #'
 #' @examples
@@ -43,8 +46,9 @@
 #'
 
 assign_risk <- function(
-  hes,
-  k.year.ind,
+  data,
+  year,
+  pop_data,
   youngest_age = 16,
   age_cat = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
   age_cat_start = c(16, 18, 25, 35, 50, 65, 75),
@@ -57,16 +61,22 @@ assign_risk <- function(
   dir = "D:/HES/working_data_files"
 ) {
 
-  # Set the year for filtering population data later.
-  k.year <- as.numeric(paste0("20", stringr::str_sub(k.year.ind, start = 1, end = 2)))
+  
+  ##########################################################
+  
+  # Set the year for filtering population data later
+  k_year <- as.numeric(paste0("20", stringr::str_sub(year, start = 1, end = 2)))
 
+  # Select the required sample
   cat("\tsample_selection\n")
-  hes <- sample_selection(hes,
+  
+  data <- sample_selection(data,
                           start_age = youngest_age,
                           age_categories = age_cat,
                           age_cat_start_age = age_cat_start
                           )
 
+  
   cat("\tRead in the disease risk\n")
 
   #lkup <- format_afs(substance = substance)
@@ -90,15 +100,23 @@ assign_risk <- function(
 
   if(method == "Narrow"){
     cat("\tnarrow method\n")
-    hes <- external_cause(hes, lkup)
+    data <- external_cause(data, lkup)
   }
 
 
   if(method == "Broad"){
     cat("\tbroad method\n")
-    hes <- broad_method(hes, lkup)
+    data <- broad_method(data, lkup)
   }
 
+  
+  
+  
+  ##########################################################
+  
+  # Sum counts
+  
+  
   if(summary == TRUE){
 
 
@@ -106,7 +124,7 @@ assign_risk <- function(
     # one row per episode
     cat("\tfinal episode table\n")
 
-      hes <- hes[ , .(
+      data <- data[ , .(
         n_episodes = .N,
         SAF = round(mean(max_af), 2),
         attrib_episodes = .N * max_af
@@ -123,13 +141,13 @@ assign_risk <- function(
     cat("\tfinal admission table\n")# Sort the columns so that the earlier episodes are first.
 
 
-    setorderv(hes,
+    setorderv(data,
               cols = c("encrypted_hesid", "spell_id", "epiorder"),
               order = c(1, 1, 1)
     )
 
     # To allocate an admission to a condition - assign admission to primary risk-related episode
-    admissions <- unique(hes, by = c("spell_id"))
+    admissions <- unique(data, by = c("spell_id"))
 
     admissions <- admissions[ , .(
       n_admissions = .N,
@@ -153,44 +171,44 @@ assign_risk <- function(
     admissions <- admissions[ , attrib_admissions := n_admissions * SAF]
 
     # Merge the admissions and population data
-    k.year <- as.numeric(paste0("20", stringr::str_sub(k.year.ind, start = 1, end = 2)))
+    k_year <- as.numeric(paste0("20", stringr::str_sub(year, start = 1, end = 2)))
 
-    admissions <- merge(admissions, pop_data(k.year, age_start = youngest_age, age_categories = age_cat, age_categories_start = age_cat_start), all = T, by = c("sex", "imd_quintile", "age_cat"))
+    admissions <- merge(admissions, pop_data(k_year, age_start = youngest_age, age_categories = age_cat, age_categories_start = age_cat_start), all = T, by = c("sex", "imd_quintile", "age_cat"))
 
     # calculate the rate of admissions
     admissions[ , Rate := n_admissions / pop.size, by = c("sex", "imd_quintile", "age_cat")]
 
     admissions[ , sex := c("Male", "Female")[sex]]
 
-    write.csv(admissions, paste0(dir, "Admission/", substance, "_admission_rates_", k.year.ind,".csv"), row.names = FALSE)
+    write.csv(admissions, paste0(dir, "Admission/", substance, "_admission_rates_", year,".csv"), row.names = FALSE)
 
     #}
 
     #if(level == "Person-specific"){
 
       # Allocate an admission to a condition - assign admission to primary risk-related episode
-      hes <- unique(hes, by = c("encrypted_hesid", "spell_id"))
+    data <- unique(data, by = c("encrypted_hesid", "spell_id"))
 
       # Remove duplicate admissions for each individual within the year
       # to leave a dataset consisting of a single alcohol-related diagnosis for each individual in the data.
       # Call this dataset person-specific single morbidity admissions.
       # Select only one row per individual taking the first occurring row.
-      hes_indiv <- unique(hes, by = "encrypted_hesid")
+    data_indiv <- unique(data, by = "encrypted_hesid")
 
       cat("\tselect only spells associated with main condition for each individual\n")
 
       # Create an index variable by pasting individual id and the ICD-10 code assigned to a spell.
-      hes_indiv[, index1 := paste0(encrypted_hesid, "_", Cause)]
-      hes[, index2 := paste0(encrypted_hesid, "_", Cause)]
+      data_indiv[, index1 := paste0(encrypted_hesid, "_", Cause)]
+      data[, index2 := paste0(encrypted_hesid, "_", Cause)]
 
       # Create a dataset that only has spells for an individual that are associated
       # with the ICD-10 code assigned to that individual for the year.
-      hes <- hes[index2 %in% unique(hes_indiv$index1)]
+      data <- data[index2 %in% unique(hes_indiv$index1)]
 
       # Get multiplier (age cat)
-      hes_agecat <- hes[ , .(Multiplier = .N), by = c("Cause", "encrypted_hesid", "age_cat", "sex", "imd_quintile")]
+      data_agecat <- data[ , .(Multiplier = .N), by = c("Cause", "encrypted_hesid", "age_cat", "sex", "imd_quintile")]
 
-      hes_agecat <- hes_agecat[ , .(
+      data_agecat <- data_agecat[ , .(
         n_individuals = .N,
         av_multiplier = mean(Multiplier)
         ), by = c("age_cat", "sex", "imd_quintile", "Cause")]
@@ -204,24 +222,24 @@ assign_risk <- function(
 
       setDT(domain)
 
-      hes_agecat <- merge(domain, hes_agecat,
+      data_agecat <- merge(domain, data_agecat,
                        by = c("age_cat", "sex", "imd_quintile", "Cause"), all = T)
 
-      hes_agecat[is.na(n_individuals), n_individuals := 0]
-      hes_agecat[is.na(av_multiplier), av_multiplier := 0]
+      data_agecat[is.na(n_individuals), n_individuals := 0]
+      data_agecat[is.na(av_multiplier), av_multiplier := 0]
 
       # Merge the admissions and population data
-      k.year <- as.numeric(paste0("20", stringr::str_sub(k.year.ind, start = 1, end = 2)))
+      k_year <- as.numeric(paste0("20", stringr::str_sub(year, start = 1, end = 2)))
 
-      hes_agecat <- merge(hes_agecat, pop_data(k.year, age_start = youngest_age, age_categories = age_cat, age_categories_start = age_cat_start), all = T, by = c("sex", "imd_quintile", "age_cat"))
+      data_agecat <- merge(data_agecat, pop_data(k_year, age_start = youngest_age, age_categories = age_cat, age_categories_start = age_cat_start), all = T, by = c("sex", "imd_quintile", "age_cat"))
 
       # calculate the rate of admissions
-      hes_agecat[ , Rate := n_individuals / pop.size]
+      data_agecat[ , Rate := n_individuals / pop.size]
 
-      hes_agecat[ , sex := c("Male", "Female")[sex]]
+      data_agecat[ , sex := c("Male", "Female")[sex]]
 
 
-      write.csv(hes_agecat, paste0(dir, "Person-specific/", substance, "_", method, "_person_specific_rates_age_cat_above_", youngest_age, "", k.year.ind,".csv"), row.names = FALSE)
+      write.csv(data_agecat, paste0(dir, "Person-specific/", substance, "_", method, "_person_specific_rates_age_cat_above_", youngest_age, "", year,".csv"), row.names = FALSE)
 
       # Get multiplier (age)
       #hes_age <- hes[ , .(Multiplier = .N), by = c("Cause", "encrypted_hesid", "startage", "sex", "imd_quintile")]
@@ -240,5 +258,5 @@ assign_risk <- function(
 
   }
 
-  return(hes)
+  return(data)
 }
