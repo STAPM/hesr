@@ -58,9 +58,9 @@ icdFlag <- function(
   data <- merge(data, lkups_long, by = "icd_code", all.x = T, all.y = F, sort = F)
   
   # store the icd10 codes that matched
-  cn_store <- paste0(col_name, nchar, "icd")
+  cn_store <- paste0(col_name, nchars, "icd")
   
-  data[icd_flag == 1, (cn_store) := icd_code]
+  data[icd_flag == 1, (cn_store) := get(col_name)]
   
   data[ , icd_flag := NULL]
   
