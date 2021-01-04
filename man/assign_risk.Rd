@@ -29,7 +29,7 @@ assign_risk(
 
 \item{pop_data}{Data.table - mid-year population sizes.}
 
-\item{youngest_age}{numeric. Youngest age required in HES data}
+\item{youngest_age}{Integer - Youngest age required in HES data}
 
 \item{age_cat}{Character vector of age categories. Default is c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89").}
 

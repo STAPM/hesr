@@ -1,18 +1,40 @@
 
-#' Title
+#' Scan for ICD-10 codes \lifecycle{maturing}
+#' 
+#' Scans specified diagnosis code columns for 
+#' ICD-10 codes in our tobacco and/or alcohol disease lists.
+#' 
+#' Uses the \code{tobalcepi::ExpandCodes()} function to convert the ICD-10 lookup tables 
+#' within the tobalcepi package into long form. 
+#' The scans the first 3 or 4 characters of the column name (specified by nchars) 
+#' for the target ICD-10 code. If a match is found, then it is stored in a new variable.  
 #'
-#' @param data 
-#' @param lkups 
-#' @param col_name 
-#' @param nchars 
+#' @param data Data.table - the HES data.
+#' @param lkups Data.table - the ICD-10 codes associated with tobacco and/or alcohol. 
+#' These are stored as data within the tobalcepi package.
+#' @param col_name Character string - The name of the diagnosis column that 
+#' should be scanned to identify target ICD-10 codes.
+#' @param nchars Integer - the number of characters of the ICD-10 code 
+#' to scan for a match. This should either be 3 or 4 characters.  
 #'
-#' @return
+#' @return Returns the HES data.table with a column added 
+#' containing the ICD-10 code found during the scan.
+#' 
+#' @importFrom data.table setnames :=
+#' 
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' 
+#' hes <- icdFlag(
+#'   data = hes,
+#'   lkups = tobalcepi::tob_icd10_lookups,
+#'   col_name = "icd_code",
+#'   nchars = 3
+#' ) 
 #' 
-#' 
+#' }
 #' 
 icdFlag <- function(
   data,

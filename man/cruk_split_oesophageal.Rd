@@ -2,20 +2,26 @@
 % Please edit documentation in R/cruk_split_oesophageal.R
 \name{cruk_split_oesophageal}
 \alias{cruk_split_oesophageal}
-\title{CRUK Oesophageal split \lifecycle{maturing}}
+\title{CRUK Oesophageal split \lifecycle{stable}}
 \usage{
-cruk_split_oesophageal(hes)
+cruk_split_oesophageal(hes, splits = hesr::cruk_splits, var_name = "icd_code")
 }
 \arguments{
-\item{hes}{is the cleaned HES data.}
+\item{hes}{Data.table - the cleaned HES data.}
+
+\item{splits}{Data.table - the distribution of C15 cases by SCC and AC}
+
+\item{var_name}{Character string - the name of the variable containing the C15 ICD-10 code to be split}
 }
 \value{
-Returns an updated version of the HES data, with the diagnoses codes for oesophageal cancer (C15) split proportionally between Oesophageal SCC and Oesophageal AC.
+Returns an updated version of the HES data.table, with the diagnoses codes for 
+oesophageal cancer (C15) split proportionally between Oesophageal SCC and Oesophageal AC.
 }
 \description{
-This code splits the diagnosis codes for Oesophageal cancer (C15) in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
-in the data-raw folder `prep_cruk_splits`. Make sure there are no NAs in the startage field before running this. I.e. clean HES data first. This function is used
-within the function `narrow_method()`.
+This code splits the diagnosis codes for Oesophageal cancer (C15) 
+in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
+in the data-raw folder `prep_cruk_splits`. 
+Make sure there are no NAs in the startage field before running this. I.e. clean HES data first.
 }
 \examples{
 

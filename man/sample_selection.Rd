@@ -13,7 +13,7 @@ sample_selection(hes, start_age, age_categories, age_cat_start_age)
 
 \item{age_categories}{Character vector - the age category labels.}
 
-\item{age_cat_start_age}{Integer vector - the ages that open each age catagory.}
+\item{age_cat_start_age}{Integer vector - the ages that open each age category.}
 }
 \value{
 Returns a data.table of reduced HES data.
@@ -24,7 +24,6 @@ e.g. reduced ages, and assigns admission types.
 }
 \details{
 This code reduces the size of the HES data to only include applicable rows. 
-This function is used within the function `assign_risk()`. 
 See the \href{https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_costing.html#sample-selection}{cleaning and costing vignette} for details.
 }
 \examples{
