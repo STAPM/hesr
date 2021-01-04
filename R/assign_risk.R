@@ -11,7 +11,7 @@
 #' @param data Data.table - cleaned HES data.
 #' @param year Character string - indicating the year of HES data - in the form "1718".
 #' @param pop_data Data.table - mid-year population sizes. 
-#' @param youngest_age numeric. Youngest age required in HES data
+#' @param youngest_age Integer - Youngest age required in HES data
 #' @param age_cat Character vector of age categories. Default is c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89").
 #' @param age_cat_start Numerical vector of start ages for age categories. Default is c(16, 18, 25, 35, 50, 65, 75).
 #' @param include_youth Logical - whether to include under 16s for youth drinking analysis. Defaults to FALSE. If TRUE, will include 11-15 as an age category,
@@ -32,7 +32,7 @@
 #' @return Returns a summary table of number of episodes/admissions/people, SAF, and attributable episodes/admissions/people,
 #' by age category, sex, imd_quintile, and condition. If summary = FALSE, will return the whole data unsummarised (for use in costing at episode level)
 #'
-#' @importFrom data.table :=
+#' @importFrom data.table := .N setorderv setDT
 #'
 #' @export
 #'
