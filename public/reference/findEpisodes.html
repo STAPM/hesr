@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Format and clean Trimpoints — trimpoints • hesr</title>
+<title>Assign a diagnosis to each episode  — findEpisodes • hesr</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,12 @@
 
 
 
-<meta property="og:title" content="Format and clean Trimpoints — trimpoints" />
-<meta property="og:description" content="We use the Trimpoints provided by NHS Digital
-Trimpoints are used to define a threshold: bed days occurring within the trimpoint (truncated bed days), and bed days occurring above the trimpoint (excess bed days)
-are reported, costed and priced separately." />
+<meta property="og:title" content="Assign a diagnosis to each episode  — findEpisodes" />
+<meta property="og:description" content="Look at the first diagnostic position of all episodes within a continuous inpatient spell
+ and retain episodes that have a 
+relevant diagnosis in the primary diagnostic position. 
+Also look for whether a relevant external cause 
+has been recorded within the list of diagnoses related to that episode." />
 <meta property="og:image" content="https://stapm.gitlab.io/hesr/logo.png" />
 
 
@@ -134,33 +136,58 @@ are reported, costed and priced separately." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Format and clean Trimpoints</h1>
+    <h1>Assign a diagnosis to each episode <a href='https://www.tidyverse.org/lifecycle/#maturing'><img src='figures/lifecycle-maturing.svg' alt='Maturing lifecycle'></a></h1>
     
-    <div class="hidden name"><code>trimpoints.Rd</code></div>
+    <div class="hidden name"><code>findEpisodes.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>We use the Trimpoints provided by NHS Digital
-Trimpoints are used to define a threshold: bed days occurring within the trimpoint (truncated bed days), and bed days occurring above the trimpoint (excess bed days)
-are reported, costed and priced separately.</p>
+    <p>Look at the first diagnostic position of all episodes within a continuous inpatient spell
+ and retain episodes that have a 
+relevant diagnosis in the primary diagnostic position. 
+Also look for whether a relevant external cause 
+has been recorded within the list of diagnoses related to that episode.</p>
     </div>
 
-    <pre class="usage"><span class='va'>trimpoints</span></pre>
+    <pre class="usage"><span class='fu'>findEpisodes</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>lkups</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>Data.table - the HES data.</p></td>
+    </tr>
+    <tr>
+      <th>lkups</th>
+      <td><p>Data.table - the ICD-10 codes associated with tobacco and/or alcohol. 
+These are stored as data within the tobalcepi package.</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data table (sushrg, Episode.Trimpoint).</p>
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    
-
-
+    <p>Returns the HES data.table with a column added 
+containing the ICD-10 code found during the scan.</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Trimpoints are calculated from episodes in the HES APC extract for a previoud financial year (the trimpoints used for 2017/18 are those derived from length of stay
-in 2016/17 activity)</p>
+    <p>Diagnosis codes are identified by the function <code><a href='icdFlag.html'>icdFlag()</a></code> and 
+are then synthesised to produce a single diagnosis for each episode 
+(external causes where two potential diagnoses are identified). The HES 
+data is then filtered to retain only episodes for which a tobacco or alcohol related 
+diagnosis has been identified.</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+
+<span class='va'>hes</span> <span class='op'>&lt;-</span> <span class='fu'>findEpisodes</span><span class='op'>(</span>
+  data <span class='op'>=</span> <span class='va'>hes</span>,
+  lkups <span class='op'>=</span> <span class='fu'>tobalcepi</span><span class='fu'>::</span><span class='va'><a href='https://stapm.gitlab.io/r-packages/tobalcepi//reference/tob_icd10_lookups.html'>tob_icd10_lookups</a></span>
+<span class='op'>)</span> 
+
+<span class='op'>}</span>
+
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
