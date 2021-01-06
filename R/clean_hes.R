@@ -66,21 +66,30 @@ clean_hes <- function(
   # Thaison replaced missing dob: "11800" with NA but we don't include this variable.
   # hes[mydob == "11800", mydob := NA]
   
-
+  
   # Convert to date type
   hes[ , disdate := as.Date(disdate, "%Y-%m-%d")]
   hes[ , admidate := as.Date(admidate, "%Y-%m-%d")]
   hes[ , epiend := as.Date(epiend, "%Y-%m-%d")]
   hes[ , epistart := as.Date(epistart, "%Y-%m-%d")]
   
-  dummydates <- as.Date(c("1800-01-01", "1801-01-01", "1600-01-01", "1582-01-01", "1582-10-15"), "%Y-%m-%d")
+  ref_date <- as.Date("1900-01-01", "%Y-%m-%d")
   
-  hes[disdate %in% dummydates, disdate := NA]
-  hes[admidate %in% dummydates, admidate := NA]
-  hes[epiend %in% dummydates, epiend := NA]
-  hes[epistart %in% dummydates, epistart := NA]
+  hes[disdate < ref_date, disdate := NA]
+  hes[admidate < ref_date, admidate := NA]
+  hes[epiend < ref_date, epiend := NA]
+  hes[epistart < ref_date, epistart := NA]
   
-  rm(dummydates)
+  rm(ref_date)
+  
+  #dummydates <- as.Date(c("1800-01-01", "1801-01-01", "1600-01-01", "1582-01-01", "1582-10-15"), "%Y-%m-%d")
+  
+  #hes[disdate %in% dummydates, disdate := NA]
+  #hes[admidate %in% dummydates, admidate := NA]
+  #hes[epiend %in% dummydates, epiend := NA]
+  #hes[epistart %in% dummydates, epistart := NA]
+  
+  #rm(dummydates)
   
   
   
@@ -219,6 +228,11 @@ clean_hes <- function(
   
   # Valid sex
   hes <- hes[sex == 1 | sex == 2]
+  
+  # 1 = Female, 2 = Male
+  hes[ , sex := as.character(sex)]
+  hes[sex == "1", sex := "Female"]
+  hes[sex == "2", sex := "Male"]
   
   # Only England regions---
   if (k.year.ind %in% c(
