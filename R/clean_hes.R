@@ -66,8 +66,14 @@ clean_hes <- function(
   # Thaison replaced missing dob: "11800" with NA but we don't include this variable.
   # hes[mydob == "11800", mydob := NA]
   
+
+  # Convert to date type
+  hes[ , disdate := as.Date(disdate, "%Y-%m-%d")]
+  hes[ , admidate := as.Date(admidate, "%Y-%m-%d")]
+  hes[ , epiend := as.Date(epiend, "%Y-%m-%d")]
+  hes[ , epistart := as.Date(epistart, "%Y-%m-%d")]
   
-  dummydates <- c("1800-01-01", "1801-01-01", "1600-01-01", "1582-01-01", "1582-10-15")
+  dummydates <- as.Date(c("1800-01-01", "1801-01-01", "1600-01-01", "1582-01-01", "1582-10-15"), "%Y-%m-%d")
   
   hes[disdate %in% dummydates, disdate := NA]
   hes[admidate %in% dummydates, admidate := NA]
@@ -76,11 +82,7 @@ clean_hes <- function(
   
   rm(dummydates)
   
-  # Convert to date type
-  hes[ , disdate := as.Date(disdate, "%Y-%m-%d")]
-  hes[ , admidate := as.Date(admidate, "%Y-%m-%d")]
-  hes[ , epiend := as.Date(epiend, "%Y-%m-%d")]
-  hes[ , epistart := as.Date(epistart, "%Y-%m-%d")]
+  
   
   hes[ , episodeduration := epiend - epistart]
   

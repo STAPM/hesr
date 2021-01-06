@@ -48,7 +48,7 @@ icdFlag <- function(
   
   setnames(lkups_long, "icd10_lookups", "icd_code")
   
-  lkups_long[ , condition := NULL]
+  #lkups_long[ , condition := NULL]
   lkups_long[ , icd_flag := 1]
   
   # Get the reference ICD-10 codes from the HES data
@@ -60,7 +60,7 @@ icdFlag <- function(
   # store the icd10 codes that matched
   cn_store <- paste0(col_name, nchars, "icd")
   
-  data[icd_flag == 1, (cn_store) := get(col_name)]
+  data[icd_flag == 1, (cn_store) := condition]
   
   data[ , icd_flag := NULL]
   
