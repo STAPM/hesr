@@ -63,6 +63,7 @@ icdFlag <- function(
   data[icd_flag == 1, (cn_store) := condition]
   
   data[ , icd_flag := NULL]
+  data[ , condition := NULL]
   
   
   return(data)
