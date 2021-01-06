@@ -60,7 +60,7 @@ local_authority <- function(
   )) {
 
     # Merge hes data with local authority lookups
-    hes <- merge(data, LA_lookups_0203, by = "resladst", all.x = T, all.y = F, sort = F)
+    data <- merge(data, LA_lookups_0203, by = "resladst", all.x = T, all.y = F, sort = F)
 
   }
 
