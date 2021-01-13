@@ -347,8 +347,10 @@ read_hes <- function(
     if (test == FALSE){
       cat("\t\tfull data\n")
       
-      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
-                    na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
+      # including NA strings throws an error
+      
+      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))#,
+                    #na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
       data <- data[ , keepvars, with = F]
     }
     
@@ -376,8 +378,8 @@ read_hes <- function(
       
       cat("\t\tfull data\n")
       
-      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
-                    na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
+      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))#,
+                    #na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
       data <- data[ , keepvars_new, with = F]
       
       setnames(data, names(data), tolower(names(data)))
@@ -405,8 +407,8 @@ read_hes <- function(
     if (test == FALSE) {
       base::cat("\t\tfull data\n")
       
-      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"),
-                    na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
+      data <- fread(paste0("D:/HES/APC_",  k.year.ind, ".txt"))#,
+                    #na.strings = c("NA", "N/A", "", "-", "null", "UZ01Z"))
       data <- data[ , keepvars_17, with = F]
       
       setnames(data, names(data), tolower(names(data)))
