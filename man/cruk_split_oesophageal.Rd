@@ -4,7 +4,12 @@
 \alias{cruk_split_oesophageal}
 \title{CRUK Oesophageal split \lifecycle{stable}}
 \usage{
-cruk_split_oesophageal(hes, splits = hesr::cruk_splits, var_name = "icd_code")
+cruk_split_oesophageal(
+  hes,
+  splits = hesr::cruk_splits,
+  var_name = "epi_diag_selected",
+  prefix = "Oesophageal"
+)
 }
 \arguments{
 \item{hes}{Data.table - the cleaned HES data.}
@@ -12,6 +17,8 @@ cruk_split_oesophageal(hes, splits = hesr::cruk_splits, var_name = "icd_code")
 \item{splits}{Data.table - the distribution of C15 cases by SCC and AC}
 
 \item{var_name}{Character string - the name of the variable containing the C15 ICD-10 code to be split}
+
+\item{prefix}{Character string - "C15" or "Oesophageal"}
 }
 \value{
 Returns an updated version of the HES data.table, with the diagnoses codes for 

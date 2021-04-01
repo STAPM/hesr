@@ -9,6 +9,7 @@
 #' @param hes Data.table - the cleaned HES data.
 #' @param splits Data.table - the distribution of C15 cases by SCC and AC
 #' @param var_name Character string - the name of the variable containing the C15 ICD-10 code to be split 
+#' @param prefix Character string - "C15" or "Oesophageal"
 #'
 #' @importFrom data.table := rbindlist
 #'
@@ -28,7 +29,8 @@
 cruk_split_oesophageal <- function(
   hes,
   splits = hesr::cruk_splits,
-  var_name = "icd_code"
+  var_name = "epi_diag_selected",
+  prefix = "Oesophageal"
 ) {
   
   # Check startage variable for NAs
@@ -60,7 +62,7 @@ cruk_split_oesophageal <- function(
   
   # Separate out oesophagus morb
   
-  oesophagus_morb <- hes[get(var_name) == "C15"]
+  oesophagus_morb <- hes[get(var_name) == prefix]
   
   # Merge with cruk splits
   oesophagus_morb <- merge(oesophagus_morb, splits, by = c("cruk_ageband", "sex"), all.x = T, all.y = F)
@@ -70,7 +72,7 @@ cruk_split_oesophageal <- function(
     sapply(proportion_scc, 
            
            function(x) {
-             sample(c("C15_SCC", "C15_AC"), size = 1, prob = c(x, 1-x))
+             sample(paste0(prefix, c("_SCC", "_AC")), size = 1, prob = c(x, 1-x))
            }
            
     ))]
@@ -78,7 +80,7 @@ cruk_split_oesophageal <- function(
   oesophagus_morb[ , proportion_scc := NULL]
   
   # strip C15 out of hes data
-  hes <- hes[get(var_name) != "C15"]
+  hes <- hes[get(var_name) != prefix]
   
   # Join on the split oesophagus morb to include C15s and C15a
   hes <- rbindlist(list(hes, oesophagus_morb), use.names = T)
