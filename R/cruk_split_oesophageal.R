@@ -34,7 +34,7 @@ cruk_split_oesophageal <- function(
 ) {
   
   # Check startage variable for NAs
-  testthat::expect_identical(
+  testthat::expect_equal(
     nrow(hes[is.na(startage)]), 0,
     info = "There are NAs in the startage variable"
   )
