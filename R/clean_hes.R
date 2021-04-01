@@ -229,10 +229,10 @@ clean_hes <- function(
   # Valid sex
   hes <- hes[sex == 1 | sex == 2]
   
-  # 1 = Female, 2 = Male
+  # 1 = Male, 2 = Female
   hes[ , sex := as.character(sex)]
-  hes[sex == "1", sex := "Female"]
-  hes[sex == "2", sex := "Male"]
+  hes[sex == "1", sex := "Male"]
+  hes[sex == "2", sex := "Female"]
   
   # Only England regions---
   if (k.year.ind %in% c(
