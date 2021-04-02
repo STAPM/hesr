@@ -33,6 +33,12 @@ cruk_split_oesophageal <- function(
   prefix = "Oesophageal"
 ) {
   
+  # Convert numeric index of sex in CRUK splits data to "Male" / "Female"
+  splits[ , sex := as.character(sex)]
+  splits[sex == "1", sex := "Male"]
+  splits[sex == "2", sex := "Female"]
+  
+  
   # Check startage variable for NAs
   testthat::expect_equal(
     nrow(hes[is.na(startage)]), 0,
@@ -65,7 +71,8 @@ cruk_split_oesophageal <- function(
   oesophagus_morb <- hes[get(var_name) == prefix]
   
   # Merge with cruk splits
-  oesophagus_morb <- merge(oesophagus_morb, splits, by = c("cruk_ageband", "sex"), all.x = T, all.y = F)
+  oesophagus_morb <- merge(oesophagus_morb, splits, 
+                           by = c("cruk_ageband", "sex"), all.x = T, all.y = F)
   
   # Make the splits
   oesophagus_morb[ , (var_name) := as.character(
