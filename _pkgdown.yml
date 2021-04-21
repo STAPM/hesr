@@ -78,10 +78,6 @@ reference:
       - calc_cost_admission
       - hes_cost
       - missing_costs
-      - single_year_reference_costs
-      - trimpoints
-      - unit_reference_costs
-      - opcs_costs
       
 articles:
   - title: "'How to' guides"

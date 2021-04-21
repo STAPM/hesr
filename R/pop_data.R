@@ -1,5 +1,5 @@
 
-#' Add the population counts by age band, sex, IMD quintile \lifecycle{maturing}
+#' Add the population counts by age band, sex, IMD quintile \lifecycle{stable}
 #'
 #' This code reads in the population data for all years, recieved from the ONS.
 #'

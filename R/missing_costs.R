@@ -137,7 +137,7 @@ missing_costs <- function(
   # Check missing subgroups
   #unit_cost_admission[Cause == "Alcoholic_cardiomyopathy", ]
 
-  #◘
+
 
   return(unit_cost_admission)
 }
