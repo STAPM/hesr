@@ -1,5 +1,6 @@
 ^data-raw$
 ^archive$
+^tests_working$
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^_pkgdown\.yml$

@@ -1,5 +1,5 @@
 
-#' Define spells \lifecycle{maturing}
+#' Define spells
 #'
 #' This code defines unique admissions.
 #'

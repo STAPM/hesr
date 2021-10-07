@@ -2,7 +2,7 @@
 % Please edit documentation in R/narrow_method.R
 \name{narrow_method}
 \alias{narrow_method}
-\title{Narrow method for allocating risk \lifecycle{maturing}}
+\title{Narrow method for allocating risk}
 \usage{
 narrow_method(hes, lkup)
 }

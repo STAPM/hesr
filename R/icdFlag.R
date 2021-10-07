@@ -1,5 +1,5 @@
 
-#' Scan for ICD-10 codes \lifecycle{stable}
+#' Scan for ICD-10 codes
 #' 
 #' Scans specified diagnosis code columns for 
 #' ICD-10 codes in our tobacco and/or alcohol disease lists.

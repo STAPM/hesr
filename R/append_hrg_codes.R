@@ -1,11 +1,11 @@
 
-#' Append HRG codes \lifecycle{maturing}
+#' Append HRG codes
 #'
 #' Append HRG codes to HES data for years 2002/03 to 2013/14
 #'
 #' For years 0203 to 1314, we need to read-in the HRG codes for costing. These codes were provided separately by NHS Digital using the same
 #' encrypted HES ID as the original data. We need to append the HRG fields using the HES ID to match. Note: these fields were provided
-#' separately was just a querk of how we obtained the data, normally they come along with the HES data as they do for our data after 1314.
+#' separately was just a quirk of how we obtained the data, normally they come along with the HES data as they do for our data after 1314.
 #' This is the last step in the cleaning process of the HES data, therefore the function saves the cleaned HES data to the virtual machine
 #' to be used, instead of having to rerun the cleaning process.
 #'

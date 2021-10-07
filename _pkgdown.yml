@@ -1,4 +1,4 @@
-url: https://stapm.gitlab.io/hesr
+url: https://stapm.gitlab.io/r-packages/hesr/
 
 home:
   title: Process Hospital Episode Statistics data
@@ -77,13 +77,13 @@ reference:
     contents:
       - calc_cost_admission
       - hes_cost
-      - missing_costs
       
 articles:
   - title: "'How to' guides"
     desc: >
       Detailed guides to using the hesr functions for different purposes. 
     contents:
+      - hesr
       - cleaning_and_costing
       
 

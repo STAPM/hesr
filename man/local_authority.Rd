@@ -2,7 +2,7 @@
 % Please edit documentation in R/local_authority.R
 \name{local_authority}
 \alias{local_authority}
-\title{Local authority lookup \lifecycle{maturing}}
+\title{Local authority lookup}
 \usage{
 local_authority(
   data,

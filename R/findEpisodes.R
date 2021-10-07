@@ -1,5 +1,5 @@
 
-#' Assign a diagnosis to each episode \lifecycle{maturing}
+#' Assign a diagnosis to each episode
 #' 
 #' Look at the first diagnostic position of all episodes within a continuous inpatient spell
 #'  and retain episodes that have a 

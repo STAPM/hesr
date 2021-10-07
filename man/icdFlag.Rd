@@ -2,7 +2,7 @@
 % Please edit documentation in R/icdFlag.R
 \name{icdFlag}
 \alias{icdFlag}
-\title{Scan for ICD-10 codes \lifecycle{stable}}
+\title{Scan for ICD-10 codes}
 \usage{
 icdFlag(data, lkups, col_name, nchars)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/pop_data.R
 \name{pop_data}
 \alias{pop_data}
-\title{Add the population counts by age band, sex, IMD quintile \lifecycle{stable}}
+\title{Add the population counts by age band, sex, IMD quintile}
 \usage{
 pop_data(
   k.year,
@@ -27,7 +27,7 @@ pop_data(
 returns the population counts by subgroup
 }
 \description{
-This code reads in the population data for all years, recieved from the ONS.
+This code reads in the population data for all years, received from the ONS.
 }
 \details{
 Collapses the population data by the grouping variables specified, usually sex, age group, and IMD quintile. But for the person-specific admissions, we want to

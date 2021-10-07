@@ -2,7 +2,7 @@
 % Please edit documentation in R/findEpisodes.R
 \name{findEpisodes}
 \alias{findEpisodes}
-\title{Assign a diagnosis to each episode \lifecycle{maturing}}
+\title{Assign a diagnosis to each episode}
 \usage{
 findEpisodes(data, lkups)
 }

@@ -1,5 +1,5 @@
 
-#' Local authority lookup \lifecycle{maturing}
+#' Local authority lookup
 #'
 #' Add the upper tier local authority identifiers, grouping inner and outer London.
 #'

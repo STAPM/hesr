@@ -1,7 +1,7 @@
 
-#' Add the population counts by age band, sex, IMD quintile \lifecycle{stable}
+#' Add the population counts by age band, sex, IMD quintile
 #'
-#' This code reads in the population data for all years, recieved from the ONS.
+#' This code reads in the population data for all years, received from the ONS.
 #'
 #' Collapses the population data by the grouping variables specified, usually sex, age group, and IMD quintile. But for the person-specific admissions, we want to
 #' collapse by single age instead.

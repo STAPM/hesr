@@ -2,7 +2,7 @@
 % Please edit documentation in R/format_afs.R
 \name{format_afs}
 \alias{format_afs}
-\title{Clean and format attributable fractions (AFs) \lifecycle{maturing}}
+\title{Clean and format attributable fractions (AFs)}
 \usage{
 format_afs(lkup, substance = c("Alcohol", "Tobacco", "Both"))
 }

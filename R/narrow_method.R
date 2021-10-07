@@ -1,4 +1,4 @@
-#' Narrow method for allocating risk \lifecycle{maturing}
+#' Narrow method for allocating risk
 #'
 #'
 #' This code assigns the appropriate age-sex-condition-specific AF to each risk-related diagnosis in the *primary* diagnostic position

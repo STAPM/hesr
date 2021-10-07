@@ -1,4 +1,4 @@
-#' Broad method for allocating risk \lifecycle{maturing}
+#' Broad method for allocating risk
 #'
 #'
 #' The broad method selects the diagnosis code of an episode to be the diagnostic code with the highest PAF.

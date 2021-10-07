@@ -1,5 +1,5 @@
 
-#' Read the HES data files \lifecycle{stable}
+#' Read the HES data files
 #'
 #' Reads in Hospital Episode Statistics for England data files for each year from 2002/2003. 
 #' Only the variables needed for analysis are retained and variable names are harmonised.

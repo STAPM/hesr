@@ -1,4 +1,4 @@
-#' Calculate unit costs of risk-related admissions by sex, age, IMD and condition. \lifecycle{maturing}
+#' Calculate unit costs of risk-related admissions by sex, age, IMD and condition
 #'
 #' Calculating the cost of admissions in the latest year (2016) to assign to all years. We do this is an effort to be conservative, and cost only the episodes within
 #' an admission that have been allocated to the primary condition. We retain only the rows in the HES data which have the same ICD10 code as the earliest risk-related

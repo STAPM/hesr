@@ -1,5 +1,5 @@
 
-#' CRUK Oesophageal split \lifecycle{stable}
+#' CRUK Oesophageal split
 #'
 #' This code splits the diagnosis codes for Oesophageal cancer (C15) 
 #' in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
