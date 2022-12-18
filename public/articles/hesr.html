@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hesr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
       </span>
     </div>
 
@@ -62,13 +64,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://gitlab.com/stapm/r-packages/hesr">
+  <a href="https://gitlab.com/stapm/r-packages/hesr" class="external-link">
     <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://stapm.gitlab.io/software.html">
+  <a href="https://stapm.gitlab.io/software.html" class="external-link">
     <span class="fa fa-code"></span>
      
   </a>
@@ -83,7 +85,7 @@
 
       
 
-      </header><script src="hesr_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Get started</h1>
@@ -96,85 +98,118 @@
 
     
     
-<p>The code behind our <a href="https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf">methodology report</a> is in <a href="https://gitlab.com/stapm/model-inputs/hosp_eng_methods_report">this repo</a>.</p>
-<p>To illustrate the use of the <code>hesr</code> functions for different tasks, example workflows have been created. You can use these examples to help understand how the code works, run them to generate model inputs, or use them as a starting point for the development of a new project.</p>
-<p>At the moment, these workflows are accessible only to the project team. To access them, you will need to be added to the STAPM Gitlab organisation.</p>
+<p>The code behind our <a href="https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf" class="external-link">methodology
+report</a> is in <a href="https://gitlab.com/stapm/model-inputs/hosp_eng_methods_report" class="external-link">this
+repo</a>.</p>
+<p>To illustrate the use of the <code>hesr</code> functions for
+different tasks, example workflows have been created. You can use these
+examples to help understand how the code works, run them to generate
+model inputs, or use them as a starting point for the development of a
+new project.</p>
+<p>At the moment, these workflows are accessible only to the project
+team. To access them, you will need to be added to the STAPM Gitlab
+organisation.</p>
 <p>The workflows are listed below:</p>
 <ul>
 <li>
-<a href="https://gitlab.com/stapm/model-inputs/hosp_eng_data_cleaning">Initial preparation of English inpatient care data (run first)</a>. This applies the basic cleaning operations to the data to produce annual datasets ready for further calculations.<br>
+<a href="https://gitlab.com/stapm/model-inputs/hosp_eng_data_cleaning" class="external-link">Initial
+preparation of English inpatient care data (run first)</a>. This applies
+the basic cleaning operations to the data to produce annual datasets
+ready for further calculations.<br>
 </li>
 <li>
-<a href="https://gitlab.com/stapm/model-inputs/hosp_tob_eng_nat">English national-level tobacco-related rates and costs of inpatient care</a><br>
+<a href="https://gitlab.com/stapm/model-inputs/hosp_tob_eng_nat" class="external-link">English
+national-level tobacco-related rates and costs of inpatient
+care</a><br>
 </li>
 <li>
-<a href="https://gitlab.com/stapm/model-inputs/hosp_alc_eng_nat">English national-level alcohol-related rates and costs of inpatient care</a><br>
+<a href="https://gitlab.com/stapm/model-inputs/hosp_alc_eng_nat" class="external-link">English
+national-level alcohol-related rates and costs of inpatient
+care</a><br>
 </li>
-<li><a href="https://gitlab.com/stapm/model-inputs/hosp_tobalc_eng_nat">English national-level tobacco- and alcohol-related rates and costs of inpatient care</a></li>
+<li><a href="https://gitlab.com/stapm/model-inputs/hosp_tobalc_eng_nat" class="external-link">English
+national-level tobacco- and alcohol-related rates and costs of inpatient
+care</a></li>
 </ul>
-<div id="basic-functionality" class="section level2">
-<h2 class="hasAnchor">
-<a href="#basic-functionality" class="anchor"></a>Basic functionality</h2>
-<div id="load-and-clean-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#load-and-clean-data" class="anchor"></a>Load and clean data</h3>
+<div class="section level2">
+<h2 id="basic-functionality">Basic functionality<a class="anchor" aria-label="anchor" href="#basic-functionality"></a>
+</h2>
+<div class="section level3">
+<h3 id="load-and-clean-data">Load and clean data<a class="anchor" aria-label="anchor" href="#load-and-clean-data"></a>
+</h3>
 <p>The following code will read and clean the data for 2002/03.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span>
-
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/local_authority.html">local_authority</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"0203"</span><span class="op">)</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_hrg_codes.html">append_hrg_codes</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"0203"</span><span class="op">)</span>
-  
-<span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/local_authority.html">local_authority</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"0203"</span><span class="op">)</span></span>
+<span>  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/append_hrg_codes.html">append_hrg_codes</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"0203"</span><span class="op">)</span></span>
+<span>  </span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/function.html" class="external-link">return</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 </div>
-<div id="summarise-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#summarise-data" class="anchor"></a>Summarise data</h3>
-<p>This is example code of summarising the cleaned HES data for the year 2016/17 into alcohol-related episodes using the narrow method. This will produce a summary table of number of episodes related to each condition by sex, age group and IMD quintile.</p>
+<div class="section level3">
+<h3 id="summarise-data">Summarise data<a class="anchor" aria-label="anchor" href="#summarise-data"></a>
+</h3>
+<p>This is example code of summarising the cleaned HES data for the year
+2016/17 into alcohol-related episodes using the narrow method. This will
+produce a summary table of number of episodes related to each condition
+by sex, age group and IMD quintile.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span>hes <span class="op">=</span> <span class="va">hes_data</span>, k.year.ind <span class="op">=</span> <span class="st">"1617"</span>, 
-  youngest_age <span class="op">=</span> <span class="fl">16</span>,
-  age_cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span><span class="op">)</span>,
-  age_cat_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">75</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="st">"Narrow"</span>, 
-  substance <span class="op">=</span> <span class="st">"Alcohol"</span>,
-  aaf_lkup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span><span class="op">)</span>,
-  level <span class="op">=</span> <span class="st">"Episode"</span>, 
-  summary <span class="op">=</span> <span class="cn">TRUE</span>,  
-  dir <span class="op">=</span> <span class="st">"D:/HES/working_data_files"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span>hes <span class="op">=</span> <span class="va">hes_data</span>, k.year.ind <span class="op">=</span> <span class="st">"1617"</span>, </span>
+<span>  youngest_age <span class="op">=</span> <span class="fl">16</span>,</span>
+<span>  age_cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span><span class="op">)</span>,</span>
+<span>  age_cat_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">75</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"Narrow"</span>, </span>
+<span>  substance <span class="op">=</span> <span class="st">"Alcohol"</span>,</span>
+<span>  aaf_lkup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="st">"Episode"</span>, </span>
+<span>  summary <span class="op">=</span> <span class="cn">TRUE</span>,  </span>
+<span>  dir <span class="op">=</span> <span class="st">"D:/HES/working_data_files"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="calculate-costs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#calculate-costs" class="anchor"></a>Calculate costs</h3>
-<p>Calculating the cost of admissions in the latest year to assign to all years. Only need to run the function <code><a href="../reference/calc_cost_admission.html">hesr::calc_cost_admission()</a></code>, which will read in raw HES data, clean the HES data using both functions above, match to the reference costs, trimpoints, and OPCS costs to first calculate unit episode costs. It uses the function <code>hesr::missing costs()</code> to fill in missing costs and create average unit costs of admissions by condition, sex, IMD quintile, and age category.</p>
+<div class="section level3">
+<h3 id="calculate-costs">Calculate costs<a class="anchor" aria-label="anchor" href="#calculate-costs"></a>
+</h3>
+<p>Calculating the cost of admissions in the latest year to assign to
+all years. Only need to run the function
+<code><a href="../reference/calc_cost_admission.html">hesr::calc_cost_admission()</a></code>, which will read in raw HES
+data, clean the HES data using both functions above, match to the
+reference costs, trimpoints, and OPCS costs to first calculate unit
+episode costs. It uses the function <code>hesr::missing costs()</code>
+to fill in missing costs and create average unit costs of admissions by
+condition, sex, IMD quintile, and age category.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">costed_hes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_cost_admission.html">calc_cost_admission</a></span><span class="op">(</span>k.year.ind <span class="op">=</span> <span class="st">"1617"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">costed_hes</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/calc_cost_admission.html">calc_cost_admission</a></span><span class="op">(</span>k.year.ind <span class="op">=</span> <span class="st">"1617"</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="assign-costs-to-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assign-costs-to-data" class="anchor"></a>Assign costs to data</h3>
-<p>This is example code of assigning the unit admission costs to the summarised HES data. The first line summarises the data as above, but reduces the data further down into admission level. This will produce a summary table of the number of admissions related to alcohol in 2016/17 by condition, sex, age group, and IMD quintile. The second line merges this summary table with the table of unit admissions costs, which are also stratified by age group, sex, and IMD quintile.</p>
+<div class="section level3">
+<h3 id="assign-costs-to-data">Assign costs to data<a class="anchor" aria-label="anchor" href="#assign-costs-to-data"></a>
+</h3>
+<p>This is example code of assigning the unit admission costs to the
+summarised HES data. The first line summarises the data as above, but
+reduces the data further down into admission level. This will produce a
+summary table of the number of admissions related to alcohol in 2016/17
+by condition, sex, age group, and IMD quintile. The second line merges
+this summary table with the table of unit admissions costs, which are
+also stratified by age group, sex, and IMD quintile.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span>
-  <span class="va">hes_data</span>,
-  <span class="st">"1617"</span>,
-  method <span class="op">=</span> <span class="st">"Narrow"</span>,
-  substance <span class="op">=</span> <span class="st">"Alcohol"</span>,
-  level <span class="op">=</span> <span class="st">"Admission"</span>,
-  summary <span class="op">=</span> <span class="cn">TRUE</span>
-<span class="op">)</span>
-
-<span class="va">costed_hes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://Rdatatable.gitlab.io/data.table/reference/merge.html">merge</a></span><span class="op">(</span>
-  <span class="va">hes_data</span>,
-  <span class="fu">hesr</span><span class="fu">::</span><span class="va">unit_cost_admission</span>,
-  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"age_cat"</span>, <span class="st">"sex"</span>, <span class="st">"imd_quintile"</span>, <span class="st">"Cause"</span><span class="op">)</span>,
-  all.x <span class="op">=</span> <span class="cn">T</span>,
-  all.y <span class="op">=</span> <span class="cn">F</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hes_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span></span>
+<span>  <span class="va">hes_data</span>,</span>
+<span>  <span class="st">"1617"</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"Narrow"</span>,</span>
+<span>  substance <span class="op">=</span> <span class="st">"Alcohol"</span>,</span>
+<span>  level <span class="op">=</span> <span class="st">"Admission"</span>,</span>
+<span>  summary <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">costed_hes</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/merge.html" class="external-link">merge</a></span><span class="op">(</span></span>
+<span>  <span class="va">hes_data</span>,</span>
+<span>  <span class="fu">hesr</span><span class="fu">::</span><span class="va">unit_cost_admission</span>,</span>
+<span>  by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"age_cat"</span>, <span class="st">"sex"</span>, <span class="st">"imd_quintile"</span>, <span class="st">"Cause"</span><span class="op">)</span>,</span>
+<span>  all.x <span class="op">=</span> <span class="cn">T</span>,</span>
+<span>  all.y <span class="op">=</span> <span class="cn">F</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
   </div>
@@ -190,11 +225,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a">Alan Brennan</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d" class="external-link">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c" class="external-link">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a" class="external-link">Alan Brennan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -202,6 +239,8 @@
 
   
 
+
+  
 
   </body>
 </html>

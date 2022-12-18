@@ -32,6 +32,8 @@
 </script>
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -44,7 +46,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">hesr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">1.1.2</span>
       </span>
     </div>
 
@@ -62,13 +64,13 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://gitlab.com/stapm/r-packages/hesr">
+  <a href="https://gitlab.com/stapm/r-packages/hesr" class="external-link">
     <span class="fab fa-gitlab fa-lg"></span>
      
   </a>
 </li>
 <li>
-  <a href="https://stapm.gitlab.io/software.html">
+  <a href="https://stapm.gitlab.io/software.html" class="external-link">
     <span class="fa fa-code"></span>
      
   </a>
@@ -83,15 +85,18 @@
 
       
 
-      </header><script src="cleaning_and_costing_files/header-attrs-2.11/header-attrs.js"></script><script src="cleaning_and_costing_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="cleaning_and_costing_files/viz-1.8.2/viz.js"></script><link href="cleaning_and_costing_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
-<script src="cleaning_and_costing_files/grViz-binding-1.0.6.1/grViz.js"></script><div class="row">
+      </header><script src="cleaning_and_costing_files/htmlwidgets-1.5.4/htmlwidgets.js"></script><script src="cleaning_and_costing_files/viz-1.8.2/viz.js"></script><link href="cleaning_and_costing_files/DiagrammeR-styles-0.2/styles.css" rel="stylesheet">
+<script src="cleaning_and_costing_files/grViz-binding-1.0.9/grViz.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Cleaning and costing the Admitted Patient Care portion of the English Hospital Episode Statistics</h1>
-            <h3 class="subtitle">Vignette version number 1.1.0</h3>
-                        <h4 class="author">Laura Webster and Duncan Gillespie</h4>
+      <h1 data-toc-skip>Cleaning and costing the Admitted Patient Care
+portion of the English Hospital Episode Statistics</h1>
+            <h3 data-toc-skip class="subtitle">Vignette version number
+1.1.0</h3>
+                        <h4 data-toc-skip class="author">Laura Webster
+and Duncan Gillespie</h4>
             
-            <h4 class="date">Last reviewed 07/10/21</h4>
+            <h4 data-toc-skip class="date">Last reviewed 07/10/21</h4>
       
       
       <div class="hidden name"><code>cleaning_and_costing.Rmd</code></div>
@@ -100,112 +105,216 @@
 
     
     
-<div id="overview" class="section level2">
-<h2 class="hasAnchor">
-<a href="#overview" class="anchor"></a>Overview</h2>
-<p>Data from the Admitted Patient Care portion of the English Hospital Episode Statistics was obtained through a data request to NHS Digital (see the <a href="https://stapm.gitlab.io/HES_privacy_notice.html">Privacy Notice</a>). These data are used to estimate the effects of tobacco and/or alcohol consumption on cause-specific morbidity rates, hospital admissions and associated costs. There are a range of approaches that could be taken to derive parameters for modelling from these data - the alternatives are discussed in this <a href="https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf">discussion paper</a>. The functions within the <code>hesr</code> R package have been designed in particular to:</p>
+<div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p>Data from the Admitted Patient Care portion of the English Hospital
+Episode Statistics was obtained through a data request to NHS Digital
+(see the <a href="https://stapm.gitlab.io/HES_privacy_notice.html" class="external-link">Privacy
+Notice</a>). These data are used to estimate the effects of tobacco
+and/or alcohol consumption on cause-specific morbidity rates, hospital
+admissions and associated costs. There are a range of approaches that
+could be taken to derive parameters for modelling from these data - the
+alternatives are discussed in this <a href="https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf" class="external-link">discussion
+paper</a>. The functions within the <code>hesr</code> R package have
+been designed in particular to:</p>
 <ul>
-<li>Replicate the previous approaches to processing the HES data that were used to obtain data inputs to the Sheffield Alcohol Policy Model;</li>
-<li>Implement the new approach taken in the joint tobacco and alcohol policy modelling in STAPM.</li>
+<li>Replicate the previous approaches to processing the HES data that
+were used to obtain data inputs to the Sheffield Alcohol Policy
+Model;</li>
+<li>Implement the new approach taken in the joint tobacco and alcohol
+policy modelling in STAPM.</li>
 </ul>
-<p>The idea is that the functions within <code>hesr</code> will be kept under review and might be edited / extended in order to be able to implement a wider range of approaches to analysing the data.</p>
-<p>The purpose of this vignette is to explain how we use HES data to calculate alcohol and tobacco related hospital admissions and their respective costs.</p>
+<p>The idea is that the functions within <code>hesr</code> will be kept
+under review and might be edited / extended in order to be able to
+implement a wider range of approaches to analysing the data.</p>
+<p>The purpose of this vignette is to explain how we use HES data to
+calculate alcohol and tobacco related hospital admissions and their
+respective costs.</p>
 </div>
-<div id="introduction-to-data-processing-operations-with-hesr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#introduction-to-data-processing-operations-with-hesr" class="anchor"></a>Introduction to data processing operations with hesr</h2>
-<p>HES data is processed for each year from 2002/3. In doing so, filters are applied to select the sample of individuals requires for each project / analysis. A procedure is then applied to identify episodes and spells of inpatient care that are alcohol- and/or tobacco-related. The unit costs for admissions for a particular year (currently 2016/17) are applied to all years of data, with appropriate discounting applied depending on the year to which the cost estimates should correspond.</p>
+<div class="section level2">
+<h2 id="introduction-to-data-processing-operations-with-hesr">Introduction to data processing operations with hesr<a class="anchor" aria-label="anchor" href="#introduction-to-data-processing-operations-with-hesr"></a>
+</h2>
+<p>HES data is processed for each year from 2002/3. In doing so, filters
+are applied to select the sample of individuals requires for each
+project / analysis. A procedure is then applied to identify episodes and
+spells of inpatient care that are alcohol- and/or tobacco-related. The
+unit costs for admissions for a particular year (currently 2016/17) are
+applied to all years of data, with appropriate discounting applied
+depending on the year to which the cost estimates should correspond.</p>
 <div class="figure" style="text-align: center">
-<div id="htmlwidget-963bd99eadae51f6d70d" style="width:672px;height:432.632880098888px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-963bd99eadae51f6d70d">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"HES Data\", shape = folder, fillcolor = Beige]\ndata2 [label = \"Epidemiology\", shape = folder, fillcolor = Beige]\ndata3 [label = \"Reference costs\", shape = folder, fillcolor = Beige]\ncleaning [label =  \"Cleaning\"]\nsample [label = \"Select \n sample\"]\nassign [label= \"Assign admissions \n to a disease\"]\ncosts [label= \"Calculate \n unit costs\"]\n\n# edge definitions with the node IDs\ndata1  -> cleaning -> sample -> assign -> costs\ndata2 -> assign\ndata3 -> costs\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<div id="htmlwidget-191bd6e73ebbee03d93c" style="width:672px;height:432.632880098888px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-191bd6e73ebbee03d93c">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = LR]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"HES Data\", shape = folder, fillcolor = Beige]\ndata2 [label = \"Epidemiology\", shape = folder, fillcolor = Beige]\ndata3 [label = \"Reference costs\", shape = folder, fillcolor = Beige]\ncleaning [label =  \"Cleaning\"]\nsample [label = \"Select \n sample\"]\nassign [label= \"Assign admissions \n to a disease\"]\ncosts [label= \"Calculate \n unit costs\"]\n\n# edge definitions with the node IDs\ndata1  -> cleaning -> sample -> assign -> costs\ndata2 -> assign\ndata3 -> costs\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Flowchart of the data processing operations.
 </p>
 </div>
 </div>
-<div id="load-the-hes-data-files-to-prepare-for-processing" class="section level2">
-<h2 class="hasAnchor">
-<a href="#load-the-hes-data-files-to-prepare-for-processing" class="anchor"></a>Load the HES data files to prepare for processing</h2>
-<p>The raw HES data is stored on the <code>heta-study</code> virtual machine in <code>D:/HES/</code>.</p>
-<p>The HES data is supplied by year (with the year running from 1st April to 31 March). The variable names change between 13/14 and 14/15, and again between 16/17 and 17/18. Therefore, the HES data is read-in one year at a time, selecting only the variables needed and formatting the variables to be consistent across years. Each year of HES data is read in by the function <code><a href="../reference/read_hes.html">hesr::read_hes()</a></code>.</p>
+<div class="section level2">
+<h2 id="load-the-hes-data-files-to-prepare-for-processing">Load the HES data files to prepare for processing<a class="anchor" aria-label="anchor" href="#load-the-hes-data-files-to-prepare-for-processing"></a>
+</h2>
+<p>The raw HES data is stored on the <code>heta-study</code> virtual
+machine in <code>D:/HES/</code>.</p>
+<p>The HES data is supplied by year (with the year running from 1st
+April to 31 March). The variable names change between 13/14 and 14/15,
+and again between 16/17 and 17/18. Therefore, the HES data is read-in
+one year at a time, selecting only the variables needed and formatting
+the variables to be consistent across years. Each year of HES data is
+read in by the function <code><a href="../reference/read_hes.html">hesr::read_hes()</a></code>.</p>
 </div>
-<div id="cleaning-the-hes-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#cleaning-the-hes-data" class="anchor"></a>Cleaning the HES data</h2>
-<p>The function <code><a href="../reference/clean_hes.html">hesr::clean_hes()</a></code> applies basic cleaning operations to the data to remove any duplicates, dummy dates, missing data, and data not required (e.g. admissions that have not ended in this year). The cleaned HES data is saved and stored on the virtual machine in <code>D:/HES/working_data_files/cleaned_data/</code>. See example cleaning code in <a href="https://gitlab.com/stapm/model-inputs/hosp_eng_data_cleaning">this repo</a>.</p>
-<p>Only episodes that were finished, and were “ordinary” (non-elective admissions or an elective admission expected to remain in hospital overnight), day case (elective admissions not requiring an overnight stay) are included. Admissions are removed with an age at the beginning of admission outside the range of 0 to 120, or where the sex was not recorded as male or female. Admissions are only considered with an English postcode of residence so that our national estimates remained consistent with our estimates by level of deprivation, since the deprivation data were assigned using a patient’s residential address. The percentage of episodes which remained following cleaning over the study period was 89.72%.</p>
-<div id="duplicates" class="section level3">
-<h3 class="hasAnchor">
-<a href="#duplicates" class="anchor"></a>Duplicates</h3>
-<p>Duplicates can lead to issues of double counting and make construction of spells and continuous inpatient spells (CIPS) problematic. Duplicate episodes are identified as those that match on the following variables:<br><em>extract_hesid, </em>epiorder, <em>epistart, </em>epiend, *transit.</p>
+<div class="section level2">
+<h2 id="cleaning-the-hes-data">Cleaning the HES data<a class="anchor" aria-label="anchor" href="#cleaning-the-hes-data"></a>
+</h2>
+<p>The function <code><a href="../reference/clean_hes.html">hesr::clean_hes()</a></code> applies basic cleaning
+operations to the data to remove any duplicates, dummy dates, missing
+data, and data not required (e.g. admissions that have not ended in this
+year). The cleaned HES data is saved and stored on the virtual machine
+in <code>D:/HES/working_data_files/cleaned_data/</code>. See example
+cleaning code in <a href="https://gitlab.com/stapm/model-inputs/hosp_eng_data_cleaning" class="external-link">this
+repo</a>.</p>
+<p>Only episodes that were finished, and were “ordinary” (non-elective
+admissions or an elective admission expected to remain in hospital
+overnight), day case (elective admissions not requiring an overnight
+stay) are included. Admissions are removed with an age at the beginning
+of admission outside the range of 0 to 120, or where the sex was not
+recorded as male or female. Admissions are only considered with an
+English postcode of residence so that our national estimates remained
+consistent with our estimates by level of deprivation, since the
+deprivation data were assigned using a patient’s residential address.
+The percentage of episodes which remained following cleaning over the
+study period was 89.72%.</p>
+<div class="section level3">
+<h3 id="duplicates">Duplicates<a class="anchor" aria-label="anchor" href="#duplicates"></a>
+</h3>
+<p>Duplicates can lead to issues of double counting and make
+construction of spells and continuous inpatient spells (CIPS)
+problematic. Duplicate episodes are identified as those that match on
+the following variables:<br><em>extract_hesid, </em>epiorder, <em>epistart, </em>epiend,
+*transit.</p>
 </div>
-<div id="dates" class="section level3">
-<h3 class="hasAnchor">
-<a href="#dates" class="anchor"></a>Dates</h3>
-<p>HES data contains dates in ddmmyyyy numeric format. All date variables are converted to a date format, this is done for variables: disdate, admidate, epiend, and epistart. An episode duration variable is created by subtracting the episode end date from the start date. The episode duration is required to calculate episode trimpoints for costing.</p>
+<div class="section level3">
+<h3 id="dates">Dates<a class="anchor" aria-label="anchor" href="#dates"></a>
+</h3>
+<p>HES data contains dates in ddmmyyyy numeric format. All date
+variables are converted to a date format, this is done for variables:
+disdate, admidate, epiend, and epistart. An episode duration variable is
+created by subtracting the episode end date from the start date. The
+episode duration is required to calculate episode trimpoints for
+costing.</p>
 </div>
-<div id="individual-demographics" class="section level3">
-<h3 class="hasAnchor">
-<a href="#individual-demographics" class="anchor"></a>Individual demographics</h3>
-<p>Some individuals moved mid-year. To fix this, every admission for an individual in a year is set to have the Local Authority and IMD quintile that the individual had at their first admission of the year.</p>
+<div class="section level3">
+<h3 id="individual-demographics">Individual demographics<a class="anchor" aria-label="anchor" href="#individual-demographics"></a>
+</h3>
+<p>Some individuals moved mid-year. To fix this, every admission for an
+individual in a year is set to have the Local Authority and IMD quintile
+that the individual had at their first admission of the year.</p>
 </div>
-<div id="na-indicators" class="section level3">
-<h3 class="hasAnchor">
-<a href="#na-indicators" class="anchor"></a>NA indicators</h3>
-<p>HES includes user defined missing values. Value 99 is used by HES to indicate cases where the response is not known, and value 98 is used where the question is not applicable. These indicators are recoded as missing with NA. We do this for fields epiorder and admimeth.</p>
-<p>For fields containing dates, such as disdate, dummydates are used to define missing values. Up to 2011/12, 01011600 indicated a null date had been submitted, and 15101582 indicated an invalid date was submitted. From 2012/13 onwards, 01011800 indicated a null date had been submitted, and 01011801 indicated an invalid date had been submitted. The fields disdate, admidate, epiend, and epistart are recoded with NA for these dummy dates.</p>
+<div class="section level3">
+<h3 id="na-indicators">NA indicators<a class="anchor" aria-label="anchor" href="#na-indicators"></a>
+</h3>
+<p>HES includes user defined missing values. Value 99 is used by HES to
+indicate cases where the response is not known, and value 98 is used
+where the question is not applicable. These indicators are recoded as
+missing with NA. We do this for fields epiorder and admimeth.</p>
+<p>For fields containing dates, such as disdate, dummydates are used to
+define missing values. Up to 2011/12, 01011600 indicated a null date had
+been submitted, and 15101582 indicated an invalid date was submitted.
+From 2012/13 onwards, 01011800 indicated a null date had been submitted,
+and 01011801 indicated an invalid date had been submitted. The fields
+disdate, admidate, epiend, and epistart are recoded with NA for these
+dummy dates.</p>
 </div>
-<div id="censoring" class="section level3">
-<h3 class="hasAnchor">
-<a href="#censoring" class="anchor"></a>Censoring</h3>
-<p>Any episodes that had not finished before the end of the HES data-year are excluded (i.e. if the episode was still ‘live’ at midnight on 31 March). For example, if a patient was admitted on 25 March 2005 and was not discharged (or transferred to the care of another consultant) until 4 April 2005, there will be a record describing the unfinished episode (episode status = 1) in the 2004-05 data, and a separate record describing the finished episode (episode status = 3) in the 2005-06 data. Because hospital providers are advised not to include clinical data (diagnosis and operation codes) in unfinished records, these are normally excluded from analyses. Additionally, if unfinished episodes are included in time series analyses - where data for more than one year is involved - there is a danger of counting the same episode twice.</p>
+<div class="section level3">
+<h3 id="censoring">Censoring<a class="anchor" aria-label="anchor" href="#censoring"></a>
+</h3>
+<p>Any episodes that had not finished before the end of the HES
+data-year are excluded (i.e. if the episode was still ‘live’ at midnight
+on 31 March). For example, if a patient was admitted on 25 March 2005
+and was not discharged (or transferred to the care of another
+consultant) until 4 April 2005, there will be a record describing the
+unfinished episode (episode status = 1) in the 2004-05 data, and a
+separate record describing the finished episode (episode status = 3) in
+the 2005-06 data. Because hospital providers are advised not to include
+clinical data (diagnosis and operation codes) in unfinished records,
+these are normally excluded from analyses. Additionally, if unfinished
+episodes are included in time series analyses - where data for more than
+one year is involved - there is a danger of counting the same episode
+twice.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R">  <span class="va">hes</span> <span class="op">&lt;-</span> <span class="va">hes</span><span class="op">[</span><span class="va">epistat</span> <span class="op">==</span> <span class="fl">3</span><span class="op">]</span></code></pre></div>
+<code class="sourceCode R"><span>  <span class="va">hes</span> <span class="op">&lt;-</span> <span class="va">hes</span><span class="op">[</span><span class="va">epistat</span> <span class="op">==</span> <span class="fl">3</span><span class="op">]</span></span></code></pre></div>
 </div>
-<div id="assigning-spells" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assigning-spells" class="anchor"></a>Assigning spells</h3>
+<div class="section level3">
+<h3 id="assigning-spells">Assigning spells<a class="anchor" aria-label="anchor" href="#assigning-spells"></a>
+</h3>
 <p>Structure of data in HES:</p>
 <ol style="list-style-type: decimal">
-<li>consultant episodes (bottom level - the unit of a hes record i.e. one row)<br>
+<li>consultant episodes (bottom level - the unit of a hes record
+i.e. one row)<br>
 </li>
-<li>a hospital admission with one hospital provider / a provider spell</li>
-<li>a continuous inpatient stay / a superspell. Including transfers between providers (gap &lt;= 2 days).<br>
+<li>a hospital admission with one hospital provider / a provider
+spell</li>
+<li>a continuous inpatient stay / a superspell. Including transfers
+between providers (gap &lt;= 2 days).<br>
 </li>
 <li>a hes year e.g. between 1st April 2009 and 31 March 2010<br>
 </li>
 <li>a patient i.e. a unique hes id</li>
 </ol>
-<p>HES inpatient data is supplied at FCE level, however this is not usually the most useful level for analysis. Therefore, we need to convert to spells and/or CIPs.</p>
-<p>Using the function <code><a href="../reference/define_spells.html">hesr::define_spells()</a></code> groups finished consultant episodes into continuous inpatient super-spells using the method developed by the Centre for Health Economics in York. This groups episodes of care into admissions even if that admission contains episodes of care under different healthcare providers.</p>
-<p>The method applies two rules: 1. Identify provider spells: Group episodes with the same pseudonymised id, provider code and admission date. 2. Identity continuous inpatient spells (super-spells): Group provider spells if discharge method is unknown or indicates patient is still in hospital and the episode at the new provider began on the same day as the episode at the previous provider ended.</p>
+<p>HES inpatient data is supplied at FCE level, however this is not
+usually the most useful level for analysis. Therefore, we need to
+convert to spells and/or CIPs.</p>
+<p>Using the function <code><a href="../reference/define_spells.html">hesr::define_spells()</a></code> groups finished
+consultant episodes into continuous inpatient super-spells using the
+method developed by the Centre for Health Economics in York. This groups
+episodes of care into admissions even if that admission contains
+episodes of care under different healthcare providers.</p>
+<p>The method applies two rules: 1. Identify provider spells: Group
+episodes with the same pseudonymised id, provider code and admission
+date. 2. Identity continuous inpatient spells (super-spells): Group
+provider spells if discharge method is unknown or indicates patient is
+still in hospital and the episode at the new provider began on the same
+day as the episode at the previous provider ended.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">hse_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">hse_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/define_spells.html">define_spells</a></span><span class="op">(</span><span class="fu"><a href="../reference/clean_hes.html">clean_hes</a></span><span class="op">(</span><span class="fu"><a href="../reference/read_hes.html">read_hes</a></span><span class="op">(</span><span class="st">"0203"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <div class="figure" style="text-align: center">
-<div id="htmlwidget-dc26525fb1ccbd1c71f4" style="width:700px;height:864px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-dc26525fb1ccbd1c71f4">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = TB]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"One year of \n HES Data\", shape = folder, fillcolor = Beige]\ndup [label =  \"Remove duplicate \n records\", shape = diamond]\nfill [label = \"Fill missing \n dates\"]\nepisodes [label= \"Remove unfinished \n consultant episodes\", shape = diamond]\nvalid [label= \"Remove records without \n valid data\", shape = diamond]\narea [label= \"Remove records without \n area of residence data\", shape = diamond]\nassign [label= \"Assign patients with multiple admissions \n the age and area of residence \n recorded in their first admission\"]\ndefinecips [label= \"Define continuous \n inpatient spells\"]\n\n# edge definitions with the node IDs\ndata1  -> dup -> fill -> episodes -> valid -> area -> assign -> definecips\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
+<div id="htmlwidget-daf5a18bf9cb35766f5b" style="width:700px;height:864px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-daf5a18bf9cb35766f5b">{"x":{"diagram":"digraph {\n\ngraph [layout = dot, rankdir = TB]\n\n# define the global styles of the nodes. We can override these in box if we wish\nnode [shape = rectangle, style = filled, fillcolor = Linen]\n\ndata1 [label = \"One year of \n HES Data\", shape = folder, fillcolor = Beige]\ndup [label =  \"Remove duplicate \n records\", shape = diamond]\nfill [label = \"Fill missing \n dates\"]\nepisodes [label= \"Remove unfinished \n consultant episodes\", shape = diamond]\nvalid [label= \"Remove records without \n valid data\", shape = diamond]\narea [label= \"Remove records without \n area of residence data\", shape = diamond]\nassign [label= \"Assign patients with multiple admissions \n the age and area of residence \n recorded in their first admission\"]\ndefinecips [label= \"Define continuous \n inpatient spells\"]\n\n# edge definitions with the node IDs\ndata1  -> dup -> fill -> episodes -> valid -> area -> assign -> definecips\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script><p class="caption">
 Flowchart of data cleaning and assignment of spells.
 </p>
 </div>
 </div>
-<div id="local-authority" class="section level3">
-<h3 class="hasAnchor">
-<a href="#local-authority" class="anchor"></a>Local authority</h3>
-<p>The function <code><a href="../reference/local_authority.html">hesr::local_authority()</a></code> adds in the up-to-date local authority identifiers to fix the issue that in the data we were provided from 2002/03 to 2013/14 lower tier local authority is coded using an old version of the ONS system (that was updated in 2011). From 2014/15 the codes in the <code>RESLADST</code> field represent the old-style ONS coding system, which is no longer supported by ONS. Old-style codes are not available for new geographies, potentially resulting in a large number now being derived as ‘Y’. Users are advised not to use the ‘RESLADST’ field, but to use the ‘RESLADST’ _ONS field instead. <code>RESLADST_ONS</code> also represents the Local authority district of residence but uses the current ONS coding system.</p>
+<div class="section level3">
+<h3 id="local-authority">Local authority<a class="anchor" aria-label="anchor" href="#local-authority"></a>
+</h3>
+<p>The function <code><a href="../reference/local_authority.html">hesr::local_authority()</a></code> adds in the
+up-to-date local authority identifiers to fix the issue that in the data
+we were provided from 2002/03 to 2013/14 lower tier local authority is
+coded using an old version of the ONS system (that was updated in 2011).
+From 2014/15 the codes in the <code>RESLADST</code> field represent the
+old-style ONS coding system, which is no longer supported by ONS.
+Old-style codes are not available for new geographies, potentially
+resulting in a large number now being derived as ‘Y’. Users are advised
+not to use the ‘RESLADST’ field, but to use the ‘RESLADST’ _ONS field
+instead. <code>RESLADST_ONS</code> also represents the Local authority
+district of residence but uses the current ONS coding system.</p>
 <p><br></p>
 </div>
 </div>
-<div id="sample-selection" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sample-selection" class="anchor"></a>Sample selection</h2>
-<p>The function <code><a href="../reference/sample_selection.html">hesr::sample_selection()</a></code> reduces the size of the HES data to only include relevant rows. This includes:</p>
+<div class="section level2">
+<h2 id="sample-selection">Sample selection<a class="anchor" aria-label="anchor" href="#sample-selection"></a>
+</h2>
+<p>The function <code><a href="../reference/sample_selection.html">hesr::sample_selection()</a></code> reduces the size
+of the HES data to only include relevant rows. This includes:</p>
 <ol style="list-style-type: decimal">
-<li>defining episodes by their admission type and removing irrelevant rows</li>
+<li>defining episodes by their admission type and removing irrelevant
+rows</li>
 <li>filtering the ages</li>
 <li>creating age categories</li>
 </ol>
-<p>This function is used within the function <code><a href="../reference/assign_risk.html">hesr::assign_risk()</a></code>.</p>
+<p>This function is used within the function
+<code><a href="../reference/assign_risk.html">hesr::assign_risk()</a></code>.</p>
 <!-- Table \@ref(tab:samplesel) shows the selection criteria that we applied to retain episodes that were part of seven different types of admission.   -->
-<p>The Patient Classification field shows the type of admission. Admissions are split in to five categories:</p>
+<p>The Patient Classification field shows the type of admission.
+Admissions are split in to five categories:</p>
 <ul>
 <li>ordinary admissions,</li>
 <li>day cases,</li>
@@ -213,12 +322,22 @@ Flowchart of data cleaning and assignment of spells.
 <li>regular night attenders, and</li>
 <li>mothers using delivery facilities only.</li>
 </ul>
-<p>We exclude episodes with the latter classification. Episodes with a patient classification of not applicable or not known are removed for our analysis, as this information is required to assign an episode cost.</p>
-<p>The Method of Admission field contains a code which identifies how the patient was admitted to hospital. We defined our episodes as elective and non-elective based on admission method and type of admission. We define elective admissions as those from a waiting list, booked in, or a planned emergency admission. We also include elective maternity admissions of ante- or post-partum women (filtered to only include females and those aged 10-55).</p>
+<p>We exclude episodes with the latter classification. Episodes with a
+patient classification of not applicable or not known are removed for
+our analysis, as this information is required to assign an episode
+cost.</p>
+<p>The Method of Admission field contains a code which identifies how
+the patient was admitted to hospital. We defined our episodes as
+elective and non-elective based on admission method and type of
+admission. We define elective admissions as those from a waiting list,
+booked in, or a planned emergency admission. We also include elective
+maternity admissions of ante- or post-partum women (filtered to only
+include females and those aged 10-55).</p>
 <p>We remove episodes with admission methods related to:</p>
 <ul>
 <li>the birth of a baby;</li>
-<li>admissions by admissions panel of a High Security Psychiatric Hospital;</li>
+<li>admissions by admissions panel of a High Security Psychiatric
+Hospital;</li>
 <li>High Security Psychiatric Hospital admissions waiting list;</li>
 <li>episodes defined as not applicable;</li>
 <li>episodes where the admission method is not known.</li>
@@ -226,82 +345,187 @@ Flowchart of data cleaning and assignment of spells.
 <p><br></p>
 <p><br></p>
 </div>
-<div id="summarise-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#summarise-data" class="anchor"></a>Summarise data</h2>
-<div id="formatting-attributable-fractions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#formatting-attributable-fractions" class="anchor"></a>Formatting attributable fractions</h3>
-<p>The function <code><a href="../reference/format_afs.html">hesr::format_afs</a></code> prepares the attributable fractions. It formats the data to be consistent across substances. For example, the function format_afs(substance = “Alcohol”) reads in the alcohol disease list, respective ICD-10 codes and attributable fractions by age category, sex, and IMD quintile. There is currently an option to format a list of both alcohol and tobacco conditions, however this works as a lookup table for ICD-10 codes and not attributable fractions. This has been used to estimate the unit costs for all conditions by using the narrow method (which doesn’t require ICD-10 codes). Therefore, the option for substance = “Both” will only work for method = “Narrow”.</p>
+<div class="section level2">
+<h2 id="summarise-data">Summarise data<a class="anchor" aria-label="anchor" href="#summarise-data"></a>
+</h2>
+<div class="section level3">
+<h3 id="formatting-attributable-fractions">Formatting attributable fractions<a class="anchor" aria-label="anchor" href="#formatting-attributable-fractions"></a>
+</h3>
+<p>The function <code><a href="../reference/format_afs.html">hesr::format_afs</a></code> prepares the attributable
+fractions. It formats the data to be consistent across substances. For
+example, the function format_afs(substance = “Alcohol”) reads in the
+alcohol disease list, respective ICD-10 codes and attributable fractions
+by age category, sex, and IMD quintile. There is currently an option to
+format a list of both alcohol and tobacco conditions, however this works
+as a lookup table for ICD-10 codes and not attributable fractions. This
+has been used to estimate the unit costs for all conditions by using the
+narrow method (which doesn’t require ICD-10 codes). Therefore, the
+option for substance = “Both” will only work for method = “Narrow”.</p>
 </div>
-<div id="assign-episodesadmissions-to-condition" class="section level3">
-<h3 class="hasAnchor">
-<a href="#assign-episodesadmissions-to-condition" class="anchor"></a>Assign episodes/admissions to condition</h3>
-<p>The function <code><a href="../reference/assign_risk.html">hesr::assign_risk()</a></code> is the main function used to convert the cleaned data in to summary tables of either episodes, admissions or person-specific admissions. The function has many options to choose from, as below.</p>
+<div class="section level3">
+<h3 id="assign-episodesadmissions-to-condition">Assign episodes/admissions to condition<a class="anchor" aria-label="anchor" href="#assign-episodesadmissions-to-condition"></a>
+</h3>
+<p>The function <code><a href="../reference/assign_risk.html">hesr::assign_risk()</a></code> is the main function
+used to convert the cleaned data in to summary tables of either
+episodes, admissions or person-specific admissions. The function has
+many options to choose from, as below.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span>
-  hes <span class="op">=</span> <span class="va">hes_data</span>, 
-  k.year.ind <span class="op">=</span> <span class="st">"1617"</span>, 
-  youngest_age <span class="op">=</span> <span class="fl">16</span>,
-  age_cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span><span class="op">)</span>,
-  age_cat_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">75</span><span class="op">)</span>,
-  method <span class="op">=</span> <span class="st">"Narrow"</span>, 
-  substance <span class="op">=</span> <span class="st">"Alcohol"</span>,
-  aaf_lkup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span><span class="op">)</span>,
-  level <span class="op">=</span> <span class="st">"Episode"</span>, 
-  summary <span class="op">=</span> <span class="cn">TRUE</span>,  
-  dir <span class="op">=</span> <span class="st">"D:/HES/working_data_files"</span><span class="op">)</span>
-  </code></pre></div>
-<p>It reads in the cleaned hes data for a particular year. It first filters the cleaned data to the relevant sample using the function <code><a href="../reference/sample_selection.html">hesr::sample_selection()</a></code>.</p>
-<p>It has an option to calculate alcohol- or tobacco-related hospitalisations. The function provides options for whether you want to assign risk using the narrow (using <code><a href="../reference/external_cause.html">hesr::external_cause()</a></code>), or broad method (using <code><a href="../reference/broad_method.html">hesr::broad_method()</a></code>), an option to collapse the data into episode level, admission level or individual level data. The default setting is for this function to produce a summary table, of the number of episodes/admissions by condition, sex, age, and IMD quintile. But there is an option to output the raw data as it is. This is useful for calculating the unit costs, as we need the episode level raw data.</p>
+<code class="sourceCode R"><span></span>
+<span><span class="fu"><a href="../reference/assign_risk.html">assign_risk</a></span><span class="op">(</span></span>
+<span>  hes <span class="op">=</span> <span class="va">hes_data</span>, </span>
+<span>  k.year.ind <span class="op">=</span> <span class="st">"1617"</span>, </span>
+<span>  youngest_age <span class="op">=</span> <span class="fl">16</span>,</span>
+<span>  age_cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"16-17"</span>, <span class="st">"18-24"</span>, <span class="st">"25-34"</span>, <span class="st">"35-49"</span>, <span class="st">"50-64"</span>, <span class="st">"65-74"</span>, <span class="st">"75-89"</span><span class="op">)</span>,</span>
+<span>  age_cat_start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">16</span>, <span class="fl">18</span>, <span class="fl">25</span>, <span class="fl">35</span>, <span class="fl">50</span>, <span class="fl">65</span>, <span class="fl">75</span><span class="op">)</span>,</span>
+<span>  method <span class="op">=</span> <span class="st">"Narrow"</span>, </span>
+<span>  substance <span class="op">=</span> <span class="st">"Alcohol"</span>,</span>
+<span>  aaf_lkup <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span><span class="st">"PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"</span><span class="op">)</span>,</span>
+<span>  level <span class="op">=</span> <span class="st">"Episode"</span>, </span>
+<span>  summary <span class="op">=</span> <span class="cn">TRUE</span>,  </span>
+<span>  dir <span class="op">=</span> <span class="st">"D:/HES/working_data_files"</span><span class="op">)</span></span>
+<span>  </span></code></pre></div>
+<p>It reads in the cleaned hes data for a particular year. It first
+filters the cleaned data to the relevant sample using the function
+<code><a href="../reference/sample_selection.html">hesr::sample_selection()</a></code>.</p>
+<p>It has an option to calculate alcohol- or tobacco-related
+hospitalisations. The function provides options for whether you want to
+assign risk using the narrow (using
+<code><a href="../reference/external_cause.html">hesr::external_cause()</a></code>), or broad method (using
+<code><a href="../reference/broad_method.html">hesr::broad_method()</a></code>), an option to collapse the data into
+episode level, admission level or individual level data. The default
+setting is for this function to produce a summary table, of the number
+of episodes/admissions by condition, sex, age, and IMD quintile. But
+there is an option to output the raw data as it is. This is useful for
+calculating the unit costs, as we need the episode level raw data.</p>
 </div>
-<div id="narrow-method" class="section level3">
-<h3 class="hasAnchor">
-<a href="#narrow-method" class="anchor"></a>Narrow method</h3>
-<p>The function <code><a href="../reference/narrow_method.html">hesr::narrow_method()</a></code> assigns the appropriate condition to each risk-related diagnosis in the <em>primary</em> diagnostic position (non-related diagnoses are left missing) across all episodes. The narrow method selects episodes that have a risk-related ICD-10 code in the primary diagnostic position. This is in an effort to select the condition that is the cause of the episode.</p>
+<div class="section level3">
+<h3 id="narrow-method">Narrow method<a class="anchor" aria-label="anchor" href="#narrow-method"></a>
+</h3>
+<p>The function <code><a href="../reference/narrow_method.html">hesr::narrow_method()</a></code> assigns the
+appropriate condition to each risk-related diagnosis in the
+<em>primary</em> diagnostic position (non-related diagnoses are left
+missing) across all episodes. The narrow method selects episodes that
+have a risk-related ICD-10 code in the primary diagnostic position. This
+is in an effort to select the condition that is the cause of the
+episode.</p>
 </div>
-<div id="external-cause" class="section level3">
-<h3 class="hasAnchor">
-<a href="#external-cause" class="anchor"></a>External cause</h3>
-<p>The function <code><a href="../reference/external_cause.html">hesr::external_cause()</a></code> has replaced the <code><a href="../reference/narrow_method.html">hesr::narrow_method()</a></code> function for assigning the appropriate condition to each risk-related diagnosis in the primary diagnostic position. This difference with this function is that it includes the external (acute causes) which do not fall in the primary diagnostic position. Primarily, the external cause is assigned the cause of the episode, and if that is missing, the primary diagnostic position is assigned.</p>
+<div class="section level3">
+<h3 id="external-cause">External cause<a class="anchor" aria-label="anchor" href="#external-cause"></a>
+</h3>
+<p>The function <code><a href="../reference/external_cause.html">hesr::external_cause()</a></code> has replaced the
+<code><a href="../reference/narrow_method.html">hesr::narrow_method()</a></code> function for assigning the
+appropriate condition to each risk-related diagnosis in the primary
+diagnostic position. This difference with this function is that it
+includes the external (acute causes) which do not fall in the primary
+diagnostic position. Primarily, the external cause is assigned the cause
+of the episode, and if that is missing, the primary diagnostic position
+is assigned.</p>
 </div>
-<div id="broad-method" class="section level3">
-<h3 class="hasAnchor">
-<a href="#broad-method" class="anchor"></a>Broad method</h3>
-<p>The function <code><a href="../reference/broad_method.html">hesr::broad_method()</a></code> selects the diagnosis code of an episode to be the diagnostic code with the highest AF. This is in an effort to select the condition that is most causally attributable to the risk factor as to be as inclusive as possible.</p>
+<div class="section level3">
+<h3 id="broad-method">Broad method<a class="anchor" aria-label="anchor" href="#broad-method"></a>
+</h3>
+<p>The function <code><a href="../reference/broad_method.html">hesr::broad_method()</a></code> selects the diagnosis
+code of an episode to be the diagnostic code with the highest AF. This
+is in an effort to select the condition that is most causally
+attributable to the risk factor as to be as inclusive as possible.</p>
 </div>
-<div id="admission-level" class="section level3">
-<h3 class="hasAnchor">
-<a href="#admission-level" class="anchor"></a>Admission level</h3>
-<p>To allocate an admission to a condition, we assign the admission to the primary risk-related episode. If summary = TRUE (default), summary tables will be written to the virtual machine in <code>D:/HES/working_data_files/Admissions/Admission</code> including the number of admissions and the rate of admissions in the year for each condition by age category, sex and IMD quintile.</p>
+<div class="section level3">
+<h3 id="admission-level">Admission level<a class="anchor" aria-label="anchor" href="#admission-level"></a>
+</h3>
+<p>To allocate an admission to a condition, we assign the admission to
+the primary risk-related episode. If summary = TRUE (default), summary
+tables will be written to the virtual machine in
+<code>D:/HES/working_data_files/Admissions/Admission</code> including
+the number of admissions and the rate of admissions in the year for each
+condition by age category, sex and IMD quintile.</p>
 </div>
-<div id="individual-level" class="section level3">
-<h3 class="hasAnchor">
-<a href="#individual-level" class="anchor"></a>Individual level</h3>
-<p>To allocate a condition to an individual, we assign the individual to the condition of their first risk-related admission. We include all admissions with that condition (the condition allocated to the first risk-related admission), and use the number of admissions as the multiplier. If summary = TRUE (default), summary tables will be written to the virtual machine in <code>D:/HES/working_data_files/Admissions/Person-specific</code> including the number of person-specific admissions, the rate of person-specific admissions in the year and the multiplier (average number of admissions for that condition per person in the year) for each condition by age category, sex and IMD quintile.</p>
+<div class="section level3">
+<h3 id="individual-level">Individual level<a class="anchor" aria-label="anchor" href="#individual-level"></a>
+</h3>
+<p>To allocate a condition to an individual, we assign the individual to
+the condition of their first risk-related admission. We include all
+admissions with that condition (the condition allocated to the first
+risk-related admission), and use the number of admissions as the
+multiplier. If summary = TRUE (default), summary tables will be written
+to the virtual machine in
+<code>D:/HES/working_data_files/Admissions/Person-specific</code>
+including the number of person-specific admissions, the rate of
+person-specific admissions in the year and the multiplier (average
+number of admissions for that condition per person in the year) for each
+condition by age category, sex and IMD quintile.</p>
 </div>
 </div>
-<div id="unit-costs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#unit-costs" class="anchor"></a>Unit costs</h2>
-<div id="unit-costs-of-risk-related-episodes" class="section level3">
-<h3 class="hasAnchor">
-<a href="#unit-costs-of-risk-related-episodes" class="anchor"></a>Unit costs of risk-related episodes</h3>
-<p>We use the <code><a href="../reference/hes_cost.html">hesr::hes_cost()</a></code> function to match episodes with reference costs to calculate the average cost per episode for one year of data. This reads in the NHS reference costs, OPCS costs and trimpoints, and matches to episodes based on HRG code and type of episode. The reference costs, OPCS costs and trimpoints are stored in the package in the folder <code>data</code>, accessed using <code>hesr::unit_reference_costs</code>, <code>hesr::opcs_costs</code>, <code>hesr::trimpoints</code>.</p>
-<p>In order to run this function, need to have run the function <code><a href="../reference/assign_risk.html">hesr::assign_risk()</a></code> with <code>summary = FALSE</code>, to give the risk-related episode level hes data. The function returns the hes data with a new column for the cost of the episode. This is used within the function <code><a href="../reference/calc_cost_admission.html">hesr::calc_cost_admission()</a></code> as a step to calculating the unit admission cost.</p>
+<div class="section level2">
+<h2 id="unit-costs">Unit costs<a class="anchor" aria-label="anchor" href="#unit-costs"></a>
+</h2>
+<div class="section level3">
+<h3 id="unit-costs-of-risk-related-episodes">Unit costs of risk-related episodes<a class="anchor" aria-label="anchor" href="#unit-costs-of-risk-related-episodes"></a>
+</h3>
+<p>We use the <code><a href="../reference/hes_cost.html">hesr::hes_cost()</a></code> function to match episodes
+with reference costs to calculate the average cost per episode for one
+year of data. This reads in the NHS reference costs, OPCS costs and
+trimpoints, and matches to episodes based on HRG code and type of
+episode. The reference costs, OPCS costs and trimpoints are stored in
+the package in the folder <code>data</code>, accessed using
+<code>hesr::unit_reference_costs</code>, <code>hesr::opcs_costs</code>,
+<code>hesr::trimpoints</code>.</p>
+<p>In order to run this function, need to have run the function
+<code><a href="../reference/assign_risk.html">hesr::assign_risk()</a></code> with <code>summary = FALSE</code>, to
+give the risk-related episode level hes data. The function returns the
+hes data with a new column for the cost of the episode. This is used
+within the function <code><a href="../reference/calc_cost_admission.html">hesr::calc_cost_admission()</a></code> as a step
+to calculating the unit admission cost.</p>
 </div>
-<div id="unit-costs-of-risk-related-admissions" class="section level3">
-<h3 class="hasAnchor">
-<a href="#unit-costs-of-risk-related-admissions" class="anchor"></a>Unit costs of risk-related admissions</h3>
-<p>The function <code><a href="../reference/calc_cost_admission.html">hesr::calc_cost_admission()</a></code> produces a table of the unit costs of an admission by condition, sex, age, and IMD quintile from the raw HES data. It takes one year of HES data, cleans it, assigns the episodes to risk-related conditions, reduces to admission level and calculates a table of unit costs, using the functions <code><a href="../reference/hes_cost.html">hesr::hes_cost()</a></code> and <code>hesr::missing_costs()</code>. Once ran, the function stores the output in the package. We only need to calculate unit admission costs for the latest year of data (we use 2016 at the moment). Therefore, when we need to assign costs to admissions, we can read in the unit costs using <code>hesr::unit_cost_admission</code> stored in the folder <code>data</code>.</p>
-<p>We cost only the episodes within an admission that have been allocated to the primary condition. We retain only the rows in the HES data which have the same ICD10 code as the earliest risk-related episode in the admission, and use the unit costs of episodes from the NHS Reference Costs to cost them. We sum this cost across the admission to calculate unit admission costs. We use the ‘hes_cost’ function to match episodes with reference costs to calculate the average cost per episode for one year of data. We found when calculating unit costs of admissions, we are left with some subgroups that have not been costed. In order to fill in these gaps we use the function ‘missing_costs’ to create average unit costs of admissions by condition, sex, IMD quintile, and age category (age category depends on the size of the data/number of admissions we have for each subgroup).</p>
+<div class="section level3">
+<h3 id="unit-costs-of-risk-related-admissions">Unit costs of risk-related admissions<a class="anchor" aria-label="anchor" href="#unit-costs-of-risk-related-admissions"></a>
+</h3>
+<p>The function <code><a href="../reference/calc_cost_admission.html">hesr::calc_cost_admission()</a></code> produces a
+table of the unit costs of an admission by condition, sex, age, and IMD
+quintile from the raw HES data. It takes one year of HES data, cleans
+it, assigns the episodes to risk-related conditions, reduces to
+admission level and calculates a table of unit costs, using the
+functions <code><a href="../reference/hes_cost.html">hesr::hes_cost()</a></code> and
+<code>hesr::missing_costs()</code>. Once ran, the function stores the
+output in the package. We only need to calculate unit admission costs
+for the latest year of data (we use 2016 at the moment). Therefore, when
+we need to assign costs to admissions, we can read in the unit costs
+using <code>hesr::unit_cost_admission</code> stored in the folder
+<code>data</code>.</p>
+<p>We cost only the episodes within an admission that have been
+allocated to the primary condition. We retain only the rows in the HES
+data which have the same ICD10 code as the earliest risk-related episode
+in the admission, and use the unit costs of episodes from the NHS
+Reference Costs to cost them. We sum this cost across the admission to
+calculate unit admission costs. We use the ‘hes_cost’ function to match
+episodes with reference costs to calculate the average cost per episode
+for one year of data. We found when calculating unit costs of
+admissions, we are left with some subgroups that have not been costed.
+In order to fill in these gaps we use the function ‘missing_costs’ to
+create average unit costs of admissions by condition, sex, IMD quintile,
+and age category (age category depends on the size of the data/number of
+admissions we have for each subgroup).</p>
 </div>
-<div id="missing-costs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#missing-costs" class="anchor"></a>Missing costs</h3>
-<p>We found when calculating unit costs of admissions, we are left with some subgroups that have not been costed. In order to fill in these gaps we use the function <code>hesr::missing_costs()</code> to create average unit costs of admissions by condition, sex, IMD quintile, and age category. And where there are missing data, we expand the age categories until they are large enough (age category depends on the size of the data/number of admissions we have for each subgroup). If there are still missing data, we allocate the condition an average cost across the whole condition, with no subgroup stratification.</p>
-<p>If there are so few admissions across all age groups, we can either: average across the condition, and allocate the same cost to everybody with that condition, or remove the condition from the analysis. For example, for alcohol induced pseudo cushings syndrome, there was only 1 admission and therefore this is not enough to reliably estimate a unit cost, and this condition should be removed from the analysis. For now, we have removed the conditions that cannot be reliably costed by sex and IMD, we are currently in the process of updating this to average across the condition (07/08/2019).</p>
+<div class="section level3">
+<h3 id="missing-costs">Missing costs<a class="anchor" aria-label="anchor" href="#missing-costs"></a>
+</h3>
+<p>We found when calculating unit costs of admissions, we are left with
+some subgroups that have not been costed. In order to fill in these gaps
+we use the function <code>hesr::missing_costs()</code> to create average
+unit costs of admissions by condition, sex, IMD quintile, and age
+category. And where there are missing data, we expand the age categories
+until they are large enough (age category depends on the size of the
+data/number of admissions we have for each subgroup). If there are still
+missing data, we allocate the condition an average cost across the whole
+condition, with no subgroup stratification.</p>
+<p>If there are so few admissions across all age groups, we can either:
+average across the condition, and allocate the same cost to everybody
+with that condition, or remove the condition from the analysis. For
+example, for alcohol induced pseudo cushings syndrome, there was only 1
+admission and therefore this is not enough to reliably estimate a unit
+cost, and this condition should be removed from the analysis. For now,
+we have removed the conditions that cannot be reliably costed by sex and
+IMD, we are currently in the process of updating this to average across
+the condition (07/08/2019).</p>
 </div>
 </div>
   </div>
@@ -317,11 +541,13 @@ Flowchart of data cleaning and assignment of spells.
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a">Alan Brennan</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/gillespie_d" class="external-link">Duncan Gillespie</a>, Laura Webster, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/angus_c" class="external-link">Colin Angus</a>, <a href="https://www.sheffield.ac.uk/scharr/sections/heds/staff/brennan_a" class="external-link">Alan Brennan</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -329,6 +555,8 @@ Flowchart of data cleaning and assignment of spells.
 
   
 
+
+  
 
   </body>
 </html>

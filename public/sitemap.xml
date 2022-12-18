@@ -1,75 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//index.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/404.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/append_hrg_codes.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_costing.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/assign_risk.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/articles/hesr.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/broad_method.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/articles/index.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/calc_cost_admission.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/authors.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/clean_hes.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/index.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/cruk_splits.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/LICENSE.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/cruk_split_oesophageal.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/append_hrg_codes.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/define_spells.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/assign_risk.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/external_cause.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/broad_method.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/findEpisodes.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/calc_cost_admission.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/format_afs.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/clean_hes.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/hesr-package.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/cruk_splits.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/hes_cost.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/cruk_split_oesophageal.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/icdFlag.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/define_spells.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/local_authority.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/external_cause.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/local_authority_lookups.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/findEpisodes.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/local_authority_lookups1.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/format_afs.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/narrow_method.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/hesr-package.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/pop_data.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/hes_cost.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/read_hes.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/icdFlag.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//reference/sample_selection.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//articles/cleaning_and_costing.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/local_authority.html</loc>
   </url>
   <url>
-    <loc>https://stapm.gitlab.io/r-packages/hesr//articles/hesr.html</loc>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/local_authority_lookups.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/local_authority_lookups1.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/missing_costs.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/narrow_method.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/opcs_costs.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/pop_data.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/read_hes.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/sample_selection.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/single_year_reference_costs.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/trimpoints.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/unit_reference_costs.html</loc>
   </url>
 </urlset>
