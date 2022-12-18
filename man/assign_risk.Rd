@@ -12,10 +12,10 @@ assign_risk(
   age_cat = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
   age_cat_start = c(16, 18, 25, 35, 50, 65, 75),
   method = c("Broad", "Narrow"),
- 
-    saf_lkup = read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Smoking_attributable_fractions/Output/Archive/safs_long.csv"),
- 
-    aaf_lkup = read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"),
+  saf_lkup =
+    read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Smoking_attributable_fractions/Output/Archive/safs_long.csv"),
+  aaf_lkup =
+    read.csv("//tsclient/X/ScHARR/PR_Disease_Risk_TA/Code/Attributable_fractions/Alcohol_attributable_fractions/Output/Archive/aafs_long_2016.csv"),
   substance = c("Alcohol", "Tobacco"),
   level = c("Episode", "Admission"),
   summary = TRUE,

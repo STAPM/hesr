@@ -7,9 +7,6 @@
 \format{
 A data table (cruk_ageband, sex, proportion_scc).
 }
-\source{
-
-}
 \usage{
 cruk_splits
 }

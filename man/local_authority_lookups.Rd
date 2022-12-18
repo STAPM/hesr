@@ -7,9 +7,6 @@
 \format{
 A data table (resladst, utla_name_london_groupings).
 }
-\source{
-
-}
 \usage{
 local_authority_lookups
 }
