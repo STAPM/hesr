@@ -80,9 +80,11 @@ read_hes_scot <- function(
   setnames(hes,
     c("patient_id", "episode_marker", "main_condition", "other_condition_1", 
       "other_condition_2", "other_condition_3", "other_condition_4", "other_condition_5", 
-      "episode_record_key", "specialty", "admission_type", "admission_date", "discharge_date", "age_in_years", "length_of_stay"),
+      "episode_record_key", "specialty", "admission_type", "admission_date", "discharge_date", 
+      "age_in_years", "length_of_stay", "provider_code"),
     c("encrypted_hesid", "epiorder", "diag_01",  
-      "diag_02", "diag_03", "diag_04", "diag_05", "diag_06", "epikey", "mainspef", "admimeth", "epistart", "epiend", "startage", "episodeduration")
+      "diag_02", "diag_03", "diag_04", "diag_05", "diag_06", "epikey", "mainspef", "admimeth", 
+      "epistart", "epiend", "startage", "episodeduration", "procode3")
     )
   
   

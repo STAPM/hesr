@@ -50,6 +50,7 @@ reference:
       - read_hes
       - read_hes_scot
       - clean_hes
+      - clean_hes_scot
       - define_spells
       - append_hrg_codes
       - sample_selection

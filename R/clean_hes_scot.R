@@ -271,6 +271,75 @@ clean_hes_scot <- function(
   # Add months
   #hes <- transform(hes, Month = substr(admidate, 6, 7))
   
+  # for continuous inpatient spells
+  # use the gls_cis_marker provided with the scottish data
+  # this is a count specific to each patient
+  
+  hes[ , spell_id := paste0(as.numeric(as.factor(encrypted_hesid)), "-", gls_cis_marker)]
+  
+  #################################
+  # define dismeth
+  # for use in the function define_spells()
+  
+  # Methods of discharge that dont count as a continuous inpatient spell = 1
+  # methods that do = 9
+  
+  # Death
+  # hes[discharge_transfer_to %in% c("00", "01") , dismeth := 1]
+  # hes[discharge_type %in% c("40", "41", "42", "43") , dismeth := 1]
+  # 
+  # # Institution
+  # hes[discharge_transfer_to %in% c("20", "24", "25", "26", "28", "29") , dismeth := 1]
+  # 
+  # # Other
+  # hes[discharge_transfer_to %in% c("60", "61", "62", "68", "69", "70") , dismeth := 1]
+  # 
+  # # Private Residence
+  # hes[discharge_transfer_to %in% c("10", "11", "12", "14", "18", "19") , dismeth := 1]
+  # 
+  # # Temporary
+  # hes[discharge_transfer_to %in% c("30", "31", "32", "33", "34", "38", "39") , dismeth := 1]
+  # 
+  # # Irregular Discharge
+  # hes[discharge_type %in% c("20", "21", "22", "23", "28", "29") , dismeth := 1]
+  # 
+  # # Regular Discharge
+  # hes[discharge_type %in% c("10", "11", "18", "19", "70") , dismeth := 1]
+  # 
+  # # Transfer Within the Same Provider
+  # hes[discharge_transfer_to %in% c("40", "41", "42", "43", "44", "45", "46", "47", "48", "49",
+  #                                  "4A", "4B", "4C", "4D", "4E", "4F", "4G", "4H") , dismeth := 9]
+  # 
+  # hes[discharge_transfer_to %in% c("50", "51", "52", "53", "54", "55", "56", "57", "58", "59",
+  #                                  "5A", "5B", "5C", "5D", "5E", "5F", "5G", "5H") , dismeth := 9]
+  # 
+  # # Regular Discharge
+  # hes[discharge_type %in% c("12", "13") , dismeth := 9]
+  
+  
+  hes[, discharge_transfer_to := NULL]
+  hes[, discharge_type := NULL]
+  hes[, procode3 := NULL]
+  hes[, gls_cis_marker := NULL]
+        
+  
   
   return(hes[])
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
