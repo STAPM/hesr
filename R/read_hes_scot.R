@@ -71,14 +71,22 @@ read_hes_scot <- function(
   
   # Load in all data for a particular year
   
-  data <- read.csv(paste0("D:/scottish_hospital_data/smr01_data_",  k.year.ind, ".csv.xz"), na.strings = "")
+  hes <- read.csv(paste0("D:/scottish_hospital_data/smr01_data_",  k.year.ind, ".csv.xz"), na.strings = "")
   
-  setDT(data)
+  setDT(hes)
   
-  setnames(data, names(data), tolower(names(data)))
+  setnames(hes, names(hes), tolower(names(hes)))
+  
+  setnames(hes,
+    c("patient_id", "episode_marker", "main_condition", "other_condition_1", 
+      "other_condition_2", "other_condition_3", "other_condition_4", "other_condition_5", 
+      "episode_record_key", "specialty", "admission_type", "admission_date", "discharge_date", "age_in_years", "length_of_stay"),
+    c("encrypted_hesid", "epiorder", "diag_01",  
+      "diag_02", "diag_03", "diag_04", "diag_05", "diag_06", "epikey", "mainspef", "admimeth", "epistart", "epiend", "startage", "episodeduration")
+    )
   
   
-  return(data[])
+  return(hes[])
 }
 
 

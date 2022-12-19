@@ -38,7 +38,8 @@ Imports:
     bit64,
     lifecycle,
     DiagrammeR,
-    testthat
+    testthat,
+    lubridate
 Suggests: 
     knitr,
     rmarkdown
