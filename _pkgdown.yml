@@ -48,6 +48,7 @@ reference:
       Functions and supporting data inputs to read and clean each year of the HES data. 
     contents:
       - read_hes
+      - read_hes_scot
       - clean_hes
       - define_spells
       - append_hrg_codes
