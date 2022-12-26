@@ -2,39 +2,46 @@
 % Please edit documentation in R/cruk_split_oesophageal.R
 \name{cruk_split_oesophageal}
 \alias{cruk_split_oesophageal}
-\title{CRUK Oesophageal split}
+\title{Split Oesophageal cancer cases into AC and SCC subtypes}
 \usage{
 cruk_split_oesophageal(
-  hes,
+  data,
   splits = hesr::cruk_splits,
-  var_name = "epi_diag_selected",
+  col_name_vec = c("diag_01"),
   prefix = "Oesophageal"
 )
 }
 \arguments{
-\item{hes}{Data.table - the cleaned HES data.}
+\item{data}{Data table - the cleaned hospital episode statistics data.}
 
-\item{splits}{Data.table - the distribution of C15 cases by SCC and AC}
+\item{splits}{Data table - the distribution of C15 cases by SCC and AC}
 
-\item{var_name}{Character string - the name of the variable containing the C15 ICD-10 code to be split}
+\item{col_name_vec}{Character vector - The name of the diagnosis code columns
+scanned to identify target disease diagnosis codes.}
 
 \item{prefix}{Character string - "C15" or "Oesophageal"}
 }
 \value{
-Returns an updated version of the HES data.table, with the diagnoses codes for 
+Returns an updated version of the input hospital episode statistics data, 
+with the diagnoses codes for 
 oesophageal cancer (C15) split proportionally between Oesophageal SCC and Oesophageal AC.
 }
 \description{
 This code splits the diagnosis codes for Oesophageal cancer (C15) 
-in the HES data in to SCC or AC using CRUK splits, which are formatted and kept
-in the data-raw folder `prep_cruk_splits`. 
-Make sure there are no NAs in the startage field before running this. I.e. clean HES data first.
+in the hospital episode statistics data in to SCC or AC.
+}
+\details{
+The percentage splits are informed by estimates given to us by Cancer Research UK, 
+which are formatted and embedded in the package as [hesr::cruk_splits].
+
+Make sure there are no missing values in the startage field before running this.
+
+Run on the episode-level data after running [hesr::findEpisodes()].
 }
 \examples{
 
 \dontrun{
 
-hes <- cruk_split_oesophageal(hes)
 
 }
 

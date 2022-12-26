@@ -31,7 +31,10 @@ Variables included
   \item AGE_IN_YEARS
   \item SEX - 1 = male, 2 = female. 0 or 9 are not known and not specified.
   \item ADMIDATE
-  \item ADMISSION_TYPE - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=A&ID=58&Title=Admission%20Type`
+  \item ADMISSION_TYPE - An inpatient admission is categorised as an emergency, 
+  urgent or routine inpatient admission except for Maternity and Neonatal admissions. 
+  The appropriate admission category depends on the clinical condition of the patient as assessed by the receiving consultant. 
+  The patient may or may not be on a waiting list.`https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=A&ID=58&Title=Admission%20Type`
   \item ADMISSION_TRANSFER_FROM- `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=A&ID=59&Title=Admission/Transfer%20From`
   \item DISDATE
   \item DISCHARGE_TRANSFER_TO - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=D&ID=228&Title=Discharge/Transfer%20To%20-%20Location`
@@ -44,13 +47,21 @@ Variables included
   \item LENGTH_OF_STAY - The patients length of stay derived from admission date and discharge date.
   \item EPISODE_MARKER - indicating the order of episodes of care
   \item GLS_CIS_MARKER - SMR01 Continuous Inpatient Stay Marker (including GLS records)
-  \item MAIN_CONDITION - `https://www.ndc.scot.nhs.uk/Data-Dictionary/SMR-Datasets/General-Clinical-Information/Diagnostic-Section/Main-Condition.asp`
+  \item MAIN_CONDITION - This item should be seen as describing the main medical (or social) 
+  condition managed/investigated during the patient's stay. 
+  4.If the main condition is an injury or other condition due to an external cause, 
+  the injury or condition should be entered as main condition with the external cause code following the injury (or injuries).`https://www.ndc.scot.nhs.uk/Data-Dictionary/SMR-Datasets/General-Clinical-Information/Diagnostic-Section/Main-Condition.asp`
   \item OTHER_CONDITION_1 - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=O&ID=365&Title=Other%20Condition/Co-morbidity%20and%20Complication%20ICD10%20(2%20-%206)`
   \item OTHER_CONDITION_2
   \item OTHER_CONDITION_3
   \item OTHER_CONDITION_4
   \item OTHER_CONDITION_5
-  \item ADMISSION_REASON - `https://www.ndc.scot.nhs.uk/Data-Dictionary/SMR-Datasets/Episode-Management/Admission-Reason/`
+  \item ADMISSION_REASON - Admission reason indicates the primary reason why a patient is admitted for inpatient or day case care.
+  11 Admission for treatment, 12 Pre-operative preparation, 13 Observation, 14 Radiotherapy/Chemotherapy, 15 Rehabilitation, 
+  16 Convalescence, 17 Self-medication training, 18 Other type of Acute Admission, 19 Acute Admission, type not known, 
+  1A Professional examinations, 1B Readmission for treatment, 1C Self-inflicted injury, 1D Assessment (other than Geriatric), 1E Accidental Injury, 
+  1F Other injury, 1G Clinical drug trials, 1H Assault, 1J Respite care, 1K Investigation, 1M Palliative Care, 10 Acute Admission no additional detail added
+  `https://www.ndc.scot.nhs.uk/Data-Dictionary/SMR-Datasets/Episode-Management/Admission-Reason/`
   \item MAIN_OPERATION - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=M&ID=316&Title=Main%20Operation/Treatment/Investigative%20Procedure/Intervention%20-%20OPCS4`
   \item OTHER_OPERATION_1 - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=O&ID=368&Title=Other%20Operation/Treatment/Intervention/Investigative%20Procedures%20(2-4)%20-%20OPCS4`
   \item OTHER_OPERATION_2

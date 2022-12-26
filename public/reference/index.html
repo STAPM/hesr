@@ -94,17 +94,13 @@
         </td>
         <td><p>Reduce size of HES to sample required</p></td>
       </tr><tr><td>
+          <p><code><a href="sample_selection_scot.html">sample_selection_scot()</a></code> </p>
+        </td>
+        <td><p>Reduce size of HES to sample required - Scotland</p></td>
+      </tr><tr><td>
           <p><code><a href="local_authority.html">local_authority()</a></code> </p>
         </td>
         <td><p>Local authority lookup</p></td>
-      </tr><tr><td>
-          <p><code><a href="local_authority_lookups.html">local_authority_lookups</a></code> </p>
-        </td>
-        <td><p>Local authority lookup table - old ONS system</p></td>
-      </tr><tr><td>
-          <p><code><a href="local_authority_lookups1.html">local_authority_lookups1</a></code> </p>
-        </td>
-        <td><p>Local authority lookup table - new ONS system</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="identify-tobacco-and-alcohol-related-hospital-care">Identify tobacco and alcohol related hospital care <a href="#identify-tobacco-and-alcohol-related-hospital-care" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions and supporting data inputs to assign diagnoses as the cause of episodes or spells of care, and to calculate the population rates of care for these diagnoses.</p>
@@ -112,11 +108,15 @@
       </tr></tbody><tbody><tr><td>
           <p><code><a href="icdFlag.html">icdFlag()</a></code> </p>
         </td>
-        <td><p>Scan for ICD-10 codes</p></td>
+        <td><p>Scan episodes for matching International Classification of Disease codes</p></td>
       </tr><tr><td>
           <p><code><a href="findEpisodes.html">findEpisodes()</a></code> </p>
         </td>
-        <td><p>Assign a diagnosis to each episode</p></td>
+        <td><p>Search for episodes with the target International Classification of Disease diagnoses</p></td>
+      </tr><tr><td>
+          <p><code><a href="assignPAFs.html">assignPAFs()</a></code> </p>
+        </td>
+        <td><p>Assign population attributable fractions to diseases</p></td>
       </tr><tr><td>
           <p><code><a href="assign_risk.html">assign_risk()</a></code> </p>
         </td>
@@ -130,25 +130,13 @@
         </td>
         <td><p>Narrow method for allocating risk</p></td>
       </tr><tr><td>
-          <p><code><a href="external_cause.html">external_cause()</a></code> </p>
-        </td>
-        <td><p>External cause method <a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a></p></td>
-      </tr><tr><td>
-          <p><code><a href="format_afs.html">format_afs()</a></code> </p>
-        </td>
-        <td><p>Clean and format attributable fractions (AFs)</p></td>
-      </tr><tr><td>
           <p><code><a href="pop_data.html">pop_data()</a></code> </p>
         </td>
         <td><p>Add the population counts by age band, sex, IMD quintile</p></td>
       </tr><tr><td>
           <p><code><a href="cruk_split_oesophageal.html">cruk_split_oesophageal()</a></code> </p>
         </td>
-        <td><p>CRUK Oesophageal split</p></td>
-      </tr><tr><td>
-          <p><code><a href="cruk_splits.html">cruk_splits</a></code> </p>
-        </td>
-        <td><p>Proportion of oesophageal cases split by AC and SCC</p></td>
+        <td><p>Split Oesophageal cancer cases into AC and SCC subtypes</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="calculate-the-costs-of-hospital-care">Calculate the costs of hospital care <a href="#calculate-the-costs-of-hospital-care" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Functions and supporting data inputs to assign unit costs to tobacco and alcohol related hospital care.</p>
@@ -161,6 +149,26 @@
           <p><code><a href="hes_cost.html">hes_cost()</a></code> </p>
         </td>
         <td><p>Cost episode-level HES data</p></td>
+      </tr></tbody><tbody><tr><th colspan="2">
+          <h2 id="package-data">Package data <a href="#package-data" class="anchor" aria-hidden="true"></a></h2>
+          <p class="section-desc"></p><p>Pre-prepared data inputs embedded in the package</p>
+        </th>
+      </tr></tbody><tbody><tr><td>
+          <p><code><a href="paf_data.html">paf_data</a></code> </p>
+        </td>
+        <td><p>Example population attributable fractions</p></td>
+      </tr><tr><td>
+          <p><code><a href="cruk_splits.html">cruk_splits</a></code> </p>
+        </td>
+        <td><p>Proportion of oesophageal cases split by AC and SCC</p></td>
+      </tr><tr><td>
+          <p><code><a href="local_authority_lookups.html">local_authority_lookups</a></code> </p>
+        </td>
+        <td><p>Local authority lookup table - old ONS system</p></td>
+      </tr><tr><td>
+          <p><code><a href="local_authority_lookups1.html">local_authority_lookups1</a></code> </p>
+        </td>
+        <td><p>Local authority lookup table - new ONS system</p></td>
       </tr></tbody></table></div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -1,24 +1,26 @@
 
-#' Assign a diagnosis to each episode
+#' Search for episodes with the target International Classification of Disease diagnoses
 #' 
-#' Look at the first diagnostic position of all episodes within a continuous inpatient spell
-#'  and retain episodes that have a 
-#' relevant diagnosis in the primary diagnostic position. 
-#' Also look for whether a relevant external cause 
-#' has been recorded within the list of diagnoses related to that episode.
+#' Look at specified diagnostic positions of episodes
+#' and create a new column in the dataset that picks out the selected episodes.
 #' 
-#' Diagnosis codes are identified by the function \code{icdFlag()} and 
-#' are then synthesised to produce a single diagnosis for each episode 
-#' (external causes where two potential diagnoses are identified). The HES 
-#' data is then filtered to retain only episodes for which a tobacco or alcohol related 
-#' diagnosis has been identified. 
+#' Diagnosis codes are identified by the function [hesr::icdFlag()], 
+#' which is called by this function. This function loops through the values of 
+#' col_names_vec applying [hesr::icdFlag()].
+#' 
+#' Uses the function [tobalcepi::ExpandCodes()] to convert the disease code lookup tables 
+#' within the tobalcepi package into long form, ready for use in the matching process.  
 #'
-#' @param data Data.table - the HES data.
-#' @param lkups Data.table - the ICD-10 codes associated with tobacco and/or alcohol. 
-#' These are stored as data within the tobalcepi package.
+#' @param data Data table - episode-level hospital episode statistics data.
+#' @param lkups Data table - the International Classification of Disease 
+#' codes associated with tobacco and/or alcohol related conditions.
+#' @param col_name_vec Character vector - the column names to be scanned for matching disease diagnosis codes.
+#' @param external_cause_names Character vector - the names of partially attributable acute conditions 
+#' that will be used to identify whether the episode was assigned an external cause.
 #'
-#' @return Returns the HES data.table with a column added 
-#' containing the ICD-10 code found during the scan.
+#' @return Returns the input episode-level hospital episode statistics data 
+#' with a new column added for each value of col_name_vec
+#' containing the name of the condition found during the scan. 
 #' 
 #' @importFrom data.table :=
 #' 
@@ -27,73 +29,55 @@
 #' @examples
 #' \dontrun{
 #' 
-#' hes <- findEpisodes(
-#'   data = hes,
-#'   lkups = tobalcepi::tob_icd10_lookups
-#' ) 
 #' 
 #' }
 #' 
 findEpisodes <- function(
-  data,
-  lkups
+    data,
+    lkups,
+    col_name_vec,
+    external_cause_names
 ) {
   
-  # Search for episodes with the target ICD-10 diagnoses
+  ####################################
+  # Set up ICD code lookups
   
-  # External causes - 3 character ICD-10 match
-  data <- hesr::icdFlag(
-    data = data,
-    lkups = lkups,
-    col_name = "cause",
-    nchars = 3
-  )
+  lkups_long <- tobalcepi::ExpandCodes(lkups)
   
-  # External causes - 4 character ICD-10 match
-  data <- hesr::icdFlag(
-    data = data,
-    lkups = lkups,
-    col_name = "cause",
-    nchars = 4
-  )
+  setnames(lkups_long, "icd10_lookups", "icd_code")
   
-  # 1st diagnostic position - 3 chars
+  lkups_long[ , icd_flag := 1]
   
-  # note that the tob ICD-10 lookups just have C15
-  # so all Oesophageal cancers are being scanned for
-  # and splitting into Oesophageal cancer subtypes will need to happen later
+  ###################################
+  # loop through inputs
+  # adding a new column to the dataset each time
   
-  data <- hesr::icdFlag(
-    data = data,
-    lkups = lkups,
-    col_name = "diag_01",
-    nchars = 3
-  )
+  for(cn in 1:length(col_name_vec)) {
+    
+    data <- hesr::icdFlag(
+      data = data,
+      lkups = copy(lkups_long),
+      col_name = col_name_vec[cn])
+    
+  }
   
-  # 1st diagnostic position - 4 chars
-  data <- hesr::icdFlag(
-    data = data,
-    lkups = lkups,
-    col_name = "diag_01",
-    nchars = 4
-  )
+  rm(lkups_long, cn)
   
-  # Look across the identified diagnoses and create 1 column 
-  # with the diagnosis to be assigned to the episode
-  data[!is.na(diag_014icd), epi_diag_selected := diag_014icd]
-  data[!is.na(diag_013icd), epi_diag_selected := diag_013icd]
-  data[!is.na(cause4icd), epi_diag_selected := cause4icd]
-  data[!is.na(cause3icd), epi_diag_selected := cause3icd]
+  ###################################
+  # Create the external cause column
   
-  # Retain only episodes that matched a diagnosis code
-  data <- data[!is.na(epi_diag_selected)]
+  # Note that for Scotland the data field "admission_reason" has options to specify assault and self harm as causes
+  # but none of the episodes in the data supplied had these codes
+  # and so the assumption is that all the necessary information is contained in the ICD diagnosis code columns
   
-  # Remove columns not needed
-  data[, cause3icd := NULL]
-  data[, cause4icd := NULL]
-  data[, diag_013icd := NULL]
-  data[, diag_014icd := NULL]
+  data[ , external_cause := NA_character_]
   
+  for(cn in 1:length(col_name_vec)) {
+    
+    data[is.na(external_cause) & get(paste0(col_name_vec[cn], "_icdFlag")) %in% external_cause_names, 
+         external_cause := get(paste0(col_name_vec[cn], "_icdFlag"))]
+    
+  }
   
   return(data)
 }

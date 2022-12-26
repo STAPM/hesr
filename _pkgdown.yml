@@ -54,24 +54,21 @@ reference:
       - define_spells
       - append_hrg_codes
       - sample_selection
+      - sample_selection_scot
       - local_authority
-      - local_authority_lookups
-      - local_authority_lookups1
-  
+
   - title: "Identify tobacco and alcohol related hospital care"
     desc: >
       Functions and supporting data inputs to assign diagnoses as the cause of episodes or spells of care, and to calculate the population rates of care for these diagnoses.
     contents:
       - icdFlag
       - findEpisodes
+      - assignPAFs
       - assign_risk
       - broad_method
       - narrow_method
-      - external_cause
-      - format_afs
       - pop_data
       - cruk_split_oesophageal
-      - cruk_splits
       
   - title: "Calculate the costs of hospital care"
     desc: >
@@ -79,6 +76,15 @@ reference:
     contents:
       - calc_cost_admission
       - hes_cost
+      
+  - title: "Package data"
+    desc: >
+      Pre-prepared data inputs embedded in the package
+    contents:
+      - paf_data
+      - cruk_splits
+      - local_authority_lookups
+      - local_authority_lookups1
       
 articles:
   - title: "'How to' guides"
