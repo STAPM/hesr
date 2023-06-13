@@ -38,9 +38,12 @@ Imports:
     bit64,
     lifecycle,
     DiagrammeR,
-    testthat
+    testthat,
+    lubridate
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
 RdMacros: lifecycle
+Depends: 
+    R (>= 2.10)

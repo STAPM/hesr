@@ -1,0 +1,108 @@
+
+#' Read the Scottish Hospital Episode Statistics data files
+#'
+#' Reads in Hospital Episode Statistics for Scotland data files for each year from 2007/08 to 2021/22. 
+#' The data were provided with only the variables and disease codes needed for computing 
+#' the rates of diseases related to tobacco and/or alcohol and the associated rates and costs 
+#' of hospital admissions.  
+#'
+#' This code reads in the data for one year and produces a cleaned data file ready for further analysis.
+#'
+#' Variables included
+#'
+#' \itemize{
+#'   \item PATIENT_ID
+#'   \item AGE_IN_YEARS
+#'   \item SEX - 1 = male, 2 = female. 0 or 9 are not known and not specified.
+#'   \item ADMIDATE
+#'   \item ADMISSION_TYPE - An inpatient admission is categorised as an emergency, 
+#'   urgent or routine inpatient admission except for Maternity and Neonatal admissions. 
+#'   The appropriate admission category depends on the clinical condition of the patient as assessed by the receiving consultant. 
+#'   The patient may or may not be on a waiting list.`https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=A&ID=58&Title=Admission%20Type`
+#'   \item ADMISSION_TRANSFER_FROM- `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=A&ID=59&Title=Admission/Transfer%20From`
+#'   \item DISDATE
+#'   \item DISCHARGE_TRANSFER_TO - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=D&ID=228&Title=Discharge/Transfer%20To%20-%20Location`
+#'   \item DISCHARGE_TYPE - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=D&ID=224&Title=Discharge%20Type`
+#'   \item SPELBGIN - 0 = Not first episode of spell; 1 = First episode of spell that started in previous year; 2 = First episode of spell that started in current year
+#'   \item DISCHARGE_DATE
+#'   \item ADMISSION_DATE
+#'   \item SPELDUR - the difference in days between the admission date (admidate) and the discharge date (epiend) provided the discharge method (dismeth) confirms that the spell has finished. If the episode has not finished it is calculated from the end of the year and admidate.
+#'   \item SPELEND - whether the episode is the last of a spell. It is set for finished episodes (episode status - epistat - is 3) for general, delivery or birth episodes (episode type - epitype - is 1, 2 or 3) provided the discharge method (dismeth) confirms that the spell has finished. Y = Last episode of spell ; N = Not last episode of spell
+#'   \item LENGTH_OF_STAY - The patients length of stay derived from admission date and discharge date.
+#'   \item EPISODE_MARKER - indicating the order of episodes of care
+#'   \item GLS_CIS_MARKER - SMR01 Continuous Inpatient Stay Marker (including GLS records)
+#'   \item MAIN_CONDITION - This item should be seen as describing the main medical (or social) 
+#'   condition managed/investigated during the patient's stay. 
+#'   4.If the main condition is an injury or other condition due to an external cause, 
+#'   the injury or condition should be entered as main condition with the external cause code following the injury (or injuries).`https://www.ndc.scot.nhs.uk/Data-Dictionary/SMR-Datasets/General-Clinical-Information/Diagnostic-Section/Main-Condition.asp`
+#'   \item OTHER_CONDITION_1 - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=O&ID=365&Title=Other%20Condition/Co-morbidity%20and%20Complication%20ICD10%20(2%20-%206)`
+#'   \item OTHER_CONDITION_2
+#'   \item OTHER_CONDITION_3
+#'   \item OTHER_CONDITION_4
+#'   \item OTHER_CONDITION_5
+#'   \item ADMISSION_REASON - Admission reason indicates the primary reason why a patient is admitted for inpatient or day case care.
+#'   11 Admission for treatment, 12 Pre-operative preparation, 13 Observation, 14 Radiotherapy/Chemotherapy, 15 Rehabilitation, 
+#'   16 Convalescence, 17 Self-medication training, 18 Other type of Acute Admission, 19 Acute Admission, type not known, 
+#'   1A Professional examinations, 1B Readmission for treatment, 1C Self-inflicted injury, 1D Assessment (other than Geriatric), 1E Accidental Injury, 
+#'   1F Other injury, 1G Clinical drug trials, 1H Assault, 1J Respite care, 1K Investigation, 1M Palliative Care, 10 Acute Admission no additional detail added
+#'   `https://www.ndc.scot.nhs.uk/Data-Dictionary/SMR-Datasets/Episode-Management/Admission-Reason/`
+#'   \item MAIN_OPERATION - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=M&ID=316&Title=Main%20Operation/Treatment/Investigative%20Procedure/Intervention%20-%20OPCS4`
+#'   \item OTHER_OPERATION_1 - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=O&ID=368&Title=Other%20Operation/Treatment/Intervention/Investigative%20Procedures%20(2-4)%20-%20OPCS4`
+#'   \item OTHER_OPERATION_2
+#'   \item OTHER_OPERATION_3
+#'   \item MANAGEMENT_OF_PATIENT - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=O&ID=368&Title=Other%20Operation/Treatment/Intervention/Investigative%20Procedures%20(2-4)%20-%20OPCS4`
+#'   \item SPECIALTY - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=S&ID=473&Title=Specialty/Discipline`
+#'   \item HRG42 - Healthcare Resource Group (HRG) codes are standard groupings of clinically similar treatments which use comparable levels of healthcare resource. The field contains version 4 HRG codes. 
+#'   \item PROVIDER_CODE - `https://www.ndc.scot.nhs.uk/Dictionary-A-Z/Definitions/index.asp?Search=P&ID=932&Title=Provider%20Code`
+#'   \item simd2016_sc_quintile - Scottish Index of Multiple Deprivation quintile of patient residence (2016 version). Least deprived = 5, most deprived = 1
+#'   \item EPISODE_RECORD_KEY - sequential number generated by PAS identifying the episode
+#' }
+#'
+#' @param k.year.ind Integer - the year of Scottish HES data. In the format "2022".
+#'
+#' @importFrom data.table := fread setnames
+#'
+#' @return Returns a data table. Note that:
+#' \itemize{
+#' \item All variable names are converted to lower case.
+#' }
+#' @export
+#'
+#' @examples
+#'
+#' \dontrun{
+#'
+#' hes_2002 <- read_hes("0203", test = TRUE)
+#'
+#' }
+#'
+read_hes_scot <- function(
+    k.year.ind
+) {
+  
+  # Load in all data for a particular year
+  
+  hes <- read.csv(paste0("D:/scottish_hospital_data/smr01_data_",  k.year.ind, ".csv.xz"), na.strings = "")
+  
+  setDT(hes)
+  
+  setnames(hes, names(hes), tolower(names(hes)))
+  
+  setnames(hes,
+    c("patient_id", "episode_marker", "main_condition", "other_condition_1", 
+      "other_condition_2", "other_condition_3", "other_condition_4", "other_condition_5", 
+      "episode_record_key", "specialty", "admission_type", "admission_date", "discharge_date", 
+      "age_in_years", "length_of_stay", "provider_code"),
+    c("encrypted_hesid", "epiorder", "diag_01",  
+      "diag_02", "diag_03", "diag_04", "diag_05", "diag_06", "epikey", "mainspef", "admimeth", 
+      "epistart", "epiend", "startage", "episodeduration", "procode3")
+    )
+  
+  
+  return(hes[])
+}
+
+
+
+
+

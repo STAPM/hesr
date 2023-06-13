@@ -1,24 +1,22 @@
 
-#' Scan for ICD-10 codes
+#' Scan episodes for matching International Classification of Disease codes
 #' 
 #' Scans specified diagnosis code columns for 
-#' ICD-10 codes in our tobacco and/or alcohol disease lists.
+#' disease diagnosis codes that match the provided list of tobacco and/or alcohol related diseases.
 #' 
-#' Uses the \code{tobalcepi::ExpandCodes()} function to convert the ICD-10 lookup tables 
-#' within the tobalcepi package into long form. 
-#' The scans the first 3 or 4 characters of the column name (specified by nchars) 
-#' for the target ICD-10 code. If a match is found, then it is stored in a new variable.  
+#' The scans the first 3 or 4 characters of the column name
+#' for the target disease diagnosis code. If a match is found, then it is stored in a new variable.  
+#' 
+#' This function is called by [hesr::findEpisodes()].  
 #'
-#' @param data Data.table - the HES data.
-#' @param lkups Data.table - the ICD-10 codes associated with tobacco and/or alcohol. 
-#' These are stored as data within the tobalcepi package.
+#' @param data Data table - the episode-level hospital episode statistics data.
+#' @param lkups Data table - the disease diagnosis codes associated with tobacco and/or alcohol
+#' related conditions.
 #' @param col_name Character string - The name of the diagnosis column that 
-#' should be scanned to identify target ICD-10 codes.
-#' @param nchars Integer - the number of characters of the ICD-10 code 
-#' to scan for a match. This should either be 3 or 4 characters.  
+#' should be scanned to identify target disease diagnosis codes.
 #'
-#' @return Returns the HES data.table with a column added 
-#' containing the ICD-10 code found during the scan.
+#' @return Returns the input episode-level hospital episode statistics data with a new column added 
+#' containing the name of the tobacco and/or alcohol related condition found during the scan.
 #' 
 #' @importFrom data.table setnames :=
 #' 
@@ -27,44 +25,49 @@
 #' @examples
 #' \dontrun{
 #' 
-#' hes <- icdFlag(
-#'   data = hes,
-#'   lkups = tobalcepi::tob_icd10_lookups,
-#'   col_name = "icd_code",
-#'   nchars = 3
-#' ) 
 #' 
 #' }
 #' 
 icdFlag <- function(
-  data,
-  lkups,
-  col_name,
-  nchars
+    data,
+    lkups,
+    col_name
 ) {
   
-  # Get the ICD-10 lookup codes for tobacco
-  lkups_long <- tobalcepi::ExpandCodes(lkups)
+  # Create a new column name
+  cn_store <- paste0(col_name, "_icdFlag")
   
-  setnames(lkups_long, "icd10_lookups", "icd_code")
+  # Loop through the number of characters to scan
   
-  #lkups_long[ , condition := NULL]
-  lkups_long[ , icd_flag := 1]
+  nchars_vec <- c(3, 4)
   
-  # Get the reference ICD-10 codes from the HES data
-  data[, icd_code := substr(get(col_name), 1, nchars)]
+  for(nchars in nchars_vec) {
+    
+    ##############################
+    # Get the reference ICD codes from the episode-level data
+    # This extracts the number of characters specified by nchars from the disease code
+    data[, icd_code := substr(get(col_name), 1, nchars)]
+    
+    ##############################
+    # Merge the lookup data with the HES data
+    data <- merge(data, lkups, by = "icd_code", 
+                  all.x = TRUE, all.y = FALSE, sort = FALSE)
+    
+    ##############################
+    # Store the ICD codes that matched
+    
+    # Matching disease codes will have icd_flag = 1 rather than NA
+    # where these matches occur, add the condition name (e.g. "Alcohol_poisoning") to the new column
+    data[icd_flag == 1, (cn_store) := condition]
+    
+    # Delete the working columns added to the episode-level data for the purposes of matching
+    data[ , icd_flag := NULL]
+    data[ , icd_code := NULL]
+    data[ , condition := NULL]
+    
+  }
   
-  # Merge the lookup data with the HES data
-  data <- merge(data, lkups_long, by = "icd_code", all.x = T, all.y = F, sort = F)
-  
-  # store the icd10 codes that matched
-  cn_store <- paste0(col_name, nchars, "icd")
-  
-  data[icd_flag == 1, (cn_store) := condition]
-  
-  data[ , icd_flag := NULL]
-  data[ , condition := NULL]
-  
+  rm(cn_store, nchars_vec, nchars)
   
   return(data)
 }

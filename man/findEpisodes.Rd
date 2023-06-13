@@ -2,41 +2,41 @@
 % Please edit documentation in R/findEpisodes.R
 \name{findEpisodes}
 \alias{findEpisodes}
-\title{Assign a diagnosis to each episode}
+\title{Search for episodes with the target International Classification of Disease diagnoses}
 \usage{
-findEpisodes(data, lkups)
+findEpisodes(data, lkups, col_name_vec, external_cause_names)
 }
 \arguments{
-\item{data}{Data.table - the HES data.}
+\item{data}{Data table - episode-level hospital episode statistics data.}
 
-\item{lkups}{Data.table - the ICD-10 codes associated with tobacco and/or alcohol. 
-These are stored as data within the tobalcepi package.}
+\item{lkups}{Data table - the International Classification of Disease 
+codes associated with tobacco and/or alcohol related conditions.}
+
+\item{col_name_vec}{Character vector - the column names to be scanned for matching disease diagnosis codes.}
+
+\item{external_cause_names}{Character vector - the names of partially attributable acute conditions 
+that will be used to identify whether the episode was assigned an external cause.}
 }
 \value{
-Returns the HES data.table with a column added 
-containing the ICD-10 code found during the scan.
+Returns the input episode-level hospital episode statistics data 
+with a new column added for each value of col_name_vec
+containing the name of the condition found during the scan.
 }
 \description{
-Look at the first diagnostic position of all episodes within a continuous inpatient spell
- and retain episodes that have a 
-relevant diagnosis in the primary diagnostic position. 
-Also look for whether a relevant external cause 
-has been recorded within the list of diagnoses related to that episode.
+Look at specified diagnostic positions of episodes
+and create a new column in the dataset that picks out the selected episodes.
 }
 \details{
-Diagnosis codes are identified by the function \code{icdFlag()} and 
-are then synthesised to produce a single diagnosis for each episode 
-(external causes where two potential diagnoses are identified). The HES 
-data is then filtered to retain only episodes for which a tobacco or alcohol related 
-diagnosis has been identified.
+Diagnosis codes are identified by the function [hesr::icdFlag()], 
+which is called by this function. This function loops through the values of 
+col_names_vec applying [hesr::icdFlag()].
+
+Uses the function [tobalcepi::ExpandCodes()] to convert the disease code lookup tables 
+within the tobalcepi package into long form, ready for use in the matching process.
 }
 \examples{
 \dontrun{
 
-hes <- findEpisodes(
-  data = hes,
-  lkups = tobalcepi::tob_icd10_lookups
-) 
 
 }
 

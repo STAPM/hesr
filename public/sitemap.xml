@@ -25,6 +25,9 @@
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/append_hrg_codes.html</loc>
   </url>
   <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/assignPAFs.html</loc>
+  </url>
+  <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/assign_risk.html</loc>
   </url>
   <url>
@@ -35,6 +38,9 @@
   </url>
   <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/clean_hes.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/clean_hes_scot.html</loc>
   </url>
   <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/cruk_splits.html</loc>
@@ -85,13 +91,22 @@
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/opcs_costs.html</loc>
   </url>
   <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/paf_data.html</loc>
+  </url>
+  <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/pop_data.html</loc>
   </url>
   <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/read_hes.html</loc>
   </url>
   <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/read_hes_scot.html</loc>
+  </url>
+  <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/sample_selection.html</loc>
+  </url>
+  <url>
+    <loc>https://stapm.gitlab.io/r-packages/hesr/reference/sample_selection_scot.html</loc>
   </url>
   <url>
     <loc>https://stapm.gitlab.io/r-packages/hesr/reference/single_year_reference_costs.html</loc>

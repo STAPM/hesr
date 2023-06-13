@@ -23,6 +23,11 @@ cruk_splits <- melt(cruk_splits, id.vars = "cruk_ageband", variable.name = "sex"
 
 cruk_splits$sex <- as.integer(cruk_splits$sex)
 
+# Convert numeric index of sex in CRUK splits data to "Male" / "Female"
+cruk_splits[ , sex := as.character(sex)]
+cruk_splits[sex == "1", sex := "Male"]
+cruk_splits[sex == "2", sex := "Female"]
+
 # Embed the data within the package
 usethis::use_data(cruk_splits, overwrite = TRUE)
 
