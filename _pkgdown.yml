@@ -38,7 +38,7 @@ navbar:
       - text: "Methods notes: Data cleaning and cost estimation"
         href: articles/cleaning_and_costing.html
       - text: "Discussion paper: Estimating numbers and costs of hospital admissions"
-        href: articles/articles/english_secondary_care_modelling_report.pdf
+        href: articles/english_secondary_care_modelling_report.pdf
 
     github:
       icon: fab fa-github fa-lg
