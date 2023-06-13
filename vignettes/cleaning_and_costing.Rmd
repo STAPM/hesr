@@ -35,6 +35,8 @@ suppressPackageStartupMessages(library(DiagrammeR))
 
 ```
 
+*This vignette is in need of review and updating*  
+
 ## Overview
 Data from the Admitted Patient Care portion of the English Hospital Episode Statistics was obtained through a data request to NHS Digital (see the [Privacy Notice](https://stapm.gitlab.io/HES_privacy_notice.html)). These data are used to estimate the effects of tobacco and/or alcohol consumption on cause-specific morbidity rates, hospital admissions and associated costs. There are a range of approaches that could be taken to derive parameters for modelling from these data - the alternatives are discussed in this [discussion paper](https://stapm.gitlab.io/model-inputs/hosp_eng_methods_report/English_secondary_care_modelling_report.pdf). The functions within the `hesr` R package have been designed in particular to:  
 
