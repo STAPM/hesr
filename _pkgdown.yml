@@ -19,11 +19,11 @@ template:
   params:
     bootswatch: flatly
     ganalytics: UA-167990045-1
-    
+
 navbar:
   structure:
     left:  [home, intro, reference, articles]
-    right: [gitlab, software]
+    right: [github, gitlab, software]
   components:
     home: ~
     intro:
@@ -34,7 +34,15 @@ navbar:
      href: reference/index.html
     articles:
      text: Technical documentation
-     href: articles/index.html
+     menu:
+      - text: "Methods notes: Data cleaning and cost estimation"
+        href: articles/cleaning_and_costing.html
+      - text: "Discussion paper: Estimating numbers and costs of hospital admissions"
+        href: articles/articles/english_secondary_care_modelling_report.pdf
+
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/STAPM/hesr
     gitlab:
       icon: fab fa-gitlab fa-lg
       href: https://gitlab.com/stapm/r-packages/hesr
@@ -77,12 +85,4 @@ reference:
     contents:
       - calc_cost_admission
       - hes_cost
-      
-articles:
-  - title: "'How to' guides"
-    desc: >
-      Detailed guides to using the hesr functions for different purposes. 
-    contents:
-      - hesr
-      - cleaning_and_costing
       

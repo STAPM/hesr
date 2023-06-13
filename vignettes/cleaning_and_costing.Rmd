@@ -1,23 +1,20 @@
 ---
-title: "Cleaning and costing the Admitted Patient Care portion of the English Hospital Episode Statistics"
-subtitle: "Vignette version number 1.1.0"
-date: "Last reviewed 07/10/21"
-author: "Laura Webster and Duncan Gillespie"
+title: "Methods notes: Data cleaning and cost estimation"
 output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Cleaning and costing the Admitted Patient Care portion of the English Hospital Episode Statistics}
-  %\VignetteEngine{knitr::rmarkdown}
-  \usepackage[utf8]{inputenc}
 #bibliography: consumption-refs.bib
 #header-includes:
-#  \usepackage{float}
-#  \usepackage{amsmath}
 link-citations: yes
 #citation_package: natbib
 #biblio-style: vancouver
 urlcolor: blue
 editor_options: 
   chunk_output_type: console
+pkgdown:
+  as_is: true
+vignette: >
+  %\VignetteIndexEntry{Methods notes: Data cleaning and cost estimation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}  
 ---
 
 ```{r setup, include = FALSE}

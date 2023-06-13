@@ -1,6 +1,6 @@
 Package: hesr
 Type: Package
-Title: Process Hospital Episode Statistics data for public health economic modelling.  
+Title: Process Hospital Episode Statistics Data
 Version: 1.1.2
 Authors@R: 
     c(
@@ -22,8 +22,8 @@ Authors@R:
            email = "a.brennan@sheffield.ac.uk")
     )
 Maintainer: Duncan Gillespie <duncan.gillespie@sheffield.ac.uk>
-Description: A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data.
-License: GPL-3
+Description: A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data to inform the health economic modelling of tobacco and alcohol policy.
+License: CC BY 4.0
 URL: https://stapm.gitlab.io/r-packages/hesr/
 Encoding: UTF-8
 LazyData: true

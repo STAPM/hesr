@@ -4,9 +4,9 @@
 \name{hesr-package}
 \alias{hesr}
 \alias{hesr-package}
-\title{hesr: Process Hospital Episode Statistics data for public health economic modelling.}
+\title{hesr: Process Hospital Episode Statistics Data}
 \description{
-A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data.
+A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data to inform the health economic modelling of tobacco and alcohol policy.
 }
 \seealso{
 Useful links:
