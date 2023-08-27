@@ -23,7 +23,7 @@ Authors@R:
     )
 Maintainer: Duncan Gillespie <duncan.gillespie@sheffield.ac.uk>
 Description: A collection of functions to read, clean and analyse admitted patient care hospital episode statistics data to inform the health economic modelling of tobacco and alcohol policy.
-License: CC BY 4.0
+License: AGPL (>= 3)
 URL: https://stapm.gitlab.io/r-packages/hesr/
 Encoding: UTF-8
 LazyData: true
