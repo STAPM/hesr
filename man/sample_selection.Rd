@@ -4,12 +4,14 @@
 \alias{sample_selection}
 \title{Reduce size of HES to sample required}
 \usage{
-sample_selection(hes, start_age, age_categories, age_cat_start_age)
+sample_selection(hes, min_age, max_age, age_categories, age_cat_start_age)
 }
 \arguments{
 \item{hes}{data.table - the cleaned HES data.}
 
-\item{start_age}{Integer - the minimum age to consider for non-maternity admissions.}
+\item{min_age}{Integer - the minimum age to consider for non-maternity admissions.}
+
+\item{max_age}{Integer - the maximum age to consider. This is normally set at 89 years.}
 
 \item{age_categories}{Character vector - the age category labels.}
 
@@ -31,7 +33,7 @@ See the \href{https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_cost
 \dontrun{
 
 sample_selection(hes,
-                 start_age = 16,
+                 min_age = 16,
                  age_categories = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
                  age_cat_start_age = c(16, 18, 25, 35, 50, 65, 75)
                  )

@@ -8,7 +8,8 @@
 #' See the \href{https://stapm.gitlab.io/r-packages/hesr/articles/cleaning_and_costing.html#sample-selection}{cleaning and costing vignette} for details.
 #'
 #' @param hes data.table - the cleaned HES data.
-#' @param start_age Integer - the minimum age to consider for non-maternity admissions.
+#' @param min_age Integer - the minimum age to consider for non-maternity admissions.
+#' @param max_age Integer - the maximum age to consider. This is normally set at 89 years.
 #' @param age_categories Character vector - the age category labels.
 #' @param age_cat_start_age Integer vector - the ages that open each age category.
 #' 
@@ -23,7 +24,7 @@
 #' \dontrun{
 #'
 #' sample_selection(hes,
-#'                  start_age = 16,
+#'                  min_age = 16,
 #'                  age_categories = c("16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89"),
 #'                  age_cat_start_age = c(16, 18, 25, 35, 50, 65, 75)
 #'                  )
@@ -33,7 +34,8 @@
 #'
 sample_selection <- function(
   hes,
-  start_age,
+  min_age,
+  max_age,
   age_categories,
   age_cat_start_age
 ) {
@@ -44,7 +46,7 @@ sample_selection <- function(
   hes <- hes[classpat %in% c(1, 2, 3, 4)]
 
   # Select required ages
-  hes <- hes[startage >= start_age & startage <= 89]
+  hes <- hes[startage >= min_age & startage <= max_age]
 
   # Create age bands
   #hes[, age_band := c("11-15", "16-17", "18-24", "25-34", "35-49", "50-64", "65-74", "75-89")[findInterval(startage, c(11, 16, 18, 25, 35, 50, 65, 75))]]
